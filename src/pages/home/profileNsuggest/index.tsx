@@ -68,13 +68,25 @@ export default function ProfileNSuggest() {
             <Box>
               <Flex>
                 <Box>
-                  <Text fontSize="sm" py={2}>
-                    291 Following
-                  </Text>
+                  <Flex>
+                    <Text fontSize="sm" py={2} as="b">
+                      291
+                    </Text>
+                    <Text fontSize="sm" py={2} pl={1}>
+                      Following
+                    </Text>
+                  </Flex>
                 </Box>
-                <Text fontSize="sm" py={2} mx={2}>
-                  100 Followers
-                </Text>
+                <Box>
+                  <Flex pl={4}>
+                    <Text fontSize="sm" py={2} as="b">
+                      100
+                    </Text>
+                    <Text fontSize="sm" py={2} pl={1}>
+                      Followers
+                    </Text>
+                  </Flex>
+                </Box>
               </Flex>
             </Box>
           </Box>

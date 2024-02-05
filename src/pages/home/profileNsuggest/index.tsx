@@ -9,6 +9,8 @@ import {
   Button,
   UnorderedList,
   ListItem,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 
 export default function ProfileNSuggest() {
@@ -102,19 +104,21 @@ export default function ProfileNSuggest() {
           </Heading>
           {/* Suggest */}
           <Box mt={2} ml={1}>
-            <Box>
+            {/* <Box>
               <Flex>
-                <Image
-                  ml={2}
-                  my={2}
-                  borderRadius="100%"
-                  objectFit="cover"
-                  h={10}
-                  w={10}
-                  maxW={{ base: "100%", sm: "200px" }}
-                  src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                  alt="Caffe Latte"
-                />
+                <Box>
+                  <Image
+                    ml={2}
+                    my={2}
+                    borderRadius="100%"
+                    objectFit="cover"
+                    h={10}
+                    w={10}
+                    maxW={{ base: "100%", sm: "200px" }}
+                    src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+                    alt="Caffe Latte"
+                  />
+                </Box>
                 <Box>
                   <UnorderedList>
                     <ListItem style={{ listStyleType: "none" }}>
@@ -127,23 +131,17 @@ export default function ProfileNSuggest() {
                     </ListItem>
                   </UnorderedList>
                 </Box>
-                {/* <Center pl={2}>
-                  <Text fontSize="xs" as="b">
-                    LE MINERALE
-                  </Text>
-                  <Text fontSize="xs">@leminerale</Text>
-                </Center> */}
                 <Center>
-                  <Box pl={3}>
+                  <Box px={"auto"}>
                     <Button borderRadius="50px">Follow</Button>
                   </Box>
                 </Center>
               </Flex>
-            </Box>
-            <Box>
-              <Flex>
+            </Box> */}
+
+            <Grid templateColumns="repeat(5, 1fr)" py={2} mx={3}>
+              <GridItem colSpan={1}>
                 <Image
-                  ml={2}
                   my={2}
                   borderRadius="100%"
                   objectFit="cover"
@@ -153,107 +151,19 @@ export default function ProfileNSuggest() {
                   src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
                   alt="Caffe Latte"
                 />
-                <Box>
-                  <UnorderedList>
-                    <ListItem style={{ listStyleType: "none" }}>
-                      <Text fontSize="xs" as="b">
-                        LE MINERALE
-                      </Text>
-                    </ListItem>
-                    <ListItem style={{ listStyleType: "none" }}>
-                      <Text fontSize="xs">@leminerale</Text>
-                    </ListItem>
-                  </UnorderedList>
-                </Box>
-                {/* <Center pl={2}>
-                  <Text fontSize="xs" as="b">
-                    LE MINERALE
-                  </Text>
-                  <Text fontSize="xs">@leminerale</Text>
-                </Center> */}
+              </GridItem>
+              <GridItem colSpan={3}>
+                <Text fontSize="xs" as="b" textAlign={["left", "center"]}>
+                  LE MINERALE
+                </Text>
+                <Text fontSize="xs">@leminerale</Text>
+              </GridItem>
+              <GridItem colSpan={1}>
                 <Center>
-                  <Box pl={3}>
-                    <Button borderRadius="50px">Follow</Button>
-                  </Box>
+                  <Button borderRadius="50px">Follow</Button>
                 </Center>
-              </Flex>
-            </Box>
-            <Box>
-              <Flex>
-                <Image
-                  ml={2}
-                  my={2}
-                  borderRadius="100%"
-                  objectFit="cover"
-                  h={10}
-                  w={10}
-                  maxW={{ base: "100%", sm: "200px" }}
-                  src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                  alt="Caffe Latte"
-                />
-                <Box>
-                  <UnorderedList>
-                    <ListItem style={{ listStyleType: "none" }}>
-                      <Text fontSize="xs" as="b">
-                        LE MINERALE
-                      </Text>
-                    </ListItem>
-                    <ListItem style={{ listStyleType: "none" }}>
-                      <Text fontSize="xs">@leminerale</Text>
-                    </ListItem>
-                  </UnorderedList>
-                </Box>
-                {/* <Center pl={2}>
-                  <Text fontSize="xs" as="b">
-                    LE MINERALE
-                  </Text>
-                  <Text fontSize="xs">@leminerale</Text>
-                </Center> */}
-                <Center>
-                  <Box pl={3}>
-                    <Button borderRadius="50px">Follow</Button>
-                  </Box>
-                </Center>
-              </Flex>
-            </Box>
-            <Box>
-              <Flex>
-                <Image
-                  ml={2}
-                  my={2}
-                  borderRadius="100%"
-                  objectFit="cover"
-                  h={10}
-                  w={10}
-                  maxW={{ base: "100%", sm: "200px" }}
-                  src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                  alt="Caffe Latte"
-                />
-                <Box>
-                  <UnorderedList>
-                    <ListItem style={{ listStyleType: "none" }}>
-                      <Text fontSize="xs" as="b">
-                        LE MINERALE
-                      </Text>
-                    </ListItem>
-                    <ListItem style={{ listStyleType: "none" }}>
-                      <Text fontSize="xs">@leminerale</Text>
-                    </ListItem>
-                  </UnorderedList>
-                </Box>
-                {/* <Center pl={2}>
-                  <Text fontSize="xs" as="b">
-                    LE MINERALE
-                  </Text>
-                  <Text fontSize="xs">@leminerale</Text>
-                </Center> */}
-                <Center>
-                  <Box pl={3}>
-                    <Button borderRadius="50px">Follow</Button>
-                  </Box>
-                </Center>
-              </Flex>
-            </Box>
+              </GridItem>
+            </Grid>
           </Box>
         </Card>
       </Box>

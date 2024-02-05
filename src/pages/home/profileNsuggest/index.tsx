@@ -60,7 +60,9 @@ export default function ProfileNSuggest() {
             <Heading size="sm" mt={2}>
               This is Name
             </Heading>
-            <Text fontSize="xs">@username</Text>
+            <Text fontSize="xs" color={"gray.400"}>
+              @username
+            </Text>
             <Text fontSize="sm" py={2}>
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Obcaecati, corporis!

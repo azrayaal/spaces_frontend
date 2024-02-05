@@ -18,7 +18,7 @@ export default function ProfileNSuggest() {
         <Card bg="mainBg.200" borderRadius="lg">
           <Box m={4} color="gray.100">
             <Heading size="sm">My Profile</Heading>
-            <Box my={2} mb={6} position="relative">
+            <Box my={3} mb={6} position="relative">
               <Image
                 zIndex={1}
                 borderColor="gray.200"

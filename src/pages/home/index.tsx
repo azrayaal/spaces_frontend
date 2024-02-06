@@ -3,12 +3,15 @@ import MainContent from "./content";
 import ProfileNSuggest from "./profileNsuggest";
 import SideNavbar from "./sideNavbar";
 import ButtomNavbar from "../../components/bottomNavbar";
+import TopNavbar from "../../components/topNavbar";
 
 export default function Home() {
   return (
     <>
       <Box>
-        <Grid h="100%" templateColumns="repeat(10, 1fr)">
+        <TopNavbar />
+
+        <Grid h="100%" templateColumns="repeat(10, 1fr)" position={"relative"}>
           <GridItem
             w="100%"
             bg="mainBg.100"

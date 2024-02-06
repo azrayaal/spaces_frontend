@@ -7,8 +7,6 @@ import {
   Text,
   Flex,
   Button,
-  UnorderedList,
-  ListItem,
   Grid,
   GridItem,
 } from "@chakra-ui/react";

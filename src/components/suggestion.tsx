@@ -7,6 +7,7 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
+import { useState } from "react";
 
 export interface SuggestionProps {
   avatar: string;
@@ -16,6 +17,12 @@ export interface SuggestionProps {
 
 export default function Suggestions(props: SuggestionProps) {
   const { avatar, profileName, userName } = props;
+
+  const [followed, setFollowed] = useState<boolean>(false);
+
+  const onFollowed = () => {
+    setFollowed(!followed);
+  };
 
   return (
     <Box ml={1}>
@@ -42,8 +49,13 @@ export default function Suggestions(props: SuggestionProps) {
         </GridItem>
         <GridItem colSpan={1}>
           <Center>
-            <Button borderRadius="50px" size="sm" colorScheme="teal">
-              Follow
+            <Button
+              borderRadius="50px"
+              size="sm"
+              colorScheme="teal"
+              onClick={onFollowed}
+            >
+              {!followed ? "Follow" : "Followed"}
             </Button>
           </Center>
         </GridItem>

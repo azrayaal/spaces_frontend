@@ -13,28 +13,25 @@ import ContentSpace from "../../../components/content";
 
 const ContentDummy = [
   {
-    avatar:
-      "https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
-    profileName: "Azra",
-    userName: "azra",
+    avatar: "https://source.unsplash.com/uFCmJ6fiWGY",
+    profileName: "Kay-O",
+    userName: "ky0",
     content:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit maiores atque tenetur.",
   },
   {
-    avatar:
-      "https://unsplash.com/photos/a-close-up-of-a-speedometer-on-a-vehicle-m9ti5LT5C2Q",
-    profileName: "Azra",
-    userName: "azra",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit maiores atque tenetur.",
+    avatar: "https://source.unsplash.com/4JL_VAgxwcU",
+
+    profileName: "Malik",
+    userName: "malik",
+    content: "Lorem, ipsum dolor sit amet consectetur adipisicing.",
   },
   {
-    avatar:
-      "https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
-    profileName: "Azra",
-    userName: "azra",
+    avatar: "https://source.unsplash.com/1kU3F0v90NY",
+    profileName: "Eulaa",
+    userName: "eula",
     content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit maiores atque tenetur.",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci aliquid fugiat obcaecati nihil nulla commodi harum incidunt provident impedit quibusdam.",
   },
 ];
 

@@ -36,7 +36,9 @@ export default function Suggestions(props: SuggestionProps) {
           <Text fontSize="xs" as="b" textAlign={["left", "center"]}>
             {profileName}
           </Text>
-          <Text fontSize="xs">@{userName}</Text>
+          <Text fontSize="xs" color={"gray.400"}>
+            @{userName}
+          </Text>
         </GridItem>
         <GridItem colSpan={1}>
           <Center>

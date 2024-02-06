@@ -9,6 +9,7 @@ import {
   Text,
   Link,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { IoChatboxSharp } from "react-icons/io5";
 
@@ -21,6 +22,18 @@ export interface ContentSpaceProps {
 
 export default function ContentSpace(props: ContentSpaceProps) {
   const { avatar, profileName, userName, content } = props;
+
+  const [liked, setLiked] = useState(false);
+  const [commented, setCommented] = useState(false);
+
+  const switchLike = () => {
+    setLiked(!liked);
+  };
+
+  const switchComment = () => {
+    setCommented(!commented);
+  };
+
   return (
     <Box m={4}>
       <Card
@@ -29,7 +42,6 @@ export default function ContentSpace(props: ContentSpaceProps) {
         variant="outline"
         bg="mainBg.200"
         borderColor="mainBg.200"
-        // border={"1px"}
         color="grey.200"
       >
         <Image
@@ -39,7 +51,10 @@ export default function ContentSpace(props: ContentSpaceProps) {
           w={14}
           marginLeft={4}
           marginTop={4}
-          maxW={{ base: "100%", sm: "200px" }}
+          minW={{ base: "56px", sm: "56px" }}
+          maxW={{ base: "56px", sm: "56px" }}
+          minH={{ base: "56px", sm: "56px" }}
+          maxH={{ base: "56px", sm: "56px" }}
           src={avatar}
           alt="this.src='/bx-space-bar.sv';"
         />
@@ -53,13 +68,20 @@ export default function ContentSpace(props: ContentSpaceProps) {
             </Box>
             <Text py="2">{content}</Text>
             <Flex pt="2">
+              <Text
+                fontSize="16"
+                onClick={switchLike}
+                color={liked ? "red.500" : "inherit"}
+              >
+                <FaHeart />
+              </Text>
               <Link>
-                <Text fontSize="16">
-                  <FaHeart />
-                </Text>
-              </Link>
-              <Link>
-                <Text pl="3" fontSize="16">
+                <Text
+                  pl="3"
+                  fontSize="16"
+                  onClick={switchComment}
+                  color={commented ? "blue.500" : "inherit"}
+                >
                   <IoChatboxSharp />
                 </Text>
               </Link>

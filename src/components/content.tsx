@@ -7,6 +7,7 @@ import {
   Image,
   Stack,
   Text,
+  Link,
 } from "@chakra-ui/react";
 import { FaHeart } from "react-icons/fa";
 import { IoChatboxSharp } from "react-icons/io5";
@@ -28,7 +29,7 @@ export default function ContentSpace(props: ContentSpaceProps) {
         variant="outline"
         bg="mainBg.200"
         borderColor="mainBg.200"
-        border="px"
+        // border={"1px"}
         color="grey.200"
       >
         <Image
@@ -40,7 +41,7 @@ export default function ContentSpace(props: ContentSpaceProps) {
           marginTop={4}
           maxW={{ base: "100%", sm: "200px" }}
           src={avatar}
-          alt="Caffe Latte"
+          alt="this.src='/bx-space-bar.sv';"
         />
         <Stack>
           <CardBody>
@@ -52,12 +53,16 @@ export default function ContentSpace(props: ContentSpaceProps) {
             </Box>
             <Text py="2">{content}</Text>
             <Flex pt="2">
-              <Text fontSize="16">
-                <FaHeart />
-              </Text>
-              <Text pl="3" fontSize="16">
-                <IoChatboxSharp />
-              </Text>
+              <Link>
+                <Text fontSize="16">
+                  <FaHeart />
+                </Text>
+              </Link>
+              <Link>
+                <Text pl="3" fontSize="16">
+                  <IoChatboxSharp />
+                </Text>
+              </Link>
             </Flex>
           </CardBody>
         </Stack>

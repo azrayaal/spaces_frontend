@@ -1,18 +1,42 @@
 import {
-  Heading,
   Box,
   Image,
   Card,
-  Text,
   CardBody,
   Flex,
   Input,
   Center,
   Button,
-  Stack,
 } from "@chakra-ui/react";
 
 import ContentSpace from "../../../components/content";
+
+const ContentDummy = [
+  {
+    avatar:
+      "https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
+    profileName: "Azra",
+    userName: "azra",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit maiores atque tenetur.",
+  },
+  {
+    avatar:
+      "https://unsplash.com/photos/a-close-up-of-a-speedometer-on-a-vehicle-m9ti5LT5C2Q",
+    profileName: "Azra",
+    userName: "azra",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit maiores atque tenetur.",
+  },
+  {
+    avatar:
+      "https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
+    profileName: "Azra",
+    userName: "azra",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit maiores atque tenetur.",
+  },
+];
 
 export default function MainContent() {
   return (
@@ -35,11 +59,13 @@ export default function MainContent() {
             marginTop={4}
             maxW={{ base: "100%", sm: "200px" }}
             src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-            alt="Caffe Latte"
+            alt="this.src='/bx-space-bar.sv';"
           />
           <CardBody>
             <Flex color="white">
               <Input
+                borderColor={"mainBg.200"}
+                border={"1px"}
                 placeholder="What's Happening?!"
                 size="lg"
                 marginX="auto"
@@ -54,12 +80,16 @@ export default function MainContent() {
         </Card>
       </Box>
       {/* content */}
-      <ContentSpace
-        avatar={`https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60`}
-        profileName={"Azra"}
-        userName={"azra"}
-        content={"lorem ipsum dolor amet"}
-      />
+
+      {ContentDummy.map((content, index) => (
+        <ContentSpace
+          key={index}
+          avatar={content.avatar}
+          profileName={content.profileName}
+          userName={content.userName}
+          content={content.content}
+        />
+      ))}
     </>
   );
 }

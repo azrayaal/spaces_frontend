@@ -2,17 +2,21 @@ import {
   Box,
   Heading,
   Button,
-  ListItem,
   UnorderedList,
-  Text,
-  Flex,
   Center,
-  Link,
-  // ExternalLinkIcon,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
 } from "@chakra-ui/react";
 import { FaBeer, FaSearch, FaHeart } from "react-icons/fa";
 import { GiPlagueDoctorProfile } from "react-icons/gi";
 import ListItemSIdeBar from "../../../components/atoms/listItemSIdeBar";
+import PostInput from "../../../components/postInput";
 
 const dataSidebar = [
   {
@@ -38,6 +42,7 @@ const dataSidebar = [
 ];
 
 export default function SideNavbar() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <Box m={4}>
@@ -54,10 +59,17 @@ export default function SideNavbar() {
         </UnorderedList>
       </Box>
       <Center>
-        <Button w={"100%"} mx={4}>
+        <Button w={"100%"} mx={4} onClick={onOpen}>
           Create Post
         </Button>
       </Center>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent bg={"mainBg.200"}>
+          <PostInput />
+        </ModalContent>
+      </Modal>
     </>
   );
 }

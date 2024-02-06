@@ -23,7 +23,7 @@ export default function PostInput() {
           overflow="hidden"
           variant="outline"
           bg="mainBg.200"
-          borderColor="main.Bg.200"
+          borderColor="mainBg.200"
           border="1px"
         >
           <Image
@@ -41,7 +41,7 @@ export default function PostInput() {
             <Flex color="gray.600">
               <Input
                 color="gray.100"
-                borderColor={"gray.100"}
+                borderColor={"mainBg.200"}
                 border={"2px"}
                 placeholder="What's Happening?!"
                 size="lg"

@@ -12,61 +12,45 @@ import {
 } from "@chakra-ui/react";
 import { FaBeer, FaSearch, FaHeart } from "react-icons/fa";
 import { GiPlagueDoctorProfile } from "react-icons/gi";
+import ListItemSIdeBar from "../../../components/atoms/listItemSIdeBar";
+
+const dataSidebar = [
+  {
+    link: "./",
+    logo: <FaBeer />,
+    name: "Home",
+  },
+  {
+    link: "./",
+    logo: <FaSearch />,
+    name: "Search",
+  },
+  {
+    link: "./",
+    logo: <FaHeart />,
+    name: "Follows",
+  },
+  {
+    link: "./",
+    logo: <GiPlagueDoctorProfile />,
+    name: "Profile",
+  },
+];
 
 export default function SideNavbar() {
   return (
     <>
       <Box m={4}>
         <Heading>SpaceS</Heading>
-        <UnorderedList my={4}>
-          <ListItem my={2} style={{ listStyleType: "none" }}>
-            <Flex>
-              <Link href="https://chakra-ui.com" isExternal>
-                <Center>
-                  <FaBeer />
-                  <Text bg="mainBg.900" pl={2}>
-                    HOME
-                  </Text>
-                </Center>
-              </Link>
-            </Flex>
-          </ListItem>
-          <ListItem my={2} style={{ listStyleType: "none" }}>
-            <Flex>
-              <Link href="https://chakra-ui.com" isExternal>
-                <Center>
-                  <FaSearch />
-                  <Text bg="mainBg.900" pl={2}>
-                    SEARCH
-                  </Text>
-                </Center>
-              </Link>
-            </Flex>
-          </ListItem>
-          <ListItem my={2} style={{ listStyleType: "none" }}>
-            <Flex>
-              <Link href="https://chakra-ui.com" isExternal>
-                <Center>
-                  <FaHeart />
-                  <Text bg="mainBg.900" pl={2}>
-                    FOLLOWS
-                  </Text>
-                </Center>
-              </Link>
-            </Flex>
-          </ListItem>
-          <ListItem my={2} style={{ listStyleType: "none" }}>
-            <Flex>
-              <Link href="https://chakra-ui.com" isExternal>
-                <Center>
-                  <GiPlagueDoctorProfile />
-                  <Text bg="mainBg.900" pl={2}>
-                    PROFILE
-                  </Text>
-                </Center>
-              </Link>
-            </Flex>
-          </ListItem>
+        <UnorderedList my={6} py={2}>
+          {dataSidebar.map((data, index) => (
+            <ListItemSIdeBar
+              key={index}
+              link={data.link}
+              logo={data.logo}
+              name={data.name}
+            />
+          ))}
         </UnorderedList>
       </Box>
       <Center>

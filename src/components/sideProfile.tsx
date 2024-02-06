@@ -23,8 +23,7 @@ export default function SideProfile() {
               borderRadius="md"
               h={14}
               w="100%"
-              // maxW={{ base: "100%", sm: "200px" }}
-              src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+              src="https://source.unsplash.com/EvZZ_68sQwM"
               alt="Caffe Latte"
             />
             <Center>
@@ -39,7 +38,7 @@ export default function SideProfile() {
                 w={14}
                 left={2}
                 maxW={{ base: "100%", sm: "200px" }}
-                src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+                src="https://source.unsplash.com/8Tq9pP71_jQ"
                 alt="Caffe Latte"
               />
             </Center>

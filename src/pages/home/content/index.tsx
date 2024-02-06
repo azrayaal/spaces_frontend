@@ -8,6 +8,7 @@ const ContentDummy = [
     userName: "ky0",
     content:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit maiores atque tenetur.",
+    image_content: "https://source.unsplash.com/7z9ByavTdH8",
   },
   {
     avatar: "https://source.unsplash.com/4JL_VAgxwcU",
@@ -15,6 +16,7 @@ const ContentDummy = [
     profileName: "Malik",
     userName: "malik",
     content: "Lorem, ipsum dolor sit amet consectetur adipisicing.",
+    image_content: "",
   },
   {
     avatar: "https://source.unsplash.com/1kU3F0v90NY",
@@ -22,6 +24,7 @@ const ContentDummy = [
     userName: "eula",
     content:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci aliquid fugiat obcaecati nihil nulla commodi harum incidunt provident impedit quibusdam.",
+    image_content: "",
   },
 ];
 
@@ -38,6 +41,7 @@ export default function MainContent() {
           profileName={content.profileName}
           userName={content.userName}
           content={content.content}
+          image_content={content.image_content}
         />
       ))}
     </>

@@ -11,7 +11,13 @@ export default function Home() {
       <Box>
         <TopNavbar />
 
-        <Grid h="100%" templateColumns="repeat(10, 1fr)" position={"relative"}>
+        <Grid
+          h="100%"
+          templateColumns="repeat(10, 1fr)"
+          position={"relative"}
+          // mb={"50px"}
+          mb={{ base: "50px", md: "0px" }}
+        >
           <GridItem
             w="100%"
             bg="mainBg.100"

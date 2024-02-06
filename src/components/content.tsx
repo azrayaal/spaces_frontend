@@ -20,10 +20,11 @@ export interface ContentSpaceProps {
   profileName: string;
   userName: string;
   content: string;
+  image_content: string;
 }
 
 export default function ContentSpace(props: ContentSpaceProps) {
-  const { avatar, profileName, userName, content } = props;
+  const { avatar, profileName, userName, content, image_content } = props;
 
   const [liked, setLiked] = useState(false);
   const [commented, setCommented] = useState(false);
@@ -70,6 +71,7 @@ export default function ContentSpace(props: ContentSpaceProps) {
                 </Text>
               </Box>
               <Text py="2">{content}</Text>
+              <Image src={image_content} borderRadius={10}></Image>
               <Flex pt="2">
                 <Text
                   fontSize="16"
@@ -104,7 +106,7 @@ export default function ContentSpace(props: ContentSpaceProps) {
           borderColor="mainBg.200"
           color="grey.200"
         >
-          <Grid h="100%" templateColumns="repeat(10, 1fr)" my={2}>
+          <Grid h="100%" templateColumns="repeat(10, 1fr)" my={2} mr={6}>
             <GridItem colSpan={2}>
               <Image
                 borderRadius="100%"
@@ -129,7 +131,9 @@ export default function ContentSpace(props: ContentSpaceProps) {
                     @{userName}
                   </Text>
                 </Flex>
+                <Image src={image_content} borderRadius={10} />
               </Box>
+
               <Text py="2">{content}</Text>
               <Flex pt="2">
                 <Text

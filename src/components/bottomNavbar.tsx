@@ -25,7 +25,7 @@ export default function ButtomNavbar() {
       bottom={-1}
       w={"100%"}
       bgColor={"mainBg.500"}
-      borderColor="mainBg.500"
+      borderColor="gray.100"
       borderTop="1px"
     >
       <Box>

@@ -6,8 +6,8 @@ export default function TopNavbar() {
       display={{ base: "block", md: "none" }}
       w={"100%"}
       bgColor={"mainBg.500"}
-      borderColor="gray.500"
-      borderBottom="1px"
+      borderColor={"gray.100"}
+      borderBottom={"1px"}
       zIndex={5}
     >
       <Box>

@@ -14,6 +14,12 @@ const theme = extendTheme({
     },
   },
   colors: {
+    background: {
+      pressed: {
+        base: { default: "#1D1D1D", _dark: "blue.300" },
+        subtle: { default: "#1D1D1D", _dark: "blue.700" },
+      },
+    },
     mainBg: {
       100: "#1D1D1D",
       // ...

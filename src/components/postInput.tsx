@@ -9,7 +9,10 @@ import {
   Button,
   Grid,
   GridItem,
+  Text,
 } from "@chakra-ui/react";
+
+import { RiImageAddFill } from "react-icons/ri";
 
 export default function PostInput() {
   return (
@@ -46,7 +49,10 @@ export default function PostInput() {
                 borderRadius="50px"
               />
               <Center>
-                <Button ml={3} borderRadius="50px" size="md" colorScheme="teal">
+                <Text mx={3} fontSize={"30px"}>
+                  <RiImageAddFill color="teal" />
+                </Text>
+                <Button borderRadius="50px" size="md" colorScheme="teal">
                   post
                 </Button>
               </Center>

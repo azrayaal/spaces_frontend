@@ -62,7 +62,7 @@ export default function SideNavbar() {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent bg={"mainBg.200"}>
+        <ModalContent bg={"mainBg.200"} minW="650px">
           <PostInput />
         </ModalContent>
       </Modal>

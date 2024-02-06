@@ -9,6 +9,7 @@ import {
   Text,
   Link,
   Grid,
+  Center,
   GridItem,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -21,10 +22,22 @@ export interface ContentSpaceProps {
   userName: string;
   content: string;
   image_content: string;
+  datePost: number;
+  likes: number;
+  replies: number;
 }
 
 export default function ContentSpace(props: ContentSpaceProps) {
-  const { avatar, profileName, userName, content, image_content } = props;
+  const {
+    avatar,
+    profileName,
+    userName,
+    content,
+    image_content,
+    datePost,
+    likes,
+    replies,
+  } = props;
 
   const [liked, setLiked] = useState(false);
   const [commented, setCommented] = useState(false);
@@ -65,10 +78,17 @@ export default function ContentSpace(props: ContentSpaceProps) {
           <Stack>
             <CardBody>
               <Box>
-                <Heading size="md">{profileName}</Heading>
-                <Text pt="1" color="gray.400">
-                  @{userName}
-                </Text>
+                <Flex>
+                  <Center>
+                    <Heading size="md">{profileName}</Heading>
+                    <Text pt="1" color="gray.400" px={2}>
+                      @{userName}
+                    </Text>
+                    <Text pt="1" color="gray.400">
+                      •{datePost}h
+                    </Text>
+                  </Center>
+                </Flex>
               </Box>
               <Text py="2">{content}</Text>
               <Image src={image_content} borderRadius={10}></Image>
@@ -78,18 +98,27 @@ export default function ContentSpace(props: ContentSpaceProps) {
                   onClick={switchLike}
                   color={liked ? "red.500" : "inherit"}
                 >
-                  <FaHeart />
+                  <Flex>
+                    <Center>
+                      <FaHeart /> {likes}
+                    </Center>
+                  </Flex>
                 </Text>
-                <Link>
-                  <Text
-                    pl="3"
-                    fontSize="16"
-                    onClick={switchComment}
-                    color={commented ? "blue.500" : "inherit"}
-                  >
-                    <IoChatboxSharp />
-                  </Text>
-                </Link>
+                {/* <Link> */}
+                <Text
+                  pl="3"
+                  fontSize="16"
+                  onClick={switchComment}
+                  color={commented ? "blue.500" : "inherit"}
+                >
+                  <Flex>
+                    <Center>
+                      <IoChatboxSharp />
+                      {replies}
+                    </Center>
+                  </Flex>
+                </Text>
+                {/* </Link> */}
               </Flex>
             </CardBody>
           </Stack>

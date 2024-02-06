@@ -8,10 +8,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
 } from "@chakra-ui/react";
 import { FaBeer, FaSearch, FaHeart } from "react-icons/fa";
 import { GiPlagueDoctorProfile } from "react-icons/gi";

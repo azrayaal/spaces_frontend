@@ -102,41 +102,6 @@ export default function ProfileNSuggest() {
           </Heading>
           {/* Suggest */}
           <Box mt={2} ml={1}>
-            {/* <Box>
-              <Flex>
-                <Box>
-                  <Image
-                    ml={2}
-                    my={2}
-                    borderRadius="100%"
-                    objectFit="cover"
-                    h={10}
-                    w={10}
-                    maxW={{ base: "100%", sm: "200px" }}
-                    src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
-                    alt="Caffe Latte"
-                  />
-                </Box>
-                <Box>
-                  <UnorderedList>
-                    <ListItem style={{ listStyleType: "none" }}>
-                      <Text fontSize="xs" as="b">
-                        LE MINERALE
-                      </Text>
-                    </ListItem>
-                    <ListItem style={{ listStyleType: "none" }}>
-                      <Text fontSize="xs">@leminerale</Text>
-                    </ListItem>
-                  </UnorderedList>
-                </Box>
-                <Center>
-                  <Box px={"auto"}>
-                    <Button borderRadius="50px">Follow</Button>
-                  </Box>
-                </Center>
-              </Flex>
-            </Box> */}
-
             <Grid templateColumns="repeat(5, 1fr)" py={2} mx={3}>
               <GridItem colSpan={1}>
                 <Image

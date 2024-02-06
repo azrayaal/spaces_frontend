@@ -9,7 +9,7 @@ export default function ListItemBottom(props: ListBottomBarProps) {
   return (
     <GridItem colSpan={1}>
       <Center py={3}>
-        <Text>
+        <Text fontSize={20}>
           <Link href=".com" isExternal style={{ textDecoration: "none" }}>
             {logo}
           </Link>

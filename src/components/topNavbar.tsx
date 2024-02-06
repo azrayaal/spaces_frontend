@@ -6,7 +6,7 @@ export default function TopNavbar() {
       display={{ base: "block", md: "none" }}
       w={"100%"}
       bgColor={"mainBg.500"}
-      borderColor="mainBg.500"
+      borderColor="gray.500"
       borderBottom="1px"
       zIndex={5}
     >
@@ -23,7 +23,7 @@ export default function TopNavbar() {
               maxW={{ base: "40px", sm: "40px" }}
               minH={{ base: "40px", sm: "40px" }}
               maxH={{ base: "40px", sm: "40px" }}
-              src="https://source.unsplash.com/uFCmJ6fiWGY"
+              src="https://source.unsplash.com/8Tq9pP71_jQ"
               alt="this.src='/bx-space-bar.sv';"
             />
           </GridItem>

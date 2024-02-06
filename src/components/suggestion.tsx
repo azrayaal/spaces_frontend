@@ -18,7 +18,7 @@ export default function Suggestions(props: SuggestionProps) {
   const { avatar, profileName, userName } = props;
 
   return (
-    <Box mt={2} ml={1}>
+    <Box ml={1}>
       <Grid templateColumns="repeat(5, 1fr)" py={2} mx={3}>
         <GridItem colSpan={1}>
           <Image
@@ -42,7 +42,9 @@ export default function Suggestions(props: SuggestionProps) {
         </GridItem>
         <GridItem colSpan={1}>
           <Center>
-            <Button borderRadius="50px">Follow</Button>
+            <Button borderRadius="50px" size="sm" colorScheme="teal">
+              Follow
+            </Button>
           </Center>
         </GridItem>
       </Grid>

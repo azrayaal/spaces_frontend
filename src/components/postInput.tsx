@@ -32,16 +32,18 @@ export default function PostInput() {
           alt="this.src='/bx-space-bar.sv';"
         />
         <CardBody>
-          <Flex color="white">
+          <Flex color="gray.600">
             <Input
-              borderColor={"mainBg.200"}
-              border={"1px"}
+              color="gray.100"
+              borderColor={"gray.100"}
+              border={"2px"}
               placeholder="What's Happening?!"
               size="lg"
               marginX="auto"
+              borderRadius="50px"
             />
             <Center>
-              <Button colorScheme="green" ml={3} borderRadius="20%">
+              <Button ml={3} borderRadius="50px" size="md" colorScheme="teal">
                 post
               </Button>
             </Center>

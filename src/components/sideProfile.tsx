@@ -21,7 +21,7 @@ export default function SideProfile() {
               borderColor="gray.200"
               objectFit="cover"
               borderRadius="md"
-              h={14}
+              h={20}
               w="100%"
               src="https://source.unsplash.com/EvZZ_68sQwM"
               alt="Caffe Latte"

@@ -54,6 +54,7 @@ export default function SideNavbar() {
           ))}
         </UnorderedList>
       </Box>
+      {/* create */}
       <Center>
         <Button w={"100%"} mx={4} onClick={onOpen}>
           Create Post

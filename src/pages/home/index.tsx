@@ -4,6 +4,7 @@ import ProfileNSuggest from "./profileNsuggest";
 import SideNavbar from "./sideNavbar";
 import ButtomNavbar from "../../components/bottomNavbar";
 import TopNavbar from "../../components/topNavbar";
+import { Outlet } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
 
         <Grid
           h="100%"
+          // pos={"fixed"}
           templateColumns="repeat(10, 1fr)"
           position={"relative"}
           mb={{ base: "50px", md: "0px" }}
@@ -25,14 +27,17 @@ export default function Home() {
           >
             <SideNavbar />
           </GridItem>
+
           <GridItem
             w="100%"
             h="100%"
             bg="mainBg.100"
             colSpan={{ base: 10, md: 5 }}
           >
-            <MainContent />
+            <Outlet />
+            {/* <MainContent /> */}
           </GridItem>
+
           <GridItem
             colSpan={{ base: 0, md: 3 }}
             w="100%"

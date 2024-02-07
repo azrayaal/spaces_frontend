@@ -5,7 +5,7 @@ export default function TopNavbar() {
     <Box
       display={{ base: "block", md: "none" }}
       w={"100%"}
-      bgColor={"mainBg.500"}
+      // bgColor={{ base: "red.500", md: "green.500" }}
       borderColor={"gray.100"}
       borderBottom={"1px"}
       zIndex={5}

@@ -1,6 +1,6 @@
 import ContentSpace from "../../../components/content";
 import PostInput from "../../../components/postInput";
-
+import { Center } from "@chakra-ui/react";
 const ContentDummy = [
   {
     avatar: "https://source.unsplash.com/uFCmJ6fiWGY",
@@ -41,6 +41,8 @@ export default function MainContent() {
   return (
     <>
       <PostInput />
+
+      <Center></Center>
       {/* content */}
 
       {ContentDummy.map((content, index) => (

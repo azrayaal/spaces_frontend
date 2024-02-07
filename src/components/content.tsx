@@ -100,7 +100,8 @@ export default function ContentSpace(props: ContentSpaceProps) {
                 >
                   <Flex>
                     <Center>
-                      <FaHeart /> {likes}
+                      <FaHeart />
+                      {likes}
                     </Center>
                   </Flex>
                 </Text>

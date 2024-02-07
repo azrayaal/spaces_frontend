@@ -24,7 +24,6 @@ export default function PostInput() {
           variant="outline"
           bg="mainBg.200"
           borderColor="mainBg.200"
-          // border="1px"
         >
           <Image
             borderRadius="100%"

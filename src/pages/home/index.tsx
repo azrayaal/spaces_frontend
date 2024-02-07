@@ -15,7 +15,6 @@ export default function Home() {
           h="100%"
           templateColumns="repeat(10, 1fr)"
           position={"relative"}
-          // mb={"50px"}
           mb={{ base: "50px", md: "0px" }}
         >
           <GridItem

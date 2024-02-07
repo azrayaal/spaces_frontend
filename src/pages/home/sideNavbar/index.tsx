@@ -16,22 +16,22 @@ import PostInput from "../../../components/postInput";
 
 const dataSidebar = [
   {
-    link: "./",
+    link: "/",
     logo: <FaBeer />,
     name: "Home",
   },
   {
-    link: "./",
+    link: "/search",
     logo: <FaSearch />,
     name: "Search",
   },
   {
-    link: "./",
+    link: "/follows",
     logo: <FaHeart />,
     name: "Follows",
   },
   {
-    link: "./",
+    link: "/profile",
     logo: <GiPlagueDoctorProfile />,
     name: "Profile",
   },

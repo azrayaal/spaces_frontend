@@ -8,10 +8,15 @@ import {
   Button,
   Link,
   Center,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { IoMdBackspace } from "react-icons/io";
 
 export default function Register() {
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
   return (
     <>
       <Card
@@ -42,24 +47,30 @@ export default function Register() {
               w={300}
             />
             <Input
-              //   focusBorderColor="grey.200"
+              //   focusBorderColor="lime"
               borderRadius={10}
               placeholder="Full Name"
               w={300}
             />
             <Input
-              //   focusBorderColor="grey.200"
+              //   focusBorderColor="lime"
               borderRadius={10}
               placeholder="Username"
               w={300}
             />
-            <Input
-              //   focusBorderColor="grey.200"
-              borderRadius={10}
-              placeholder="Password"
-              w={300}
-            />
-            <Button>Submit</Button>
+            <InputGroup size="md">
+              <Input
+                pr="4.5rem"
+                type={show ? "text" : "password"}
+                placeholder="Enter password"
+              />
+              <InputRightElement width="4.5rem">
+                <Button h="1.75rem" size="sm" onClick={handleClick}>
+                  {show ? "Hide" : "Show"}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
+            <Button>Register</Button>
           </Stack>
         </Box>
       </Card>

@@ -8,15 +8,12 @@ import {
   Button,
   Link,
   Center,
-  InputGroup,
-  InputRightElement,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { IoMdBackspace } from "react-icons/io";
+import { FillFormProps } from "../data-types";
 
-export default function SignIn() {
-  const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
+export default function FillForm(props: FillFormProps) {
+  const { description, placeholder, button } = props;
   return (
     <>
       <Card
@@ -36,29 +33,17 @@ export default function SignIn() {
           <Heading>SpaceS</Heading>
         </Center>
         <Center>
-          <Text>Log In to your account</Text>
+          <Text>{description}</Text>
         </Center>
         <Box py={4}>
           <Stack spacing={3}>
             <Input
               //   focusBorderColor="lime"
               borderRadius={10}
-              placeholder="Username"
+              placeholder={placeholder}
               w={300}
             />
-            <InputGroup size="md">
-              <Input
-                pr="4.5rem"
-                type={show ? "text" : "password"}
-                placeholder="Enter password"
-              />
-              <InputRightElement width="4.5rem">
-                <Button h="1.75rem" size="sm" onClick={handleClick}>
-                  {show ? "Hide" : "Show"}
-                </Button>
-              </InputRightElement>
-            </InputGroup>
-            <Button>Log In</Button>
+            <Button>{button}</Button>
           </Stack>
         </Box>
       </Card>

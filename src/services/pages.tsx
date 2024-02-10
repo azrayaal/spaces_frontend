@@ -7,7 +7,9 @@ import axios from "axios";
 export async function getHome() {
   try {
     const response = await axios.get("http://localhost:3000/api/v1/spaces");
-    return response.data;
+    // return response.data;
+    const axiosResponse = response.data;
+    return axiosResponse.data;
   } catch (error) {
     console.error("Error fetching data:", error);
   }

@@ -13,13 +13,19 @@ export default function MainContent() {
   // const getContent = useCallback(async () => {
   //   const response = await getHome();
   //   setContent(response.data);
-  //   console.log(response);
+  //   console.log(response.data);
   // }, []);
 
   const getContent = async () => {
-    const response = await axios.get(`http://localhost:3000/api/v1/spaces`);
-    console.log(response.data);
-    setContent(response.data);
+    try {
+      const response = await axios.get(`http://localhost:3000/api/v1/spaces`);
+      console.log(response.data);
+      setContent(response.data);
+    } catch (error) {
+      console.log(
+        `Ooops something went error during fetching content, please see this ${error}`
+      );
+    }
   };
 
   useEffect(() => {

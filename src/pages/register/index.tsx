@@ -28,12 +28,14 @@ export default function Register() {
         borderRadius={10}
       >
         <Text fontSize={30} mt={-4} ml={-20}>
-          <Link href="/" style={{ textDecoration: "none" }}>
+          <Link href="/signin" style={{ textDecoration: "none" }}>
             <IoMdBackspace />
           </Link>
         </Text>
         <Center>
-          <Heading>SpaceS</Heading>
+          <Link href="/" style={{ textDecoration: "none" }}>
+            <Heading>SpaceS</Heading>
+          </Link>
         </Center>
         <Center>
           <Text>Create your account</Text>

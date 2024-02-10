@@ -33,19 +33,16 @@ export default function SignIn() {
           </Link>
         </Text>
         <Center>
-          <Heading>SpaceS</Heading>
+          <Link href="/" style={{ textDecoration: "none" }}>
+            <Heading>SpaceS</Heading>
+          </Link>
         </Center>
         <Center>
           <Text>Log In to your account</Text>
         </Center>
         <Box py={4}>
           <Stack spacing={3}>
-            <Input
-              //   focusBorderColor="lime"
-              borderRadius={10}
-              placeholder="Username"
-              w={300}
-            />
+            <Input borderRadius={10} placeholder="Username" w={300} />
             <InputGroup size="md">
               <Input
                 pr="4.5rem"
@@ -58,6 +55,9 @@ export default function SignIn() {
                 </Button>
               </InputRightElement>
             </InputGroup>
+            <Link href="/register">
+              <Text>Create account?</Text>
+            </Link>
             <Button>Log In</Button>
           </Stack>
         </Box>

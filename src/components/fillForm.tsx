@@ -10,7 +10,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { IoMdBackspace } from "react-icons/io";
-import { FillFormProps } from "../data-types";
+import { FillFormProps } from "../datas/data-types";
 
 export default function FillForm(props: FillFormProps) {
   const { description, placeholder, button } = props;

@@ -19,6 +19,7 @@ export default function Home() {
           position={"relative"}
           mb={{ base: "50px", md: "0px" }}
         >
+          {/* SIDE BAR */}
           <GridItem
             w="100%"
             bg="mainBg.100"
@@ -27,7 +28,7 @@ export default function Home() {
           >
             <SideNavbar />
           </GridItem>
-
+          {/* MAIN CONTENT */}
           <GridItem
             w="100%"
             h="100%"
@@ -38,6 +39,7 @@ export default function Home() {
             {/* <MainContent /> */}
           </GridItem>
 
+          {/* PROFILE AND SUGGEST */}
           <GridItem
             colSpan={{ base: 0, md: 3 }}
             w="100%"

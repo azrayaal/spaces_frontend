@@ -15,29 +15,10 @@ import {
 import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { IoChatboxSharp } from "react-icons/io5";
-
-export interface ContentSpaceProps {
-  avatar: string;
-  profileName: string;
-  userName: string;
-  content: string;
-  image_content: string;
-  datePost: number;
-  likes: number;
-  replies: number;
-}
+import { ContentSpaceProps } from "../datas/data-types";
 
 export default function ContentSpace(props: ContentSpaceProps) {
-  const {
-    avatar,
-    profileName,
-    userName,
-    content,
-    image_content,
-    datePost,
-    likes,
-    replies,
-  } = props;
+  const { avatar, profileName, userName, content, image_content } = props;
 
   const [liked, setLiked] = useState(false);
   const [commented, setCommented] = useState(false);
@@ -85,7 +66,7 @@ export default function ContentSpace(props: ContentSpaceProps) {
                       @{userName}
                     </Text>
                     <Text pt="1" color="gray.400">
-                      •{datePost}h
+                      •12h
                     </Text>
                   </Center>
                 </Flex>
@@ -101,7 +82,7 @@ export default function ContentSpace(props: ContentSpaceProps) {
                   <Flex>
                     <Center>
                       <FaHeart />
-                      {likes}
+                      100
                     </Center>
                   </Flex>
                 </Text>
@@ -114,8 +95,7 @@ export default function ContentSpace(props: ContentSpaceProps) {
                 >
                   <Flex>
                     <Center>
-                      <IoChatboxSharp />
-                      {replies}
+                      <IoChatboxSharp />1
                     </Center>
                   </Flex>
                 </Text>

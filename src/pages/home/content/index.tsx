@@ -1,43 +1,31 @@
 import ContentSpace from "../../../components/content";
 import PostInput from "../../../components/postInput";
 import { Center } from "@chakra-ui/react";
-const ContentDummy = [
-  {
-    avatar: "https://source.unsplash.com/uFCmJ6fiWGY",
-    profileName: "Kay-O",
-    userName: "ky0",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit maiores atque tenetur.",
-    image_content: "https://source.unsplash.com/7z9ByavTdH8",
-    datePost: 12,
-    likes: 24,
-    replies: 1,
-  },
-  {
-    avatar: "https://source.unsplash.com/4JL_VAgxwcU",
-
-    profileName: "Malik",
-    userName: "malik",
-    content: "Lorem, ipsum dolor sit amet consectetur adipisicing.",
-    image_content: "",
-    datePost: 15,
-    likes: 100,
-    replies: 9,
-  },
-  {
-    avatar: "https://source.unsplash.com/1kU3F0v90NY",
-    profileName: "Eulaa",
-    userName: "eula",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci aliquid fugiat obcaecati nihil nulla commodi harum incidunt provident impedit quibusdam.",
-    image_content: "",
-    datePost: 25,
-    likes: 530,
-    replies: 120,
-  },
-];
+// import { ContentDummy } from "../../../datas/data-dummy";
+import { useCallback, useEffect, useState } from "react";
+import { getHome } from "../../../services/pages";
+import { ContentTypes } from "../../../datas/data-types";
+import axios from "axios";
 
 export default function MainContent() {
+  const [content, setContent] = useState([]);
+
+  // const getContent = useCallback(async () => {
+  //   const response = await getHome();
+  //   setContent(response.data);
+  //   console.log(response);
+  // }, []);
+
+  const getContent = async () => {
+    const response = await axios.get(`http://localhost:3000/api/v1/spaces`);
+    console.log(response.data);
+    setContent(response.data);
+  };
+
+  useEffect(() => {
+    getContent();
+  }, []);
+
   return (
     <>
       <PostInput />
@@ -45,17 +33,17 @@ export default function MainContent() {
       <Center></Center>
       {/* content */}
 
-      {ContentDummy.map((content, index) => (
+      {content.map((data: ContentTypes) => (
         <ContentSpace
-          key={index}
-          avatar={content.avatar}
-          profileName={content.profileName}
-          userName={content.userName}
-          content={content.content}
-          image_content={content.image_content}
-          datePost={content.datePost}
-          likes={content.likes}
-          replies={content.replies}
+          key={data.spaces_id}
+          avatar={data.profile_picture}
+          profileName={data.full_name}
+          userName={data.username}
+          content={data.spaces_content}
+          image_content={data.spaces_image}
+          // datePost={content.datePost}
+          // likes={content.likes}
+          // replies={content.replies}
         />
       ))}
     </>

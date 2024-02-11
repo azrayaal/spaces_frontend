@@ -36,7 +36,7 @@ export default function SignIn() {
       );
       console.log("data data login", response.data);
       const { token } = response.data;
-      const tokenBase64 = btoa(token);
+      const tokenBase64 = window.btoa(token);
       Cookies.set("token", tokenBase64, {
         expires: 1,
       });

@@ -4,8 +4,21 @@ import SideNavbar from "./sideNavbar";
 import ButtomNavbar from "../../components/bottomNavbar";
 import TopNavbar from "../../components/topNavbar";
 import { Outlet } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 
 export default function Home() {
+  useEffect(() => {
+    const token = Cookies.get("token");
+
+    if (token) {
+      const jwtToken = atob(token);
+      const payload = jwtDecode(jwtToken);
+      console.log("data obj", payload);
+    }
+  }, []);
+
   return (
     <>
       <Box>

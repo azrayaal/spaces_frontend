@@ -10,20 +10,28 @@ import {
   ModalContent,
   Link,
 } from "@chakra-ui/react";
+import Cookies from "js-cookie";
 
 import ListItemSIdeBar from "../../../components/atoms/listItemSIdeBar";
 import PostInput from "../../../components/postInput";
 
-import {
-  dataSidebarLogIn,
-  dataSidebarNotLogIn,
-} from "../../../datas/data-dummy";
-import { useState } from "react";
+import { dataSidebarLogIn } from "../../../datas/data-dummy";
+import { useEffect, useState } from "react";
 
 export default function SideNavbar() {
   const [isLogin, setIsLogIn] = useState(false);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const checkLogin = () => {
+    const token = Cookies.get("token");
+    if (token) {
+      setIsLogIn(true);
+    }
+  };
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
   return (
     <>
       <Box m={4}>
@@ -41,14 +49,14 @@ export default function SideNavbar() {
           </UnorderedList>
         ) : (
           <UnorderedList my={6} py={2}>
-            {dataSidebarNotLogIn.map((data, index) => (
+            {/* {dataSidebarNotLogIn.map((data, index) => (
               <ListItemSIdeBar
                 key={index}
                 link={data.link}
                 logo={data.logo}
                 name={data.name}
               />
-            ))}
+            ))} */}
           </UnorderedList>
         )}
       </Box>

@@ -11,12 +11,40 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
+import axios from "axios";
+import Cookies from "js-cookie";
 import { useState } from "react";
 import { IoMdBackspace } from "react-icons/io";
 
 export default function SignIn() {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmit = async () => {
+    const data = {
+      email,
+      password,
+    };
+    // console.log("data login", data);
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/api/v1/signIn`,
+        data
+      );
+      console.log("data data login", response.data);
+      const { token } = response.data;
+      const tokenBase64 = btoa(token);
+      Cookies.set("token", tokenBase64, {
+        expires: 1,
+      });
+    } catch (error) {
+      console.log(`Login failed`, error);
+    }
+  };
+
   return (
     <>
       <Card
@@ -42,12 +70,20 @@ export default function SignIn() {
         </Center>
         <Box py={4}>
           <Stack spacing={3}>
-            <Input borderRadius={10} placeholder="Username" w={300} />
+            <Input
+              borderRadius={10}
+              placeholder="Username"
+              w={300}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
             <InputGroup size="md">
               <Input
                 pr="4.5rem"
                 type={show ? "text" : "password"}
                 placeholder="Enter password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
               />
               <InputRightElement width="4.5rem">
                 <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -58,7 +94,7 @@ export default function SignIn() {
             <Link href="/register">
               <Text>Create account?</Text>
             </Link>
-            <Button>Log In</Button>
+            <Button onClick={onSubmit}>Log In</Button>
           </Stack>
         </Box>
       </Card>

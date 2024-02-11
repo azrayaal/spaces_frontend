@@ -1,5 +1,4 @@
 import { Grid, GridItem, Box } from "@chakra-ui/react";
-import MainContent from "./content";
 import ProfileNSuggest from "./profileNsuggest";
 import SideNavbar from "./sideNavbar";
 import ButtomNavbar from "../../components/bottomNavbar";

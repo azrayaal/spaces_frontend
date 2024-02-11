@@ -4,6 +4,7 @@ import Home from "./pages/home";
 import SignIn from "./pages/signIn";
 import MainContent from "./pages/home/content";
 import Register from "./pages/register";
+import RegisterFinal from "./pages/register/registerFinal";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           </Route>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/register-final" element={<RegisterFinal />} />
         </Routes>
       </Router>
     </>

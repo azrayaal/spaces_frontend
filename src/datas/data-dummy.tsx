@@ -25,16 +25,16 @@ export const dataSidebarLogIn = [
 ];
 
 export const dataSidebarNotLogIn = [
-  {
-    link: "/",
-    logo: <FaBeer />,
-    name: "Home",
-  },
-  {
-    link: "/search",
-    logo: <FaSearch />,
-    name: "Search",
-  },
+  // {
+  //   link: "/",
+  //   logo: <FaBeer />,
+  //   name: "Home",
+  // },
+  // {
+  //   link: "/search",
+  //   logo: <FaSearch />,
+  //   name: "Search",
+  // },
 ];
 
 export const ContentDummy = [

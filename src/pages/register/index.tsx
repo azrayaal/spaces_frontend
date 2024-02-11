@@ -11,12 +11,30 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
+// import Cookies from "js-cookie";
 import { useState } from "react";
 import { IoMdBackspace } from "react-icons/io";
 
 export default function Register() {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
+
+  const [username, setUsername] = useState("");
+  const [full_name, setFull_name] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmit = () => {
+    const data = {
+      username,
+      full_name,
+      email,
+      password,
+    };
+    const dataString = JSON.stringify(data);
+    localStorage.setItem("DataRegister", dataString);
+  };
+
   return (
     <>
       <Card
@@ -43,28 +61,33 @@ export default function Register() {
         <Box py={4}>
           <Stack spacing={3}>
             <Input
-              //   focusBorderColor="lime"
               borderRadius={10}
               placeholder="Email"
               w={300}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             />
             <Input
-              //   focusBorderColor="lime"
               borderRadius={10}
               placeholder="Full Name"
               w={300}
+              value={full_name}
+              onChange={(event) => setFull_name(event.target.value)}
             />
             <Input
-              //   focusBorderColor="lime"
               borderRadius={10}
               placeholder="Username"
               w={300}
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
             />
             <InputGroup size="md">
               <Input
                 pr="4.5rem"
                 type={show ? "text" : "password"}
                 placeholder="Enter password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
               />
               <InputRightElement width="4.5rem">
                 <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -72,7 +95,11 @@ export default function Register() {
                 </Button>
               </InputRightElement>
             </InputGroup>
-            <Button>Register</Button>
+
+            <Button onClick={onSubmit}>
+              <Link href="/register-final">Register</Link>
+              {/* Register */}
+            </Button>
           </Stack>
         </Box>
       </Card>

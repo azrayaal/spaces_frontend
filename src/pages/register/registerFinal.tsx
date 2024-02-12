@@ -11,10 +11,12 @@ import {
   Image,
   InputGroup,
   InputRightElement,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 import { IoMdBackspace } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterFinal() {
   const [profile_picture, setProfile_picture] = useState<any>("");
@@ -22,7 +24,8 @@ export default function RegisterFinal() {
   // const [image, setImage] = ("");
   const [imagePreview, setImagePreview] = useState<any>(null);
 
-  const handleImage = () => {};
+  const toast = useToast();
+  const navigate = useNavigate();
 
   const onSubmit = async () => {
     const storedData = localStorage.getItem("DataRegister");
@@ -36,14 +39,37 @@ export default function RegisterFinal() {
         ...storedDataObj,
       };
 
-      console.log("Merged data:", data);
+      // console.log("Merged data:", data);
 
-      const register = axios.post(
-        `http://localhost:3000/api/v1/register`,
-        data
-      );
-
-      console.log("register", register);
+      axios
+        .post(`http://localhost:3000/api/v1/register`, data)
+        .then((response) => {
+          // console.log("register", response.data);
+          // console.log("register status", response.status);
+          if (response.status === 200) {
+            toast({
+              title: "Register status",
+              description: "Success!",
+              position: "top-left",
+              status: "success",
+              duration: 9000,
+              isClosable: true,
+            });
+          } else {
+            toast({
+              title: "Register status",
+              description: "Failed!",
+              position: "top-left",
+              status: "error",
+              duration: 9000,
+              isClosable: true,
+            });
+          }
+          navigate("/signin");
+        })
+        .catch((error) => {
+          console.error("Error registering:", error);
+        });
     } else {
       console.log("No data found in local storage.");
     }
@@ -132,7 +158,8 @@ export default function RegisterFinal() {
               onChange={(event) => setProfile_description(event.target.value)}
             />
             <Button onClick={onSubmit}>
-              <Link href="/signin">Register</Link>
+              {/* <Link href="/signin">Register</Link> */}
+              <Link>Register</Link>
             </Button>
           </Stack>
         </Box>

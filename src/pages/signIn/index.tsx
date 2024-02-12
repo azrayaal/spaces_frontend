@@ -10,18 +10,22 @@ import {
   Center,
   InputGroup,
   InputRightElement,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { IoMdBackspace } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleClick = () => setShow(!show);
+  const toast = useToast();
+  const navigate = useNavigate();
 
   const onSubmit = async () => {
     const data = {
@@ -34,12 +38,33 @@ export default function SignIn() {
         `http://localhost:3000/api/v1/signIn`,
         data
       );
-      console.log("data data login", response.data);
+
+      // console.log("data data login", response.data);
       const { token } = response.data;
       const tokenBase64 = window.btoa(token);
       Cookies.set("token", tokenBase64, {
         expires: 1,
       });
+      if (token) {
+        toast({
+          title: "Log in status",
+          description: "Success!",
+          position: "top-left",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Log in status",
+          description: "Failed!",
+          position: "top-left",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+      navigate("/");
     } catch (error) {
       console.log(`Login failed`, error);
     }
@@ -47,6 +72,7 @@ export default function SignIn() {
 
   return (
     <>
+      <Text></Text>
       <Card
         color="grey.200"
         bg="mainBg.200"

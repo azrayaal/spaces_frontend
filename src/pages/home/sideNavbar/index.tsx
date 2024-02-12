@@ -72,7 +72,7 @@ export default function SideNavbar() {
       ) : (
         <Center>
           <Link href="/signin">
-            <Button w={"100%"} mx={4}>
+            <Button w={200} mx={4}>
               Log In
             </Button>
           </Link>

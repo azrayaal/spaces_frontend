@@ -1,19 +1,4 @@
-import {
-  Box,
-  Heading,
-  Button,
-  UnorderedList,
-  Center,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  Link,
-  Card,
-  Image,
-  Text,
-  Flex,
-} from "@chakra-ui/react";
+import { Box, Button, Center, Link, Card } from "@chakra-ui/react";
 
 export default function SideProfileNotLogin() {
   return (
@@ -21,9 +6,9 @@ export default function SideProfileNotLogin() {
       <Card bg="mainBg.200" borderRadius="lg" h={200} w={380}>
         <Box m={"auto"} color="gray.100">
           <Center>
-            <Flex>
-              <Button w={250}>Login</Button>
-            </Flex>
+            <Link href="/signin">
+              <Button w={250}>Log In</Button>
+            </Link>
           </Center>
         </Box>
       </Card>

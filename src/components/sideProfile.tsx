@@ -8,6 +8,8 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 export default function SideProfile() {
   return (

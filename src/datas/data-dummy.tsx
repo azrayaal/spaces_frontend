@@ -72,3 +72,21 @@ export const ContentDummy = [
     replies: 120,
   },
 ];
+
+export const suggestDummy = [
+  {
+    avatar: "https://source.unsplash.com/CXhRVSqBwe0",
+    profileName: "Calliope",
+    userName: "callio",
+  },
+  {
+    avatar: "https://source.unsplash.com/dZqgoqa1css",
+    profileName: "Gura",
+    userName: "gawrgurrrr",
+  },
+  {
+    avatar: "https://source.unsplash.com/NxOQWmoYr9k",
+    profileName: "WATSON?!",
+    userName: "watsonemi",
+  },
+];

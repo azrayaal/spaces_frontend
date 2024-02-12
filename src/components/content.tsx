@@ -7,29 +7,29 @@ import {
   Image,
   Stack,
   Text,
-  Link,
   Grid,
   Center,
   GridItem,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { FaHeart } from "react-icons/fa";
-import { IoChatboxSharp } from "react-icons/io5";
+// import { useState } from "react";
+// import { FaHeart } from "react-icons/fa";
+// import { IoChatboxSharp } from "react-icons/io5";
 import { ContentSpaceProps } from "../datas/data-types";
 
 export default function ContentSpace(props: ContentSpaceProps) {
   const { avatar, profileName, userName, content, image_content } = props;
 
-  const [liked, setLiked] = useState(false);
-  const [commented, setCommented] = useState(false);
+  // const [liked, setLiked] = useState(false);
+  // const [commented, setCommented] = useState(false);
+  // const [image, setImage] = useState(false);
 
-  const switchLike = () => {
-    setLiked(!liked);
-  };
+  // const switchLike = () => {
+  //   setLiked(!liked);
+  // };
 
-  const switchComment = () => {
-    setCommented(!commented);
-  };
+  // const switchComment = () => {
+  //   setCommented(!commented);
+  // };
 
   return (
     <>
@@ -72,8 +72,9 @@ export default function ContentSpace(props: ContentSpaceProps) {
                 </Flex>
               </Box>
               <Text py="2">{content}</Text>
+
               <Image src={image_content} borderRadius={10}></Image>
-              <Flex pt="2">
+              {/* <Flex pt="2">
                 <Text
                   fontSize="16"
                   onClick={switchLike}
@@ -86,7 +87,6 @@ export default function ContentSpace(props: ContentSpaceProps) {
                     </Center>
                   </Flex>
                 </Text>
-                {/* <Link> */}
                 <Text
                   pl="3"
                   fontSize="16"
@@ -99,8 +99,7 @@ export default function ContentSpace(props: ContentSpaceProps) {
                     </Center>
                   </Flex>
                 </Text>
-                {/* </Link> */}
-              </Flex>
+              </Flex> */}
             </CardBody>
           </Stack>
         </Card>
@@ -145,7 +144,7 @@ export default function ContentSpace(props: ContentSpaceProps) {
               </Box>
 
               <Text py="2">{content}</Text>
-              <Flex pt="2">
+              {/* <Flex pt="2">
                 <Text
                   fontSize="16"
                   onClick={switchLike}
@@ -163,7 +162,7 @@ export default function ContentSpace(props: ContentSpaceProps) {
                     <IoChatboxSharp />
                   </Text>
                 </Link>
-              </Flex>
+              </Flex> */}
             </GridItem>
           </Grid>
         </Card>

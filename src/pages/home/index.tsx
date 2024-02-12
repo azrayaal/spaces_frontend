@@ -15,7 +15,7 @@ export default function Home() {
     if (token) {
       const jwtToken = atob(token);
       const payload = jwtDecode(jwtToken);
-      console.log("data obj", payload);
+      // console.log("data obj", payload);
     }
   }, []);
 

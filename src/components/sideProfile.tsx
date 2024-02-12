@@ -10,8 +10,29 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { JWTPayloadsTypes } from "../datas/data-types";
+import { jwtDecode } from "jwt-decode";
 
 export default function SideProfile() {
+  const [dataUser, setDataUser] = useState<JWTPayloadsTypes | null>(null);
+
+  const onLogout = () => {
+    Cookies.remove("token");
+    location.reload();
+  };
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+
+    if (token) {
+      const jwtToken = atob(token);
+      const payload: JWTPayloadsTypes = jwtDecode(jwtToken);
+      const userFromPayload = payload;
+
+      // console.log(userFromPayload.obj);
+      setDataUser(userFromPayload);
+    }
+  }, []);
   return (
     <Box m={4}>
       <Card bg="mainBg.200" borderRadius="lg">
@@ -40,11 +61,21 @@ export default function SideProfile() {
                 w={14}
                 left={2}
                 maxW={{ base: "100%", sm: "200px" }}
-                src="https://source.unsplash.com/8Tq9pP71_jQ"
+                src={`${dataUser?.user.profile_picture}`}
                 alt="Caffe Latte"
               />
             </Center>
             <Box pt={4}>
+              <Button
+                colorScheme="red"
+                size="xs"
+                borderRadius="md"
+                float={"right"}
+                ml={3}
+                onClick={onLogout}
+              >
+                logout
+              </Button>
               <Button
                 colorScheme="teal"
                 size="xs"
@@ -56,14 +87,13 @@ export default function SideProfile() {
             </Box>
           </Box>
           <Heading size="sm" mt={2}>
-            This is Name
+            {dataUser?.user.full_name}
           </Heading>
           <Text fontSize="xs" color={"gray.400"}>
-            @username
+            @{dataUser?.user.username}
           </Text>
           <Text fontSize="sm" py={2}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati,
-            corporis!
+            {dataUser?.user.profile_description}
           </Text>
           <Box>
             <Flex>

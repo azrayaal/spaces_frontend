@@ -27,3 +27,51 @@ export interface ContentTypes {
   // likes: string;
   // replies: string;
 }
+
+// export interface UserTypes {
+//   Obj: {
+//     email: string;
+//     full_name: string;
+//     username: string;
+//     profile_picture: string;
+//     profile_description: string;
+//     id: string;
+//   };
+// }
+
+// export interface Obj {
+//   email: string;
+//   full_name: string;
+//   username: string;
+//   profile_picture: string;
+//   profile_description: string;
+//   id: string;
+// }
+
+// export interface JWTPayloadsTypes {
+//   user: Obj;
+//   iat: string;
+// }
+
+export interface JWTPayloadsTypes {
+  exp: number;
+  iat: string;
+
+  user: {
+    email: string;
+    full_name: string;
+    username: string;
+    profile_picture: string;
+    profile_description: string;
+    id: string;
+  };
+}
+
+export interface userFromPayload {
+  email: string;
+  full_name: string;
+  username: string;
+  profile_picture: string;
+  profile_description: string;
+  id: string;
+}

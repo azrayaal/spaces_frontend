@@ -7,6 +7,7 @@ import { Outlet } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
+import API from "../../libs/api";
 
 export default function Home() {
   useEffect(() => {

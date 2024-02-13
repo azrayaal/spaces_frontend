@@ -40,6 +40,7 @@ export default function PostInput() {
       const userFromPayload = payload;
       const headers = { Authorization: `Bearer ${jwtToken}` };
       // console.log("datatoken", userFromPayload.user.id);
+
       const data = {
         content: postContent,
         image: "https://source.unsplash.com/dZqgoqa1css",

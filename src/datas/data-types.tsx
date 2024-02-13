@@ -75,3 +75,11 @@ export interface userFromPayload {
   profile_description: string;
   id: string;
 }
+
+export interface SuggestionTypes {
+  id: number;
+  username: string;
+  full_name: string;
+  email: string;
+  profile_picture: string;
+}

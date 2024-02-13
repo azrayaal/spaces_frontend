@@ -35,7 +35,7 @@ export default function RegisterFinal() {
 
       const data = {
         profile_description,
-        profile_picture,
+        profile_picture: "https://source.unsplash.com/QvHQjdttBzY",
         ...storedDataObj,
       };
 

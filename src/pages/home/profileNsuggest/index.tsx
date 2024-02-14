@@ -1,8 +1,7 @@
 import { Box, Card, Heading } from "@chakra-ui/react";
-import Suggestions, { SuggestionProps } from "../../../components/suggestion";
+import Suggestions from "../../../components/suggestion";
 import SideProfile from "../../../components/sideProfile";
 import Cookies from "js-cookie";
-import { suggestDummy } from "../../../datas/data-dummy";
 import { useEffect, useState } from "react";
 import SideProfileNotLogin from "../../../components/sideProfileNotLogin";
 import API from "../../../libs/api";

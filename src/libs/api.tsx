@@ -1,18 +1,11 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
-// const API = () => {
-//   // axios instance for making requests
-//   const axiosInstance = axios.create({
-//     baseURL: `http://localhost:3000/api/v1/`,
-//   });
-
-//   return axiosInstance;
-// };
+const token = Cookies.get("token");
+const jwtToken = token ? atob(token) : null;
 
 const API = axios.create({
   baseURL: `http://localhost:3000/api/v1/`,
 });
-
-//   return axiosInstance;
 
 export default API;

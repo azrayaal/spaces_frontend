@@ -90,3 +90,16 @@ export const suggestDummy = [
     userName: "watsonemi",
   },
 ];
+import { IoHomeSharp } from "react-icons/io5";
+import { IoIosNotifications } from "react-icons/io";
+export const bottomNavData = [
+  {
+    logo: <IoHomeSharp />,
+  },
+  {
+    logo: <FaSearch />,
+  },
+  {
+    logo: <IoIosNotifications />,
+  },
+];

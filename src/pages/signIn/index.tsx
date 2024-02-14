@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 export default function SignIn() {
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleClick = () => setShow(!show);
@@ -29,7 +30,7 @@ export default function SignIn() {
 
   const onSubmit = async () => {
     const data = {
-      email,
+      username,
       password,
     };
     // console.log("data login", data);
@@ -100,8 +101,8 @@ export default function SignIn() {
               borderRadius={10}
               placeholder="Username"
               w={300}
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
             />
             <InputGroup size="md">
               <Input

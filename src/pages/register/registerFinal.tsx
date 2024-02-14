@@ -17,6 +17,7 @@ import axios from "axios";
 import { useState } from "react";
 import { IoMdBackspace } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { RiImageAddFill } from "react-icons/ri";
 
 export default function RegisterFinal() {
   const [profile_picture, setProfile_picture] = useState<any>("");
@@ -116,7 +117,7 @@ export default function RegisterFinal() {
                 <Center>
                   <Image
                     borderRadius={"100%"}
-                    src="/icon/upload.svg"
+                    src="/anonymous-avatar-icon-19.png"
                     width={120}
                     height={120}
                     className="img-upload"
@@ -126,29 +127,37 @@ export default function RegisterFinal() {
               )}
             </label>
             <InputGroup py={5}>
-              <label
-                htmlFor="image"
-                style={{ display: "flex", alignItems: "center" }}
-              >
+              <Box className="input img">
+                <Box
+                  w={300}
+                  as="label"
+                  htmlFor="image"
+                  cursor="pointer"
+                  display="inline-block"
+                  margin="auto"
+                >
+                  <Center>
+                    <Button as="span">Avatar</Button>
+                  </Center>
+                </Box>
                 <Input
                   type="file"
+                  id="image"
                   accept="image/png, image/jpeg"
-                  // display="none"
+                  name="image"
+                  formEncType="multipart/form-data"
                   onChange={(event) => {
                     // console.log(event.target.files);
                     const img = event.target.files![0];
                     setImagePreview(URL.createObjectURL(img));
                     return setProfile_picture(img);
                   }}
+                  display={"none"}
                 />
-                <InputRightElement width="4.5rem" left={0}>
-                  <Center>
-                    <Button as="span" variant="outline">
-                      Avatar
-                    </Button>
-                  </Center>
-                </InputRightElement>
-              </label>
+                {/* <InputRightElement width="4.5rem" left={0}>
+                  
+                </InputRightElement> */}
+              </Box>
             </InputGroup>
             <Input
               borderRadius={10}

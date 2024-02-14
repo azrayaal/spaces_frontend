@@ -6,6 +6,8 @@ import { useCallback, useEffect, useState } from "react";
 import { getHome } from "../../../services/pages";
 import { ContentTypes } from "../../../datas/data-types";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export default function MainContent() {
   const [content, setContent] = useState([]);
@@ -40,17 +42,21 @@ export default function MainContent() {
       {/* content */}
 
       {content.map((data: ContentTypes) => (
-        <ContentSpace
-          key={data.spaces_id}
-          avatar={data.profile_picture}
-          profileName={data.full_name}
-          userName={data.username}
-          content={data.spaces_content}
-          image_content={data.spaces_image}
-          // datePost={content.datePost}
-          // likes={content.likes}
-          // replies={content.replies}
-        />
+        <>
+          {/* <Link to={`/spaces/${data.spaces_id}`} style={{}}> */}
+          <ContentSpace
+            key={data.spaces_id}
+            id={data.spaces_id}
+            avatar={data.profile_picture}
+            profileName={data.full_name}
+            userName={data.username}
+            content={data.spaces_content}
+            image_content={data.spaces_image}
+            // datePost={content.datePost}
+            // likes={content.likes}
+            // replies={content.replies}
+          />
+        </>
       ))}
     </>
   );

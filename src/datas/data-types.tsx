@@ -10,7 +10,7 @@ export interface ContentSpaceProps {
   userName: string;
   content: string;
   image_content: string;
-  // id: string;
+  id: number;
   // datePost: number;
   // likes: number;
   // replies: number;
@@ -82,4 +82,19 @@ export interface SuggestionTypes {
   full_name: string;
   email: string;
   profile_picture: string;
+}
+
+export interface DataDetailTypes {
+  content: string;
+  id: number;
+  image: string;
+  posted_at: number;
+  user: {
+    email: string;
+    full_name: string;
+    username: string;
+    profile_picture: string;
+    profile_description: string;
+    id: string;
+  };
 }

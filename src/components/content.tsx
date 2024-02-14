@@ -10,14 +10,22 @@ import {
   Grid,
   Center,
   GridItem,
+  OrderedList,
+  ListItem,
 } from "@chakra-ui/react";
 // import { useState } from "react";
 // import { FaHeart } from "react-icons/fa";
 // import { IoChatboxSharp } from "react-icons/io5";
 import { ContentSpaceProps } from "../datas/data-types";
+import { GrSettingsOption } from "react-icons/gr";
+import { IoShareSocialSharp } from "react-icons/io5";
+import { MdDelete } from "react-icons/md";
+import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 
 export default function ContentSpace(props: ContentSpaceProps) {
   const { avatar, profileName, userName, content, image_content } = props;
+  const [openOpt, setOpenOpt] = useState<Boolean>(false);
 
   // const [liked, setLiked] = useState(false);
   // const [commented, setCommented] = useState(false);
@@ -31,6 +39,12 @@ export default function ContentSpace(props: ContentSpaceProps) {
   //   setCommented(!commented);
   // };
 
+  const openOption = () => {
+    setOpenOpt(true);
+  };
+  const closeOption = () => {
+    setOpenOpt(false);
+  };
   return (
     <>
       <Box m={4} display={{ base: "none", md: "block" }}>
@@ -42,6 +56,66 @@ export default function ContentSpace(props: ContentSpaceProps) {
           borderColor="mainBg.200"
           color="grey.200"
         >
+          {/* button option */}
+          <Box position={"absolute"} right={2} top={2} onClick={openOption}>
+            <Text color={"gray.600"}>
+              <GrSettingsOption />
+            </Text>
+          </Box>
+
+          {openOpt ? (
+            <>
+              <Box
+                position={"absolute"}
+                right={1}
+                top={1}
+                onClick={closeOption}
+                bgColor={"mainBg.300"}
+                p={2}
+                zIndex={2}
+                borderRadius={20}
+              >
+                <Text color={"gray.200"}>
+                  <GrSettingsOption />
+                </Text>
+              </Box>
+              <Card
+                border={1}
+                borderColor={"mainBg.300"}
+                position={"absolute"}
+                right={4}
+                top={6}
+                background={"mainBg.300"}
+                p={2}
+                gap={2}
+              >
+                <Link to="">
+                  <Flex>
+                    <Center gap={1}>
+                      <Text color={"red.500"}>
+                        <MdDelete />
+                      </Text>
+                      <Text color={"red.500"}>Delete</Text>
+                    </Center>
+                  </Flex>
+                </Link>
+                <Link to="">
+                  <Flex>
+                    <Center gap={1}>
+                      <Text color={"gray.200"}>
+                        <IoShareSocialSharp />
+                      </Text>
+                      <Text color={"gray.200"}> Share</Text>
+                    </Center>
+                  </Flex>
+                </Link>
+              </Card>
+            </>
+          ) : (
+            <></>
+          )}
+          {/* end of button option */}
+
           <Image
             borderRadius="100%"
             objectFit="cover"

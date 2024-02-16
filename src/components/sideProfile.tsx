@@ -8,31 +8,8 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
-import { JWTPayloadsTypes } from "../datas/data-types";
-import { jwtDecode } from "jwt-decode";
 
-export default function SideProfile() {
-  const [dataUser, setDataUser] = useState<JWTPayloadsTypes | null>(null);
-
-  const onLogout = () => {
-    Cookies.remove("token");
-    location.reload();
-  };
-
-  useEffect(() => {
-    const token = Cookies.get("token");
-
-    if (token) {
-      const jwtToken = atob(token);
-      const payload: JWTPayloadsTypes = jwtDecode(jwtToken);
-      const userFromPayload = payload;
-
-      // console.log(userFromPayload.obj);
-      setDataUser(userFromPayload);
-    }
-  }, []);
+export default function SideProfile(dataUserLogin: any) {
   return (
     <Box m={4}>
       <Card bg="mainBg.200" borderRadius="lg">
@@ -61,21 +38,11 @@ export default function SideProfile() {
                 w={14}
                 left={2}
                 maxW={{ base: "100%", sm: "200px" }}
-                src={`${dataUser?.user.profile_picture}`}
+                src={`${dataUserLogin.profile_picture}`}
                 alt="Caffe Latte"
               />
             </Center>
             <Box pt={4}>
-              <Button
-                colorScheme="red"
-                size="xs"
-                borderRadius="md"
-                float={"right"}
-                ml={3}
-                onClick={onLogout}
-              >
-                logout
-              </Button>
               <Button
                 colorScheme="teal"
                 size="xs"
@@ -87,13 +54,13 @@ export default function SideProfile() {
             </Box>
           </Box>
           <Heading size="sm" mt={2}>
-            {dataUser?.user.full_name}
+            {dataUserLogin.full_name}
           </Heading>
           <Text fontSize="xs" color={"gray.400"}>
-            @{dataUser?.user.username}
+            @{dataUserLogin.username}
           </Text>
           <Text fontSize="sm" py={2}>
-            {dataUser?.user.profile_description}
+            {dataUserLogin.profile_description}
           </Text>
           <Box>
             <Flex>

@@ -64,11 +64,27 @@ export default function SideNavbar() {
       {/* create */}
 
       {isLogin ? (
-        <Center>
-          <Button w={"100%"} mx={4} onClick={onOpen}>
-            Create Post
-          </Button>
-        </Center>
+        <>
+          <Center>
+            <Button w={"100%"} mx={4} onClick={onOpen}>
+              Create Post
+            </Button>
+          </Center>
+          <Center>
+            {/* <Button
+              colorScheme="red"
+              // size="xs"
+              position={"absolute"}
+              top={500}
+              w={"90%"}
+              mx={4}
+              borderRadius="md"
+              // onClick={onLogout}
+            >
+              logout
+            </Button> */}
+          </Center>
+        </>
       ) : (
         <Center>
           <Link href="/signin">

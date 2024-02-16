@@ -10,14 +10,13 @@ import {
   Center,
   Image,
   InputGroup,
-  InputRightElement,
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 import { IoMdBackspace } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { RiImageAddFill } from "react-icons/ri";
+import API from "../../libs/api";
 
 export default function RegisterFinal() {
   const [profile_picture, setProfile_picture] = useState<any>("");
@@ -30,27 +29,32 @@ export default function RegisterFinal() {
 
   const onSubmit = async () => {
     const storedData = localStorage.getItem("DataRegister");
-
+    const headers = {
+      "Content-type": "multipart/form-data",
+    };
     if (storedData) {
       const storedDataObj = JSON.parse(storedData);
+      console.log("data stored", profile_picture);
 
       const data = {
         profile_description,
-        profile_picture: "https://source.unsplash.com/QvHQjdttBzY",
+        profile_picture,
         ...storedDataObj,
       };
 
-      // console.log("Merged data:", data);
+      console.log("Merged data:", data);
 
       axios
-        .post(`http://localhost:3000/api/v1/register`, data)
+        .post(`http://localhost:3000/api/v1/register`, data, {
+          headers,
+        })
         .then((response) => {
-          // console.log("register", response.data);
-          // console.log("register status", response.status);
+          console.log("register", response.data);
+          console.log("register", response);
           if (response.status === 200) {
             toast({
-              title: "Register status",
-              description: "Success!",
+              title: "Register status: ",
+              description: `${response.data.message}`,
               position: "top-left",
               status: "success",
               duration: 9000,
@@ -58,7 +62,7 @@ export default function RegisterFinal() {
             });
           } else {
             toast({
-              title: "Register status",
+              title: "Register status: ",
               description: "Failed!",
               position: "top-left",
               status: "error",
@@ -66,6 +70,7 @@ export default function RegisterFinal() {
               isClosable: true,
             });
           }
+          localStorage.clear();
           navigate("/signin");
         })
         .catch((error) => {
@@ -99,7 +104,7 @@ export default function RegisterFinal() {
         <Center>
           <Text>Create your account</Text>
         </Center>
-        <Box py={4}>
+        <Box py={3}>
           <Stack spacing={3}>
             <label htmlFor="image">
               {imagePreview ? (
@@ -131,7 +136,7 @@ export default function RegisterFinal() {
                 <Box
                   w={300}
                   as="label"
-                  htmlFor="image"
+                  htmlFor="profile_description"
                   cursor="pointer"
                   display="inline-block"
                   margin="auto"
@@ -142,9 +147,9 @@ export default function RegisterFinal() {
                 </Box>
                 <Input
                   type="file"
-                  id="image"
+                  id="profile_description"
                   accept="image/png, image/jpeg"
-                  name="image"
+                  name="profile_description"
                   formEncType="multipart/form-data"
                   onChange={(event) => {
                     // console.log(event.target.files);
@@ -166,10 +171,7 @@ export default function RegisterFinal() {
               value={profile_description}
               onChange={(event) => setProfile_description(event.target.value)}
             />
-            <Button onClick={onSubmit}>
-              {/* <Link href="/signin">Register</Link> */}
-              <Link>Register</Link>
-            </Button>
+            <Button onClick={onSubmit}>Register </Button>
           </Stack>
         </Box>
       </Card>

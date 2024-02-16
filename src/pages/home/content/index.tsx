@@ -1,26 +1,16 @@
 import ContentSpace from "../../../components/content";
 import PostInput from "../../../components/postInput";
 import { Center } from "@chakra-ui/react";
-// import { ContentDummy } from "../../../datas/data-dummy";
-import { useCallback, useEffect, useState } from "react";
-import { getHome } from "../../../services/pages";
+import { useEffect, useState } from "react";
 import { ContentTypes } from "../../../datas/data-types";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { API } from "../../../libs/api";
 
-export default function MainContent() {
+export default function MainContent(dataUserLogin: any) {
   const [content, setContent] = useState([]);
-
-  // const getContent = useCallback(async () => {
-  //   const response = await getHome();
-  //   setContent(response.data);
-  //   console.log(response.data);
-  // }, []);
 
   const getContent = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/v1/spaces`);
+      const response = await API.get(`http://localhost:3000/api/v1/spaces`);
       console.log(response.data);
       setContent(response.data);
     } catch (error) {
@@ -36,7 +26,7 @@ export default function MainContent() {
 
   return (
     <>
-      <PostInput />
+      <PostInput {...dataUserLogin} />
 
       <Center></Center>
       {/* content */}

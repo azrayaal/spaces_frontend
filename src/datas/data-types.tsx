@@ -67,13 +67,10 @@ export interface JWTPayloadsTypes {
   };
 }
 
-export interface userFromPayload {
-  email: string;
-  full_name: string;
-  username: string;
-  profile_picture: string;
-  profile_description: string;
-  id: string;
+export interface UserFromPayload {
+  exp: number;
+  iat: number;
+  user: any;
 }
 
 export interface SuggestionTypes {

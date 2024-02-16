@@ -5,16 +5,33 @@ import SignIn from "./pages/signIn";
 import MainContent from "./pages/home/content";
 import Register from "./pages/register";
 import RegisterFinal from "./pages/register/registerFinal";
-import DetailContent from "./pages/detailcontent";
+// import DetailContent from "./pages/detailcontent";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import { UserFromPayload } from "./datas/data-types";
 
 function App() {
+  const [dataUserLogin, setDataUserLogin] = useState<UserFromPayload>();
+  // console.log("data user dari APp", dataUserLogin);
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      const jwtToken = atob(token);
+      const payload: UserFromPayload = jwtDecode(jwtToken);
+      setDataUserLogin(payload.user);
+      console.log("data dari App", payload.user);
+    }
+  }, []);
+
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<MainContent />}></Route>
-            <Route path="/spaces/:id" element={<DetailContent />} />
+          <Route path="/" element={<Home {...dataUserLogin} />}>
+            <Route index element={<MainContent {...dataUserLogin} />}></Route>
+            {/* <Route path="/spaces/:id" element={<DetailContent />} /> */}
+            <Route path="/a/:id" element={<SignIn />} />
           </Route>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/register" element={<Register />} />

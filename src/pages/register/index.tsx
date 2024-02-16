@@ -14,6 +14,7 @@ import {
 // import Cookies from "js-cookie";
 import { useState } from "react";
 import { IoMdBackspace } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [show, setShow] = useState(false);
@@ -24,6 +25,8 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const onSubmit = () => {
     const data = {
       username,
@@ -33,6 +36,7 @@ export default function Register() {
     };
     const dataString = JSON.stringify(data);
     localStorage.setItem("DataRegister", dataString);
+    navigate("/register-final");
   };
 
   return (
@@ -97,7 +101,7 @@ export default function Register() {
             </InputGroup>
 
             <Button onClick={onSubmit}>
-              <Link href="/register-final">Register</Link>
+              Register
               {/* Register */}
             </Button>
           </Stack>

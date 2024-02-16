@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function SignIn() {
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState("");
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,41 +33,55 @@ export default function SignIn() {
       username,
       password,
     };
-    // console.log("data login", data);
-    try {
-      const response = await axios.post(
-        `http://localhost:3000/api/v1/signIn`,
-        data
-      );
+    if (data.username && data.password) {
+      try {
+        const response = await axios.post(
+          `http://localhost:3000/api/v1/signIn`,
+          data
+        );
 
-      // console.log("data data login", response.data);
-      const { token } = response.data;
-      const tokenBase64 = window.btoa(token);
-      Cookies.set("token", tokenBase64, {
-        expires: 1,
-      });
-      if (token) {
-        toast({
-          title: "Log in status",
-          description: "Success!",
-          position: "top-left",
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        });
-      } else {
-        toast({
-          title: "Log in status",
-          description: "Failed!",
-          position: "top-left",
-          status: "error",
-          duration: 9000,
-          isClosable: true,
-        });
+        // console.log("data data login", response.data);
+        const { token } = response.data;
+        const tokenBase64 = window.btoa(token);
+        Cookies.set(
+          "token",
+          tokenBase64
+          // , {
+          //   expires: 1,
+          // }
+        );
+        if (token) {
+          toast({
+            title: "Log in status",
+            description: "Success!",
+            position: "top-left",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
+          navigate("/");
+        } else {
+          toast({
+            title: "Log in status",
+            description: `${response.data}`,
+            position: "top-left",
+            status: "error",
+            duration: 9000,
+            isClosable: true,
+          });
+        }
+      } catch (error) {
+        console.log(`Login failed`, error);
       }
-      navigate("/");
-    } catch (error) {
-      console.log(`Login failed`, error);
+    } else {
+      toast({
+        title: "Log in status",
+        description: "All data must be filled!",
+        position: "top-left",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
 
@@ -98,7 +112,6 @@ export default function SignIn() {
         <Box py={4}>
           <Stack spacing={3}>
             <Input
-              borderRadius={10}
               placeholder="Username"
               w={300}
               value={username}

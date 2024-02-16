@@ -16,7 +16,7 @@ import { GrSettingsOption } from "react-icons/gr";
 import { IoShareSocialSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ContentSpace(props: ContentSpaceProps) {
   const { avatar, profileName, userName, content, image_content, id } = props;
@@ -107,14 +107,15 @@ export default function ContentSpace(props: ContentSpaceProps) {
             objectFit="cover"
             h={14}
             w={14}
+            alt="not found"
             marginLeft={4}
             marginTop={4}
             minW={{ base: "56px", sm: "56px" }}
             maxW={{ base: "56px", sm: "56px" }}
             minH={{ base: "56px", sm: "56px" }}
             maxH={{ base: "56px", sm: "56px" }}
-            src={avatar}
-            alt="this.src='/bx-space-bar.sv';"
+            // src={`https://res.cloudinary.com/ddpo1vjim/image/upload/v1707986444/${avatar}`}
+            src={`/`}
           />
           <Stack>
             <CardBody w={480}>

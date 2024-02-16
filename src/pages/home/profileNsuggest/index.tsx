@@ -1,27 +1,26 @@
 import { Box, Card, Heading } from "@chakra-ui/react";
 import Suggestions from "../../../components/suggestion";
 import SideProfile from "../../../components/sideProfile";
-import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import SideProfileNotLogin from "../../../components/sideProfileNotLogin";
-import API from "../../../libs/api";
+import { API } from "../../../libs/api";
 import { SuggestionTypes } from "../../../datas/data-types";
 
-export default function ProfileNSuggest() {
+export default function ProfileNSuggest(dataUserLogin: any) {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [suggestData, setSuggestData] = useState([]);
 
   const checkLogin = () => {
-    const token = Cookies.get("token");
-    if (token) {
+    if (dataUserLogin.email) {
       setIsLogin(true);
     }
   };
 
+  console.log(isLogin);
+
   const suggestAPI = async () => {
     try {
       const response = await API.get("user");
-      // console.log(response.data);
       setSuggestData(response.data);
     } catch (error) {
       console.log(
@@ -37,7 +36,7 @@ export default function ProfileNSuggest() {
     <>
       {isLogin ? (
         <>
-          <SideProfile />
+          <SideProfile {...dataUserLogin} />
           <Box m={4}>
             <Card color="gray.100" bg="mainBg.200">
               <Heading size="sm" mt={3} ml={3}>

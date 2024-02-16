@@ -7,90 +7,43 @@ import {
   Input,
   Center,
   Button,
-  Grid,
   Spacer,
-  GridItem,
   Text,
-  InputGroup,
-  InputRightElement,
 } from "@chakra-ui/react";
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
 import { RiImageAddFill } from "react-icons/ri";
 import { useEffect, useRef, useState } from "react";
-import { JWTPayloadsTypes } from "../datas/data-types";
-import axios from "axios";
-import API from "../libs/api";
+import { APIPOST } from "../libs/api";
 
-export default function PostInput() {
+export default function PostInput(dataUserLogin: any) {
   const [isLogin, setIsLogIn] = useState<Boolean>(false);
   const [postImage, setPostImage] = useState<any>();
   const [postContent, setPostContent] = useState<string>("");
   const [imagePreview, setImagePreview] = useState<any>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [dataUser, setDataUser] = useState<JWTPayloadsTypes | null>(null);
 
   const checkLogin = () => {
-    const token = Cookies.get("token");
-    if (token) {
+    if (dataUserLogin.email) {
       setIsLogIn(true);
     }
   };
 
   const onSubmit = async () => {
-    const token = Cookies.get("token");
-    if (token) {
-      const jwtToken = atob(token);
-      const headers = {
-        Authorization: `Bearer ${jwtToken}`,
-        "Content-type": "multipart/form-data",
-      };
-
-      // try {
-      //   const data = {
-      //     content: postContent,
-      //     image: postImage,
-      //     posted_at: Date.now(),
-      //     userId: dataUser?.user.id,
-      //   };
-      //   await API.post("spaces", data);
-      //   console.log("data post", data);
-      // } catch (error) {
-      //   console.log(error);
-      // }
-
+    try {
       const data = {
         content: postContent,
         image: postImage,
-        posted_at: Date.now(),
-        userId: dataUser?.user.id,
+        userId: dataUserLogin.id,
       };
-      axios
-        .post(`http://localhost:3000/api/v1/spaces`, data, {
-          headers,
-        })
-        .then((response) => {
-          console.log("register", response.data);
-          console.log("register status", response.status);
-        })
-        .catch((error) => {
-          console.error("Error post:", error);
-        });
-      location.reload();
+      await APIPOST.post("spaces", data);
+      console.log("data post", data);
+    } catch (error) {
+      console.log(error);
     }
+    location.reload();
   };
 
   useEffect(() => {
     checkLogin();
-    const token = Cookies.get("token");
-
-    if (token) {
-      const jwtToken = atob(token);
-      const payload: JWTPayloadsTypes = jwtDecode(jwtToken);
-      const userFromPayload = payload;
-
-      setDataUser(userFromPayload);
-    }
 
     const textarea = textareaRef.current;
     if (textarea) {
@@ -120,7 +73,7 @@ export default function PostInput() {
                 marginLeft={4}
                 marginTop={4}
                 maxW={{ base: "100%", sm: "200px" }}
-                src={`${dataUser?.user.profile_picture}`}
+                src={`${dataUserLogin.profile_picture}`}
                 alt="this.src='/bx-space-bar.sv';"
               />
               <CardBody>

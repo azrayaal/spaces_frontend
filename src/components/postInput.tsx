@@ -13,6 +13,7 @@ import {
 import { RiImageAddFill } from "react-icons/ri";
 import { useEffect, useRef, useState } from "react";
 import { APIPOST } from "../libs/api";
+import { Cloudinary } from "cloudinary-core";
 
 export default function PostInput(dataUserLogin: any) {
   const [isLogin, setIsLogIn] = useState<Boolean>(false);
@@ -20,6 +21,10 @@ export default function PostInput(dataUserLogin: any) {
   const [postContent, setPostContent] = useState<string>("");
   const [imagePreview, setImagePreview] = useState<any>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const [profilePict, setProfilePict] = useState(
+    `https://res.cloudinary.com/ddpo1vjim/image/upload/${dataUserLogin.profile_picture}`
+  );
 
   const checkLogin = () => {
     if (dataUserLogin.email) {
@@ -52,7 +57,14 @@ export default function PostInput(dataUserLogin: any) {
         this.style.height = this.scrollHeight + "px";
       });
     }
-  }, []);
+
+    // if (dataUserLogin.profile_picture) {
+    //   const cl = new Cloudinary({ cloud_name: "ddpo1vjim" });
+    //   const url = cl.url(dataUserLogin.profile_picture);
+    //   console.log("url cl", url);
+    //   setImageUrl(url);
+    // }
+  }, [dataUserLogin.profile_picture]);
   return (
     <>
       {isLogin ? (
@@ -73,7 +85,7 @@ export default function PostInput(dataUserLogin: any) {
                 marginLeft={4}
                 marginTop={4}
                 maxW={{ base: "100%", sm: "200px" }}
-                src={`${dataUserLogin.profile_picture}`}
+                src={`${profilePict}.jpg`}
                 alt="this.src='/bx-space-bar.sv';"
               />
               <CardBody>

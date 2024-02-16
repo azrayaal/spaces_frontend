@@ -11,7 +11,10 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { UserFromPayload } from "./datas/data-types";
 
+// import dotenv from "dotenv";
+
 function App() {
+  // dotenv.config();
   const [dataUserLogin, setDataUserLogin] = useState<UserFromPayload>();
   // console.log("data user dari APp", dataUserLogin);
   useEffect(() => {

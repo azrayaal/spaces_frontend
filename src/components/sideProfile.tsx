@@ -8,8 +8,12 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
+import { useState } from "react";
 
 export default function SideProfile(dataUserLogin: any) {
+  const [profilePict, setProfilePict] = useState(
+    `https://res.cloudinary.com/ddpo1vjim/image/upload/${dataUserLogin.profile_picture}`
+  );
   return (
     <Box m={4}>
       <Card bg="mainBg.200" borderRadius="lg">
@@ -38,7 +42,7 @@ export default function SideProfile(dataUserLogin: any) {
                 w={14}
                 left={2}
                 maxW={{ base: "100%", sm: "200px" }}
-                src={`${dataUserLogin.profile_picture}`}
+                src={`${profilePict}.jpg`}
                 alt="Caffe Latte"
               />
             </Center>

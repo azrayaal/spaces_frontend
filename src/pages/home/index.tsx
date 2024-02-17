@@ -1,4 +1,4 @@
-import { Grid, GridItem, Box } from "@chakra-ui/react";
+import { Grid, GridItem, Box, Flex, Center } from "@chakra-ui/react";
 import ProfileNSuggest from "./profileNsuggest";
 import SideNavbar from "./sideNavbar";
 import ButtomNavbar from "../../components/bottomNavbar";
@@ -8,7 +8,7 @@ import { Outlet } from "react-router-dom";
 export default function Home(dataUserLogin: any) {
   return (
     <>
-      <Box>
+      {/* <Box>
         <TopNavbar />
 
         <Grid
@@ -18,7 +18,6 @@ export default function Home(dataUserLogin: any) {
           position={"relative"}
           mb={{ base: "50px", md: "0px" }}
         >
-          {/* SIDE BAR */}
           <GridItem
             // w="100%"
             // bg="red.100"
@@ -29,7 +28,6 @@ export default function Home(dataUserLogin: any) {
             <SideNavbar />
           </GridItem>
 
-          {/* MAIN CONTENT */}
           <GridItem
             w="100%"
             h="100%"
@@ -39,7 +37,6 @@ export default function Home(dataUserLogin: any) {
             <Outlet />
           </GridItem>
 
-          {/* PROFILE AND SUGGEST */}
           <GridItem
             colSpan={{ base: 0, md: 3 }}
             w="100%"
@@ -51,6 +48,20 @@ export default function Home(dataUserLogin: any) {
         </Grid>
 
         <ButtomNavbar />
+      </Box> */}
+
+      <Box w={"1280px"}>
+        <Flex>
+          <Box w={"20%"} h={"610px"} position={"sticky"} top={0}>
+            <SideNavbar />
+          </Box>
+          <Box w={"65%"} h={"100%"}>
+            <Outlet />
+          </Box>
+          <Box w={"30%"} h={"610px"} position={"sticky"} top={0}>
+            <ProfileNSuggest {...dataUserLogin} />
+          </Box>
+        </Flex>
       </Box>
     </>
   );

@@ -7,6 +7,7 @@ import { API } from "../../../libs/api";
 
 export default function MainContent(dataUserLogin: any) {
   const [content, setContent] = useState([]);
+  console.log("dari content", dataUserLogin);
 
   const getContent = async () => {
     try {

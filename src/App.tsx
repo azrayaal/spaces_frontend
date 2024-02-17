@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { UserFromPayload } from "./datas/data-types";
+import EditProfile from "./pages/editProfile";
+import MyProfile from "./pages/myProfile";
 
 // import dotenv from "dotenv";
 
@@ -34,7 +36,8 @@ function App() {
           <Route path="/" element={<Home {...dataUserLogin} />}>
             <Route index element={<MainContent {...dataUserLogin} />}></Route>
             {/* <Route path="/spaces/:id" element={<DetailContent />} /> */}
-            <Route path="/a/:id" element={<SignIn />} />
+            <Route path="/my-profile" element={<MyProfile />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
           </Route>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/register" element={<Register />} />

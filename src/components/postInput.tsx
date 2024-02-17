@@ -20,11 +20,10 @@ export default function PostInput(dataUserLogin: any) {
   const [postImage, setPostImage] = useState<any>();
   const [postContent, setPostContent] = useState<string>("");
   const [imagePreview, setImagePreview] = useState<any>(null);
+  const [imageUrl, setImageUrl] = useState<string>("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const [profilePict, setProfilePict] = useState(
-    `https://res.cloudinary.com/ddpo1vjim/image/upload/${dataUserLogin.profile_picture}`
-  );
+  console.log("dari input", dataUserLogin);
 
   const checkLogin = () => {
     if (dataUserLogin.email) {
@@ -58,12 +57,11 @@ export default function PostInput(dataUserLogin: any) {
       });
     }
 
-    // if (dataUserLogin.profile_picture) {
-    //   const cl = new Cloudinary({ cloud_name: "ddpo1vjim" });
-    //   const url = cl.url(dataUserLogin.profile_picture);
-    //   console.log("url cl", url);
-    //   setImageUrl(url);
-    // }
+    if (dataUserLogin.profile_picture) {
+      const cl = new Cloudinary({ cloud_name: "ddpo1vjim" });
+      const url = cl.url(dataUserLogin.profile_picture);
+      setImageUrl(url);
+    }
   }, [dataUserLogin.profile_picture]);
   return (
     <>
@@ -85,7 +83,7 @@ export default function PostInput(dataUserLogin: any) {
                 marginLeft={4}
                 marginTop={4}
                 maxW={{ base: "100%", sm: "200px" }}
-                src={`${profilePict}.jpg`}
+                src={`${imageUrl}.jpg`}
                 alt="this.src='/bx-space-bar.sv';"
               />
               <CardBody>

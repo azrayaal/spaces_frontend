@@ -14,6 +14,11 @@ export default function SideProfile(dataUserLogin: any) {
   const [profilePict, setProfilePict] = useState(
     `https://res.cloudinary.com/ddpo1vjim/image/upload/${dataUserLogin.profile_picture}`
   );
+
+  // const dataUserLogiin = () => {
+  //   setloin(dataUserLogin);
+  // };
+
   return (
     <Box m={4}>
       <Card bg="mainBg.200" borderRadius="lg">

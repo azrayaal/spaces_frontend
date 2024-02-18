@@ -1,14 +1,4 @@
-import {
-  Card,
-  Box,
-  Heading,
-  Image,
-  Center,
-  Button,
-  Flex,
-  Text,
-  Input,
-} from "@chakra-ui/react";
+import { Box, Image, Center, Button, Text, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { RiImageAddFill } from "react-icons/ri";
 
@@ -20,10 +10,6 @@ export default function EditProfile() {
   const [profilePreview, setProfilePreview] = useState<any>(null);
   const [editHeader, setEditHeader] = useState<any>();
   const [headerPreview, setHeaderPreview] = useState<any>(null);
-
-  console.log(profilePreview);
-  console.log(editFull_name);
-  console.log(editProfilePicture);
 
   return (
     // <Box pb={4}>
@@ -39,13 +25,18 @@ export default function EditProfile() {
           position={"absolute"}
           zIndex={4}
           right={"55%"}
-          top={"15%"}
+          top={"11%"}
+          border="4px"
+          borderColor="mainBg.200"
+          borderRadius="100%"
         >
-          <Center>
-            <Text color={"black"} fontSize={52}>
-              <RiImageAddFill />
-            </Text>
-          </Center>
+          <Box bg={"gray.100"} h={20} w={20} borderRadius={"100%"}>
+            <Center>
+              <Text color={"teal"} fontSize={52} pt={3.5}>
+                <RiImageAddFill />
+              </Text>
+            </Center>
+          </Box>
         </Box>
         <Input
           type="file"
@@ -107,15 +98,20 @@ export default function EditProfile() {
                 display="inline-block"
                 margin="auto"
                 position={"absolute"}
-                zIndex={4}
-                left={100}
-                top={6}
+                zIndex={6}
+                left={20}
+                top={5}
+                border="4px"
+                borderColor="mainBg.200"
+                borderRadius="100%"
               >
-                <Center>
-                  <Text color={"teal"} fontSize={32}>
-                    <RiImageAddFill />
-                  </Text>
-                </Center>
+                <Box bg={"gray.100"} h={8} w={8} borderRadius={"100%"}>
+                  <Center>
+                    <Text color={"teal"} fontSize={20} pt={1.5}>
+                      <RiImageAddFill />
+                    </Text>
+                  </Center>
+                </Box>
               </Box>
               <Input
                 type="file"
@@ -135,23 +131,6 @@ export default function EditProfile() {
             <label htmlFor="image">
               {profilePreview ? (
                 <>
-                  <Box
-                    as="label"
-                    htmlFor="profile_picture"
-                    cursor="pointer"
-                    display="inline-block"
-                    margin="auto"
-                    position={"absolute"}
-                    zIndex={5}
-                    left={100}
-                    top={6}
-                  >
-                    <Center>
-                      <Text color={"teal"} fontSize={32}>
-                        <RiImageAddFill />
-                      </Text>
-                    </Center>
-                  </Box>
                   <Image
                     position="absolute"
                     zIndex={4}

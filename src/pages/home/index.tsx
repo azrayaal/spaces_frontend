@@ -59,7 +59,7 @@ export default function Home(dataUserLogin: any) {
             <Outlet />
           </Box>
           <Box w={"30%"} h={"610px"} position={"sticky"} top={0}>
-            <ProfileNSuggest {...dataUserLogin} />
+            <ProfileNSuggest />
           </Box>
         </Flex>
       </Box>

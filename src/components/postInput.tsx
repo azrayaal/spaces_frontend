@@ -14,8 +14,12 @@ import { RiImageAddFill } from "react-icons/ri";
 import { useEffect, useRef, useState } from "react";
 import { APIPOST } from "../libs/api";
 import { Cloudinary } from "cloudinary-core";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import { UserFromPayload } from "../datas/data-types";
 
-export default function PostInput(dataUserLogin: any) {
+export default function PostInput() {
+  const [dataUserLogin, setDataUserLogin] = useState<UserFromPayload>();
   const [isLogin, setIsLogIn] = useState<Boolean>(false);
   const [postImage, setPostImage] = useState<any>();
   const [postContent, setPostContent] = useState<string>("");
@@ -23,10 +27,8 @@ export default function PostInput(dataUserLogin: any) {
   const [imageUrl, setImageUrl] = useState<string>("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  console.log("dari input", dataUserLogin);
-
   const checkLogin = () => {
-    if (dataUserLogin.email) {
+    if (dataUserLogin?.email) {
       setIsLogIn(true);
     }
   };
@@ -36,7 +38,7 @@ export default function PostInput(dataUserLogin: any) {
       const data = {
         content: postContent,
         image: postImage,
-        userId: dataUserLogin.id,
+        userId: dataUserLogin?.id,
       };
       await APIPOST.post("spaces", data);
       console.log("data post", data);
@@ -57,12 +59,21 @@ export default function PostInput(dataUserLogin: any) {
       });
     }
 
-    if (dataUserLogin.profile_picture) {
+    if (dataUserLogin?.profile_picture) {
       const cl = new Cloudinary({ cloud_name: "ddpo1vjim" });
-      const url = cl.url(dataUserLogin.profile_picture);
+      const url = cl.url(dataUserLogin?.profile_picture);
+      console.log("url", url);
       setImageUrl(url);
     }
-  }, [dataUserLogin.profile_picture]);
+
+    const token = Cookies.get("token");
+    if (token) {
+      const jwtToken = atob(token);
+      const payload: UserFromPayload = jwtDecode(jwtToken);
+      setDataUserLogin(payload.user);
+      // console.log("", payload.user);
+    }
+  }, [dataUserLogin?.profile_picture]);
   return (
     <>
       {isLogin ? (

@@ -4,19 +4,14 @@ import SideProfile from "../../../components/sideProfile";
 import { useEffect, useState } from "react";
 import SideProfileNotLogin from "../../../components/sideProfileNotLogin";
 import { API } from "../../../libs/api";
-import { SuggestionTypes } from "../../../datas/data-types";
+import { SuggestionTypes, UserFromPayload } from "../../../datas/data-types";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
-export default function ProfileNSuggest(dataUserLogin: any) {
+export default function ProfileNSuggest() {
+  const [dataUserLogin, setDataUserLogin] = useState<any>();
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [suggestData, setSuggestData] = useState([]);
-
-  const checkLogin = () => {
-    if (dataUserLogin.email) {
-      setIsLogin(true);
-    }
-  };
-
-  console.log(isLogin);
 
   const suggestAPI = async () => {
     try {
@@ -28,15 +23,34 @@ export default function ProfileNSuggest(dataUserLogin: any) {
       );
     }
   };
+
   useEffect(() => {
-    suggestAPI();
+    const token = Cookies.get("token");
+    const checkLogin = () => {
+      if (token) {
+        setIsLogin(true);
+      }
+    };
+    if (token) {
+      const jwtToken = atob(token);
+      const payload: UserFromPayload = jwtDecode(jwtToken);
+      setDataUserLogin(payload.user);
+      console.log("profile suggest", payload.user);
+    }
+
     checkLogin();
+    suggestAPI();
   }, []);
   return (
     <>
       {isLogin ? (
         <>
-          <SideProfile {...dataUserLogin} />
+          <SideProfile
+            full_name={dataUserLogin?.full_name}
+            username={dataUserLogin?.username}
+            profile_description={dataUserLogin?.profile_description}
+            profile_picture={dataUserLogin?.profile_picture}
+          />
           <Box m={4}>
             <Card color="gray.100" bg="mainBg.200">
               <Heading size="sm" mt={3} ml={3}>

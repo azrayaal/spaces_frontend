@@ -8,17 +8,16 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+// import { UserFromPayload } from "../datas/data-types";
 
-export default function SideProfile(dataUserLogin: any) {
-  const [profilePict, setProfilePict] = useState(
-    `https://res.cloudinary.com/ddpo1vjim/image/upload/${dataUserLogin.profile_picture}`
-  );
-
-  // const dataUserLogiin = () => {
-  //   setloin(dataUserLogin);
-  // };
-
+export default function SideProfile(props: any) {
+  const { full_name, username, profile_description, profile_picture } = props;
+  const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708243347/`;
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/my-profile");
+  };
   return (
     <Box m={4}>
       <Card bg="mainBg.200" borderRadius="lg">
@@ -47,7 +46,7 @@ export default function SideProfile(dataUserLogin: any) {
                 w={14}
                 left={2}
                 maxW={{ base: "100%", sm: "200px" }}
-                src={`${profilePict}.jpg`}
+                src={`${imgCLoud}${profile_picture}.jpg`}
                 alt="Caffe Latte"
               />
             </Center>
@@ -57,19 +56,20 @@ export default function SideProfile(dataUserLogin: any) {
                 size="xs"
                 borderRadius="md"
                 float={"right"}
+                onClick={handleClick}
               >
-                Edit Profile
+                My Profile
               </Button>
             </Box>
           </Box>
           <Heading size="sm" mt={2}>
-            {dataUserLogin.full_name}
+            {full_name}
           </Heading>
           <Text fontSize="xs" color={"gray.400"}>
-            @{dataUserLogin.username}
+            @{username}
           </Text>
           <Text fontSize="sm" py={2}>
-            {dataUserLogin.profile_description}
+            {profile_description}
           </Text>
           <Box>
             <Flex>

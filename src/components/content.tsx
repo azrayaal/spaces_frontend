@@ -22,6 +22,8 @@ export default function ContentSpace(props: ContentSpaceProps) {
   const { avatar, profileName, userName, content, image_content, id } = props;
   const [openOpt, setOpenOpt] = useState<Boolean>(false);
 
+  const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708243347/`;
+
   const openOption = () => {
     setOpenOpt(true);
   };
@@ -114,12 +116,14 @@ export default function ContentSpace(props: ContentSpaceProps) {
             maxW={{ base: "56px", sm: "56px" }}
             minH={{ base: "56px", sm: "56px" }}
             maxH={{ base: "56px", sm: "56px" }}
-            // src={`https://res.cloudinary.com/ddpo1vjim/image/upload/v1707986444/${avatar}`}
-            src={`/`}
+            src={`${imgCLoud}${avatar}.jpg`}
           />
           <Stack>
             <CardBody w={480}>
-              <Link to={`/spaces/${id}`}>
+              <Link
+                to={`/spaces/${id}`}
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
                 <Box>
                   <Flex>
                     <Center>

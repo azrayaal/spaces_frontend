@@ -5,9 +5,8 @@ import { useEffect, useState } from "react";
 import { ContentTypes } from "../../../datas/data-types";
 import { API } from "../../../libs/api";
 
-export default function MainContent(dataUserLogin: any) {
+export default function MainContent() {
   const [content, setContent] = useState([]);
-  console.log("dari content", dataUserLogin);
 
   const getContent = async () => {
     try {
@@ -27,7 +26,7 @@ export default function MainContent(dataUserLogin: any) {
 
   return (
     <>
-      <PostInput {...dataUserLogin} />
+      <PostInput />
 
       <Center></Center>
       {/* content */}

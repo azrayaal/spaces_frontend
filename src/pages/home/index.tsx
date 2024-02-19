@@ -52,13 +52,25 @@ export default function Home(dataUserLogin: any) {
 
       <Box w={"1280px"}>
         <Flex>
-          <Box w={"20%"} h={"600px"} position={"sticky"} top={0}>
+          <Box
+            w={"20%"}
+            h={"600px"}
+            position={"sticky"}
+            top={0}
+            display={{ base: "none", md: "block" }}
+          >
             <SideNavbar />
           </Box>
           <Box w={"65%"} h={"100%"}>
             <Outlet />
           </Box>
-          <Box w={"30%"} h={"600px"} position={"sticky"} top={0}>
+          <Box
+            w={"30%"}
+            h={"600px"}
+            position={"sticky"}
+            top={0}
+            display={{ base: "none", md: "block" }}
+          >
             <ProfileNSuggest />
           </Box>
         </Flex>

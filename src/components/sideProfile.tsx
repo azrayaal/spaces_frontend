@@ -12,11 +12,12 @@ import { useNavigate } from "react-router-dom";
 // import { UserFromPayload } from "../datas/data-types";
 
 export default function SideProfile(props: any) {
-  const { full_name, username, profile_description, profile_picture } = props;
+  const { full_name, username, profile_description, id, profile_picture } =
+    props;
   const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708243347/`;
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/my-profile");
+    navigate(`/my-profile/${id}`);
   };
   return (
     <Box m={4}>
@@ -39,7 +40,7 @@ export default function SideProfile(props: any) {
                 position="absolute"
                 zIndex={2}
                 border="2px"
-                borderColor="gray.200"
+                borderColor="mainBg.200"
                 borderRadius="100%"
                 objectFit="cover"
                 h={14}

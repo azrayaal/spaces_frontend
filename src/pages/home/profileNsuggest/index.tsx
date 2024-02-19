@@ -35,7 +35,7 @@ export default function ProfileNSuggest() {
       const jwtToken = atob(token);
       const payload: UserFromPayload = jwtDecode(jwtToken);
       setDataUserLogin(payload.user);
-      console.log("profile suggest", payload.user);
+      // console.log("profile suggest", payload.user);
     }
 
     checkLogin();
@@ -50,6 +50,7 @@ export default function ProfileNSuggest() {
             username={dataUserLogin?.username}
             profile_description={dataUserLogin?.profile_description}
             profile_picture={dataUserLogin?.profile_picture}
+            id={dataUserLogin?.id}
           />
           <Box m={4}>
             <Card color="gray.100" bg="mainBg.200">

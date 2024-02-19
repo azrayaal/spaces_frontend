@@ -11,7 +11,7 @@ export default function MainContent() {
   const getContent = async () => {
     try {
       const response = await API.get(`http://localhost:3000/api/v1/spaces`);
-      console.log(response.data);
+      // console.log(response.data);
       setContent(response.data);
     } catch (error) {
       console.log(

@@ -8,6 +8,7 @@ import RegisterFinal from "./pages/register/registerFinal";
 // import DetailContent from "./pages/detailcontent";
 import EditProfile from "./pages/editProfile";
 import MyProfile from "./pages/myProfile";
+import DetailContent from "./pages/detailcontent";
 
 // import dotenv from "dotenv";
 
@@ -19,8 +20,9 @@ function App() {
           <Route path="/" element={<Home />}>
             <Route index element={<MainContent />}></Route>
             {/* <Route path="/spaces/:id" element={<DetailContent />} /> */}
-            <Route path="/my-profile" element={<MyProfile />} />
+            <Route path="/my-profile/:id" element={<MyProfile />} />
             <Route path="/edit-profile" element={<EditProfile />} />
+            <Route path="/spaces/:id" element={<DetailContent />} />
           </Route>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/register" element={<Register />} />

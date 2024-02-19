@@ -13,7 +13,7 @@ export default function ListItemSIdeBar(props: ListItemSideBarProps) {
   return (
     <ListItem py={2} style={{ listStyleType: "none" }}>
       <Flex>
-        <NavLink to={link} style={{ textDecoration: "none" }}>
+        <NavLink to={link}>
           <Center>
             {logo}
             <Text bg="mainBg.900" pl={2}>

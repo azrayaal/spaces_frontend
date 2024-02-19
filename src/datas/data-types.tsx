@@ -28,16 +28,19 @@ export interface ContentTypes {
   // replies: string;
 }
 
-// export interface UserTypes {
-//   Obj: {
-//     email: string;
-//     full_name: string;
-//     username: string;
-//     profile_picture: string;
-//     profile_description: string;
-//     id: string;
-//   };
-// }
+export interface DetailUserTypes {
+  email: string;
+  full_name: string;
+  username: string;
+  profile_picture: string;
+  profile_description: string;
+  created_at: string | number;
+  follower: string | number;
+  followerTotal: string | number;
+  following: string | number;
+  followingTotal: number;
+  id: number;
+}
 
 // export interface Obj {
 //   email: string;
@@ -94,6 +97,9 @@ export interface DataDetailTypes {
   id: number;
   image: string;
   posted_at: number;
+
+  profile_picture: string;
+
   user: {
     email: string;
     full_name: string;

@@ -19,7 +19,7 @@ export default function Suggestions(props: SuggestionProps) {
   const { avatar, profileName, userName } = props;
 
   const [followed, setFollowed] = useState<boolean>(false);
-
+  const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708243347/`;
   const onFollowed = () => {
     setFollowed(!followed);
   };
@@ -35,7 +35,7 @@ export default function Suggestions(props: SuggestionProps) {
             h={10}
             w={10}
             maxW={{ base: "100%", sm: "200px" }}
-            src={avatar}
+            src={`${imgCLoud}${avatar}.jpg`}
             alt="Caffe Latte"
           />
         </GridItem>

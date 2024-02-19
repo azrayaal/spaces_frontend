@@ -7,9 +7,7 @@ import {
   Image,
   Stack,
   CardBody,
-  Link,
   Spacer,
-  Input,
   Flex,
   Center,
   Button,
@@ -21,6 +19,7 @@ import { DataDetailTypes } from "../../datas/data-types";
 export default function DetailContent() {
   const [dataDetail, setDataDetail] = useState<DataDetailTypes>();
   const { id } = useParams();
+  const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708243347/${dataDetail?.user.profile_picture}`;
 
   useEffect(() => {
     const getDataDetail = async () => {
@@ -28,12 +27,12 @@ export default function DetailContent() {
         const response = await axios.get(
           `http://localhost:3000/api/v1/spaces/${id}`
         );
+        // console.log("response.data", response.data);
         setDataDetail(response.data);
       } catch (error) {
         console.log(error);
       }
     };
-
     getDataDetail();
   }, [id]);
 
@@ -54,12 +53,12 @@ export default function DetailContent() {
             h={14}
             w={14}
             marginLeft={4}
-            marginTop={4}
+            marginTop={6}
             minW={{ base: "56px", sm: "56px" }}
             maxW={{ base: "56px", sm: "56px" }}
             minH={{ base: "56px", sm: "56px" }}
             maxH={{ base: "56px", sm: "56px" }}
-            src={dataDetail?.user.profile_picture}
+            src={`${imgCLoud}.jpg`}
             alt="this.src='/bx-space-bar.sv';"
           />
           <Stack>
@@ -79,7 +78,7 @@ export default function DetailContent() {
               </Box>
               <Text py="2">{dataDetail?.content}</Text>
 
-              <Image src={dataDetail?.content} borderRadius={10}></Image>
+              {/* <Image src={dataDetail?.content} borderRadius={10}></Image> */}
             </CardBody>
           </Stack>
         </Card>

@@ -16,7 +16,7 @@ import axios from "axios";
 import { useState } from "react";
 import { IoMdBackspace } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import API from "../../libs/api";
+// import API from "../../libs/api";
 
 export default function RegisterFinal() {
   const [profile_picture, setProfile_picture] = useState<any>("");

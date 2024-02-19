@@ -10,13 +10,36 @@ import {
   Grid,
   GridItem,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { DetailUserTypes } from "../../datas/data-types";
 
 export default function MyProfile() {
+  const [detailUser, setDetailUser] = useState<DetailUserTypes>();
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708243347/`;
+
   const editProfile = () => {
     navigate("/edit-profile");
   };
+
+  useEffect(() => {
+    const getDataDetailUser = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3000/api/v1/user/${id}`
+        );
+        console.log("response detail user", response.data);
+        setDetailUser(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getDataDetailUser();
+  }, [id]);
   return (
     // <Box pb={4}>
     <>
@@ -47,7 +70,7 @@ export default function MyProfile() {
                 left={2}
                 maxW={{ base: "100%", sm: "200px" }}
                 // src={`${profilePict}.jpg`}
-                src={`https://source.unsplash.com/EvZZ_68sQwM`}
+                src={`${imgCLoud}${detailUser?.profile_picture}.jpg`}
                 alt="Caffe Latte"
               />
             </Center>
@@ -64,18 +87,16 @@ export default function MyProfile() {
             </Box>
           </Box>
           <Heading size="md" mt={62}>
-            full name
+            {detailUser?.full_name}
           </Heading>
           <Text fontSize="md" color={"gray.400"}>
-            username
+            @{detailUser?.username}
           </Text>
           <Text fontSize="md" py={2}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam
-            obcaecati voluptatum sed aliquid reiciendis alias cum aliquam
-            necessitatibus, soluta officiis!
+            {detailUser?.profile_description}
           </Text>
           <Text fontSize="md" color={"gray.400"} pb={3}>
-            Joined may 2020
+            Joined {detailUser?.created_at}
           </Text>
         </Box>
       </Box>
@@ -128,7 +149,7 @@ export default function MyProfile() {
                 <Box>
                   <Flex>
                     <Text fontSize="sm" py={2} as="b">
-                      291
+                      {detailUser?.followingTotal}
                     </Text>
                     <Text fontSize="sm" py={2} pl={1} color={"gray.400"}>
                       Following
@@ -156,7 +177,7 @@ export default function MyProfile() {
                 <Box>
                   <Flex pl={4}>
                     <Text fontSize="sm" py={2} as="b">
-                      100
+                      {detailUser?.followerTotal}
                     </Text>
                     <Text fontSize="sm" py={2} pl={1} color={"gray.400"}>
                       Followers

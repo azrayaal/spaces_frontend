@@ -29,6 +29,11 @@ export default function SideNavbar() {
     }
   };
 
+  const onLogout = () => {
+    Cookies.remove("token");
+    window.location.reload();
+  };
+
   useEffect(() => {
     checkLogin();
   }, []);
@@ -71,18 +76,18 @@ export default function SideNavbar() {
             </Button>
           </Center>
           <Center>
-            {/* <Button
+            <Button
               colorScheme="red"
               // size="xs"
               position={"absolute"}
-              top={500}
+              top={540}
               w={"90%"}
               mx={4}
               borderRadius="md"
-              // onClick={onLogout}
+              onClick={onLogout}
             >
               logout
-            </Button> */}
+            </Button>
           </Center>
         </>
       ) : (

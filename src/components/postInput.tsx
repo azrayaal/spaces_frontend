@@ -32,7 +32,6 @@ export default function PostInput() {
       setIsLogIn(true);
     }
   };
-
   const onSubmit = async () => {
     try {
       const data = {
@@ -45,7 +44,9 @@ export default function PostInput() {
     } catch (error) {
       console.log(error);
     }
-    location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   };
 
   useEffect(() => {
@@ -62,7 +63,7 @@ export default function PostInput() {
     if (dataUserLogin?.profile_picture) {
       const cl = new Cloudinary({ cloud_name: "ddpo1vjim" });
       const url = cl.url(dataUserLogin?.profile_picture);
-      console.log("url", url);
+      // console.log("url", url);
       setImageUrl(url);
     }
 

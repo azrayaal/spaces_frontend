@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 export default function SideProfile(props: any) {
   const { full_name, username, profile_description, id, profile_picture } =
     props;
-  const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708243347/`;
+  // const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708243347/`;
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/my-profile/${id}`);
@@ -47,7 +47,8 @@ export default function SideProfile(props: any) {
                 w={14}
                 left={2}
                 maxW={{ base: "100%", sm: "200px" }}
-                src={`${imgCLoud}${profile_picture}.jpg`}
+                // src={`${imgCLoud}${profile_picture}.jpg`}
+                src={profile_picture}
                 alt="Caffe Latte"
               />
             </Center>

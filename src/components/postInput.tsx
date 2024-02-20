@@ -44,9 +44,9 @@ export default function PostInput() {
     } catch (error) {
       console.log(error);
     }
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 2000);
   };
 
   useEffect(() => {
@@ -96,6 +96,7 @@ export default function PostInput() {
                 marginTop={4}
                 maxW={{ base: "100%", sm: "200px" }}
                 src={`${imageUrl}.jpg`}
+                className="avatar"
                 alt="this.src='/bx-space-bar.sv';"
               />
               <CardBody>
@@ -122,7 +123,7 @@ export default function PostInput() {
                 </Flex>
                 {/* input IMG */}
                 <label htmlFor="image">
-                  {imagePreview ? (
+                  {imagePreview && (
                     <Image
                       width={200}
                       height={200}
@@ -130,8 +131,6 @@ export default function PostInput() {
                       className="img-upload"
                       alt="upload"
                     />
-                  ) : (
-                    <></>
                   )}
                 </label>
                 <Box mt={2}>
@@ -165,6 +164,7 @@ export default function PostInput() {
                         onChange={(event) => {
                           const img = event.target.files![0];
                           setImagePreview(URL.createObjectURL(img));
+                          console.log("img", URL.createObjectURL(img));
                           return setPostImage(img);
                         }}
                         display={"none"}

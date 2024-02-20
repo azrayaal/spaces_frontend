@@ -54,19 +54,19 @@ export default function Home(dataUserLogin: any) {
         <Flex>
           <Box
             w={"20%"}
-            h={"600px"}
+            h={"100%"}
             position={"sticky"}
             top={0}
             display={{ base: "none", md: "block" }}
           >
             <SideNavbar />
           </Box>
-          <Box w={"65%"} h={"100%"}>
+          <Box w={"65%"} h={"100%"} bg={"teal"}>
             <Outlet />
           </Box>
           <Box
             w={"30%"}
-            h={"600px"}
+            h={"100%"}
             position={"sticky"}
             top={0}
             display={{ base: "none", md: "block" }}

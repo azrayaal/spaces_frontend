@@ -22,11 +22,14 @@ export default function ContentSpace(props: ContentSpaceProps) {
   const { avatar, profileName, userName, content, image_content, id } = props;
   const [openOpt, setOpenOpt] = useState<Boolean>(false);
 
-  const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708243347/`;
+  const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708411150/SpaceS/`;
+
+  console.log(`${imgCLoud}${avatar}.jpg`);
 
   const openOption = () => {
     setOpenOpt(true);
   };
+
   const closeOption = () => {
     setOpenOpt(false);
   };
@@ -38,7 +41,7 @@ export default function ContentSpace(props: ContentSpaceProps) {
           direction={{ base: "column", sm: "row" }}
           overflow="hidden"
           variant="outline"
-          bg="mainBg.200"
+          bg="red.200"
           borderColor="mainBg.200"
           color="grey.200"
         >
@@ -139,7 +142,10 @@ export default function ContentSpace(props: ContentSpaceProps) {
                 </Box>
                 <Text py="2">{content}</Text>
 
-                <Image src={image_content} borderRadius={10}></Image>
+                <Image
+                  src={`${imgCLoud}${avatar}.jpg`}
+                  borderRadius={10}
+                ></Image>
                 {/* <Flex pt="2">
                 <Text
                   fontSize="16"

@@ -19,7 +19,7 @@ export default function Suggestions(props: SuggestionProps) {
   const { avatar, profileName, userName } = props;
 
   const [followed, setFollowed] = useState<boolean>(false);
-  const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708243347/`;
+  const imgCLoud = `http://res.cloudinary.com/ddpo1vjim/image/upload/v1708434267/SpaceS/`;
   const onFollowed = () => {
     setFollowed(!followed);
   };

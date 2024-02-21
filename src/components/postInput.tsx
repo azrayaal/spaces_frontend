@@ -48,7 +48,6 @@ export default function PostInput() {
     //   window.location.reload();
     // }, 2000);
   };
-
   useEffect(() => {
     checkLogin();
 
@@ -61,9 +60,11 @@ export default function PostInput() {
     }
 
     if (dataUserLogin?.profile_picture) {
-      const cl = new Cloudinary({ cloud_name: "ddpo1vjim" });
-      const url = cl.url(dataUserLogin?.profile_picture);
-      // console.log("url", url);
+      const cl = new Cloudinary({ cloud_name: "ddpo1vjim", folder: "SpaceS" });
+      const url = cl.url(
+        `v1708434267/SpaceS/${dataUserLogin?.profile_picture}.jpg`
+      );
+      console.log("url", url);
       setImageUrl(url);
     }
 
@@ -95,7 +96,7 @@ export default function PostInput() {
                 marginLeft={4}
                 marginTop={4}
                 maxW={{ base: "100%", sm: "200px" }}
-                src={`${imageUrl}.jpg`}
+                src={`${imageUrl}`}
                 className="avatar"
                 alt="this.src='/bx-space-bar.sv';"
               />

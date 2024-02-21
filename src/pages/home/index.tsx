@@ -61,7 +61,12 @@ export default function Home(dataUserLogin: any) {
           >
             <SideNavbar />
           </Box>
-          <Box w={"65%"} h={"100%"} bg={"teal"}>
+          <Box
+            w={"65%"}
+            h={"100%"}
+            // bg={"teal"}
+            bg={"mainBg.100"}
+          >
             <Outlet />
           </Box>
           <Box

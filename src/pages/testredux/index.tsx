@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setContent } from "../../features/contentSlice";
 import { API } from "../../libs/api";
-import { RootState } from "../../datas/data-types";
+import { DataContentTypes, RootState } from "../../datas/data-types";
+import ContentSpace from "../../components/content";
 
 export default function TestRedux() {
   const dispatch = useDispatch();
@@ -22,15 +23,21 @@ export default function TestRedux() {
 
   useEffect(() => {
     fetchContent();
-  }, [dispatch]);
+  }, []);
   return (
     <>
       <div>TestRedux</div>
-      {data.map((content: any) => (
+      {data.map((data: DataContentTypes) => (
         <>
-          <div key={content.id}>
-            <h1>Content: {content.content}</h1>
-          </div>
+          <ContentSpace
+            key={data.id}
+            id={data.id}
+            content={data.content}
+            avatar={data.user.profile_picture}
+            profileName={data.user.full_name}
+            userName={data.user.username}
+            image_content={data.image}
+          />
         </>
       ))}
     </>

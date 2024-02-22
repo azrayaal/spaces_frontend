@@ -109,5 +109,21 @@ export interface DataDetailTypes {
     id: string;
   };
 }
+
+export interface DataContentTypes {
+  id: number;
+  content: string;
+  image: string;
+  created_at: Date;
+  Total_Likes: number;
+  Total_Replies: number;
+  user: {
+    full_name: string;
+    username: string;
+    profile_picture: string;
+    id: string;
+  };
+}
+
 import { store } from "../store/index";
 export type RootState = ReturnType<typeof store.getState>;

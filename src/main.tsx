@@ -4,6 +4,8 @@ import App from "./App.tsx";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import "./index.css";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { Provider } from "react-redux";
+import { store } from "./store/index.tsx";
 
 const theme = extendTheme({
   styles: {
@@ -37,9 +39,11 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     {/* <QueryClientProvider client={queryClient}> */}
-    <ChakraProvider theme={theme}>
-      <App />
-    </ChakraProvider>
+    <Provider store={store}>
+      <ChakraProvider theme={theme}>
+        <App />
+      </ChakraProvider>
+    </Provider>
     {/* </QueryClientProvider> */}
   </React.StrictMode>
 );

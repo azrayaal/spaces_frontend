@@ -23,9 +23,9 @@ export interface ContentTypes {
   username: string;
   spaces_content: string;
   spaces_image: string;
-  // datePost: string;
-  // likes: string;
-  // replies: string;
+  datePost: string;
+  likes: string;
+  replies: string;
 }
 
 export interface DetailUserTypes {
@@ -109,3 +109,5 @@ export interface DataDetailTypes {
     id: string;
   };
 }
+import { store } from "../store/index";
+export type RootState = ReturnType<typeof store.getState>;

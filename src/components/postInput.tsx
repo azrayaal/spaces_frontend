@@ -165,7 +165,8 @@ export default function PostInput() {
                         onChange={(event) => {
                           const img = event.target.files![0];
                           setImagePreview(URL.createObjectURL(img));
-                          console.log("img", URL.createObjectURL(img));
+                          console.log("img url", URL.createObjectURL(img));
+                          console.log("img file", img);
                           return setPostImage(img);
                         }}
                         display={"none"}

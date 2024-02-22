@@ -15,18 +15,52 @@ const contentSlice = createSlice({
   name: "content",
   initialState,
   reducers: {
-    setContent: (_, action) => {
+    setContent: (state, action) => {
       console.log("action paylod", action.payload);
-      const content = action.payload.map((i: any) => {
-        return {
+      // const content = action.payload.map((i: any) => {
+      //   return {
+      //     id: i.id,
+      //     content: i.content,
+      //   };
+      // });
+      // return content;
+      return {
+        ...state,
+        data: action.payload.map((i: any) => ({
           id: i.id,
           content: i.content,
-        };
-      });
-      return content;
+        })),
+      };
+
+      // const content = action.payload.map((i: any) => {
+      //   return {
+      //     ...state,
+      //     id: i.id,
+      //     content: i.content,
+      //   };
+      // });
+
+      // return content;
     },
   },
 });
+
+// const contentSlice = createSlice({
+//   name: "content",
+//   initialState,
+//   reducers: {
+//     setContent: (_, action) => {
+//       console.log("action paylod", action.payload);
+//       const content = action.payload.map((i: any) => {
+//         return {
+//           id: i.id,
+//           content: i.content,
+//         };
+//       });
+//       return content;
+//     },
+//   },
+// });
 
 // extraReducers: (builder) => {
 //   builder.addCase(fetchContent.pending, (state, action) => {
@@ -42,5 +76,5 @@ const contentSlice = createSlice({
 // },
 // });
 
-export const { setContent } = contentSlice.actions; // Export the setContent action
+export const { setContent } = contentSlice.actions;
 export default contentSlice.reducer;

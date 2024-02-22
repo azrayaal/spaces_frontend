@@ -33,10 +33,14 @@ export default function TestRedux() {
             key={data.id}
             id={data.id}
             content={data.content}
-            avatar={data.user.profile_picture}
-            profileName={data.user.full_name}
-            userName={data.user.username}
-            image_content={data.image}
+            image={data.image}
+            Total_Likes={data.Total_Likes}
+            Total_Replies={data.Total_Replies}
+            created_at={data.created_at}
+            profile_picture={data.user.profile_picture}
+            full_name={data.user.full_name}
+            username={data.user.username}
+            user={data.user}
           />
         </>
       ))}

@@ -11,16 +11,34 @@ import {
   Center,
   GridItem,
 } from "@chakra-ui/react";
-import { ContentSpaceProps } from "../datas/data-types";
+import { DataContentTypes } from "../datas/data-types";
 import { GrSettingsOption } from "react-icons/gr";
-import { IoShareSocialSharp } from "react-icons/io5";
+import { IoChatboxSharp, IoShareSocialSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { FaHeart } from "react-icons/fa";
 
-export default function ContentSpace(props: ContentSpaceProps) {
-  const { avatar, profileName, userName, content, image_content, id } = props;
+export default function ContentSpace(props: DataContentTypes) {
+  const {
+    id,
+    image,
+    content,
+    Total_Replies,
+    Total_Likes,
+    created_at,
+    user: { full_name, username, profile_picture },
+  } = props;
   const [openOpt, setOpenOpt] = useState<Boolean>(false);
+  const [liked, setLiked] = useState<Boolean>(false);
+  const [commented, setcommented] = useState<Boolean>(false);
+
+  const switchComment = () => {
+    setcommented(true);
+  };
+  const switchLike = () => {
+    setLiked(true);
+  };
 
   const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708411150/SpaceS/`;
   const openOption = () => {
@@ -117,7 +135,7 @@ export default function ContentSpace(props: ContentSpaceProps) {
             maxW={{ base: "56px", sm: "56px" }}
             minH={{ base: "56px", sm: "56px" }}
             maxH={{ base: "56px", sm: "56px" }}
-            src={`${imgCLoud}${avatar}.jpg`}
+            src={`${imgCLoud}${profile_picture}.jpg`}
           />
           <Stack>
             <CardBody w={480}>
@@ -128,12 +146,12 @@ export default function ContentSpace(props: ContentSpaceProps) {
                 <Box>
                   <Flex>
                     <Center>
-                      <Heading size="md">{profileName}</Heading>
+                      <Heading size="md">{full_name}</Heading>
                       <Text pt="1" color="gray.400" px={2}>
-                        @{userName}
+                        @{username}
                       </Text>
                       <Text pt="1" color="gray.400">
-                        •12h
+                        •{created_at}
                       </Text>
                     </Center>
                   </Flex>
@@ -144,32 +162,33 @@ export default function ContentSpace(props: ContentSpaceProps) {
                   // src={`${imgCLoud}${avatar}.jpg`}
                   borderRadius={10}
                 ></Image>
-                {/* <Flex pt="2">
-                <Text
-                  fontSize="16"
-                  onClick={switchLike}
-                  color={liked ? "red.500" : "inherit"}
-                >
-                  <Flex>
-                    <Center>
-                      <FaHeart />
-                      100
-                    </Center>
-                  </Flex>
-                </Text>
-                <Text
-                  pl="3"
-                  fontSize="16"
-                  onClick={switchComment}
-                  color={commented ? "blue.500" : "inherit"}
-                >
-                  <Flex>
-                    <Center>
-                      <IoChatboxSharp />1
-                    </Center>
-                  </Flex>
-                </Text>
-              </Flex> */}
+                <Flex pt="2">
+                  <Text
+                    fontSize="16"
+                    onClick={switchLike}
+                    color={liked ? "red.500" : "inherit"}
+                  >
+                    <Flex>
+                      <Center>
+                        <FaHeart />{" "}
+                        <div style={{ marginLeft: "5px" }}>{Total_Likes}</div>
+                      </Center>
+                    </Flex>
+                  </Text>
+                  <Text
+                    pl="3"
+                    fontSize="16"
+                    onClick={switchComment}
+                    color={commented ? "blue.500" : "inherit"}
+                  >
+                    <Flex>
+                      <Center>
+                        <IoChatboxSharp />{" "}
+                        <div style={{ marginLeft: "5px" }}>{Total_Replies}</div>
+                      </Center>
+                    </Flex>
+                  </Text>
+                </Flex>
               </Link>
             </CardBody>
           </Stack>
@@ -199,19 +218,19 @@ export default function ContentSpace(props: ContentSpaceProps) {
                 maxW={{ base: "56px", sm: "56px" }}
                 minH={{ base: "56px", sm: "56px" }}
                 maxH={{ base: "56px", sm: "56px" }}
-                src={avatar}
+                src={profile_picture}
                 alt="this.src='/bx-space-bar.sv';"
               />
             </GridItem>
             <GridItem colSpan={8} pl={6}>
               <Box>
                 <Flex>
-                  <Heading size="md">{profileName}</Heading>
+                  <Heading size="md">{full_name}</Heading>
                   <Text pt="1" pl={5} color="gray.400">
-                    @{userName}
+                    @{username}
                   </Text>
                 </Flex>
-                <Image src={image_content} borderRadius={10} />
+                <Image src={image} borderRadius={10} />
               </Box>
 
               <Text py="2">{content}</Text>

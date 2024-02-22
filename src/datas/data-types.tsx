@@ -114,7 +114,7 @@ export interface DataContentTypes {
   id: number;
   content: string;
   image: string;
-  created_at: Date;
+  created_at: any;
   Total_Likes: number;
   Total_Replies: number;
   user: {
@@ -123,6 +123,9 @@ export interface DataContentTypes {
     profile_picture: string;
     id: string;
   };
+  full_name: string;
+  username: string;
+  profile_picture: string;
 }
 
 import { store } from "../store/index";

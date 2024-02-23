@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setContent } from "../../features/contentSlice";
-import { API } from "../../libs/api";
-import { DataContentTypes, RootState } from "../../datas/data-types";
-import ContentSpace from "../../components/content";
+import { setContent } from "../../../features/contentSlice";
+import { API } from "../../../libs/api";
+import { DataContentTypes, RootState } from "../../../datas/data-types";
+import ContentSpace from "../../../components/content";
 
 export default function TestRedux() {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export default function TestRedux() {
     }
   };
 
-  console.log("data use selector", data);
+  // console.log("data use selector", data);
 
   useEffect(() => {
     fetchContent();

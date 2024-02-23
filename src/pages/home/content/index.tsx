@@ -1,27 +1,28 @@
 import ContentSpace from "../../../components/content";
 import PostInput from "../../../components/postInput";
 import { Center } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { ContentTypes } from "../../../datas/data-types";
+import { useEffect } from "react";
+import { DataContentTypes, RootState } from "../../../datas/data-types";
 import { API } from "../../../libs/api";
+import { useDispatch, useSelector } from "react-redux";
+import { setContent } from "../../../features/contentSlice";
 
 export default function MainContent() {
-  const [content, setContent] = useState([]);
+  const dispatch = useDispatch();
+  const { data } = useSelector((state: RootState) => state.content);
 
-  const getContent = async () => {
+  const fetchContent = async () => {
     try {
-      const response = await API.get(`http://localhost:3000/api/v1/spaces`);
-      // console.log(response.data);
-      setContent(response.data);
+      const response = await API.get("spaces");
+      dispatch(setContent(response.data));
+      console.log("response api", response.data);
     } catch (error) {
-      console.log(
-        `Ooops something went error during fetching content, please see this ${error}`
-      );
+      console.log(error);
     }
   };
 
   useEffect(() => {
-    getContent();
+    fetchContent();
   }, []);
 
   return (
@@ -31,20 +32,21 @@ export default function MainContent() {
       <Center></Center>
       {/* content */}
 
-      {content.map((data: ContentTypes) => (
+      {data.map((data: DataContentTypes) => (
         <>
           {/* <Link to={`/spaces/${data.spaces_id}`} style={{}}> */}
           <ContentSpace
-            key={data.spaces_id}
-            id={data.spaces_id}
-            avatar={data.profile_picture}
-            profileName={data.full_name}
-            userName={data.username}
-            content={data.spaces_content}
-            image_content={data.spaces_image}
-            // datePost={content.datePost}
-            // likes={content.likes}
-            // replies={content.replies}
+            key={data.id}
+            id={data.id}
+            content={data.content}
+            image={data.image}
+            Total_Likes={data.Total_Likes}
+            Total_Replies={data.Total_Replies}
+            created_at={data.created_at}
+            profile_picture={data.user.profile_picture}
+            full_name={data.user.full_name}
+            username={data.user.username}
+            user={data.user}
           />
         </>
       ))}

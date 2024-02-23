@@ -16,8 +16,8 @@ import { GrSettingsOption } from "react-icons/gr";
 import { IoChatboxSharp, IoShareSocialSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
 
 export default function ContentSpace(props: DataContentTypes) {
   const {

@@ -18,7 +18,7 @@ export const dataSidebarLogIn = [
     name: "Follows",
   },
   {
-    link: "/profile",
+    link: `/my-profile/`,
     logo: <GiPlagueDoctorProfile />,
     name: "Profile",
   },

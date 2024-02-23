@@ -9,7 +9,10 @@ import RegisterFinal from "./pages/register/registerFinal";
 import EditProfile from "./pages/editProfile";
 import MyProfile from "./pages/myProfile";
 import DetailContent from "./pages/detailcontent";
-import TestRedux from "./pages/testredux";
+import TestRedux from "./pages/TESTING/testredux";
+import Search from "./pages/search";
+import Follow from "./pages/follow";
+// import TestTime from "./pages/TESTING/TestTime/testTime";
 
 // import dotenv from "dotenv";
 
@@ -22,11 +25,14 @@ function App() {
             <Route index element={<MainContent />}></Route>
             {/* <Route path="/spaces/:id" element={<DetailContent />} /> */}
             <Route path="/my-profile/:id" element={<MyProfile />} />
-            {/*  */}
-            <Route path="/test-redux" element={<TestRedux />} />
-            {/*  */}
             <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/spaces/:id" element={<DetailContent />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/follows" element={<Follow />} />
+            {/*  */}
+            <Route path="/test-redux" element={<TestRedux />} />
+            {/* <Route path="/test-time" element={<TestTime />} /> */}
+            {/*  */}
           </Route>
           <Route path="/signin" element={<SignIn />} />
           <Route path="/register" element={<Register />} />

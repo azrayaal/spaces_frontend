@@ -3,26 +3,16 @@ import PostInput from "../../../components/postInput";
 import { Center } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { DataContentTypes, RootState } from "../../../datas/data-types";
-import { API } from "../../../libs/api";
 import { useDispatch, useSelector } from "react-redux";
-import { setContent } from "../../../features/contentSlice";
+import { fetchContent } from "../../../features/contentSlice";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 export default function MainContent() {
-  const dispatch = useDispatch();
-  const { data } = useSelector((state: RootState) => state.content);
-
-  const fetchContent = async () => {
-    try {
-      const response = await API.get("spaces");
-      dispatch(setContent(response.data));
-      console.log("response api", response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const dataContent = useSelector((state: RootState) => state.content);
 
   useEffect(() => {
-    fetchContent();
+    dispatch(fetchContent());
   }, []);
 
   return (
@@ -32,9 +22,8 @@ export default function MainContent() {
       <Center></Center>
       {/* content */}
 
-      {data.map((data: DataContentTypes) => (
+      {dataContent.contents.map((data: DataContentTypes) => (
         <>
-          {/* <Link to={`/spaces/${data.spaces_id}`} style={{}}> */}
           <ContentSpace
             key={data.id}
             id={data.id}

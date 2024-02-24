@@ -37,6 +37,7 @@ const headers = {
 // Create Axios instance for general requests (API)
 const API: AxiosInstance = axios.create({
   baseURL: `http://localhost:3000/api/v1/`,
+  // "Content-type": "application/json; charset=utf-8",
 });
 
 // Create Axios instance with custom headers for authorized requests (APIPOST)

@@ -9,7 +9,7 @@ import RegisterFinal from "./pages/register/registerFinal";
 import EditProfile from "./pages/editProfile";
 import MyProfile from "./pages/myProfile";
 import DetailContent from "./pages/detailcontent";
-import TestRedux from "./pages/TESTING/testredux";
+// import TestRedux from "./pages/TESTING/testredux";
 import Search from "./pages/search";
 import Follow from "./pages/follow";
 // import TestTime from "./pages/TESTING/TestTime/testTime";
@@ -30,7 +30,7 @@ function App() {
             <Route path="/search-space" element={<Search />} />
             <Route path="/follows" element={<Follow />} />
             {/*  */}
-            <Route path="/test-redux" element={<TestRedux />} />
+            {/* <Route path="/test-redux" element={<TestRedux />} /> */}
             {/* <Route path="/test-time" element={<TestTime />} /> */}
             {/*  */}
           </Route>

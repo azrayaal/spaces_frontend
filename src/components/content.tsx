@@ -10,6 +10,7 @@ import {
   Grid,
   Center,
   GridItem,
+  Spacer,
 } from "@chakra-ui/react";
 import { DataContentTypes } from "../datas/data-types";
 import { GrSettingsOption } from "react-icons/gr";
@@ -96,7 +97,7 @@ export default function ContentSpace(props: DataContentTypes) {
                   p={2}
                   gap={2}
                 >
-                  <a href={`http://localhost:3000/api/v1/${id}`}>
+                  <Link to={`http://localhost:3000/api/v1/${id}`}>
                     <Flex>
                       <Center gap={1}>
                         <Text color={"red.500"}>
@@ -105,7 +106,7 @@ export default function ContentSpace(props: DataContentTypes) {
                         <Text color={"red.500"}>Delete</Text>
                       </Center>
                     </Flex>
-                  </a>
+                  </Link>
                   <Link to="">
                     <Flex>
                       <Center gap={1}>
@@ -143,20 +144,17 @@ export default function ContentSpace(props: DataContentTypes) {
                 to={`/spaces/${id}`}
                 style={{ color: "inherit", textDecoration: "none" }}
               >
-                <Box>
-                  <Flex>
-                    <Center>
-                      <Heading size="md">{full_name}</Heading>
-                      <Text pt="1" color="gray.400" px={2}>
-                        @{username}
-                      </Text>
-                      <Text pt="1" color="gray.400">
-                        •{created_at}
-                      </Text>
-                    </Center>
+                <Box w={"550px"}>
+                  <Flex justifyContent="space-between">
+                    <Heading size="md">{full_name}</Heading>
+                    <Text color="gray.400" px={2}>
+                      @{username}
+                    </Text>
+                    <Spacer />
+                    <Text color="gray.400">• {created_at}</Text>
                   </Flex>
                 </Box>
-                <Text py="2">{content}</Text>
+                <Box py="2">{content}</Box>
 
                 <Image
                   // src={`${imgCLoud}${avatar}.jpg`}
@@ -171,7 +169,7 @@ export default function ContentSpace(props: DataContentTypes) {
                     <Flex>
                       <Center>
                         <FaHeart />{" "}
-                        <div style={{ marginLeft: "5px" }}>{Total_Likes}</div>
+                        <span style={{ marginLeft: "5px" }}>{Total_Likes}</span>
                       </Center>
                     </Flex>
                   </Text>
@@ -184,7 +182,9 @@ export default function ContentSpace(props: DataContentTypes) {
                     <Flex>
                       <Center>
                         <IoChatboxSharp />{" "}
-                        <div style={{ marginLeft: "5px" }}>{Total_Replies}</div>
+                        <span style={{ marginLeft: "5px" }}>
+                          {Total_Replies}
+                        </span>
                       </Center>
                     </Flex>
                   </Text>
@@ -232,27 +232,7 @@ export default function ContentSpace(props: DataContentTypes) {
                 </Flex>
                 <Image src={image} borderRadius={10} />
               </Box>
-
-              <Text py="2">{content}</Text>
-              {/* <Flex pt="2">
-                <Text
-                  fontSize="16"
-                  onClick={switchLike}
-                  color={liked ? "red.500" : "inherit"}
-                >
-                  <FaHeart />
-                </Text>
-                <Link>
-                  <Text
-                    pl="3"
-                    fontSize="16"
-                    onClick={switchComment}
-                    color={commented ? "blue.500" : "inherit"}
-                  >
-                    <IoChatboxSharp />
-                  </Text>
-                </Link>
-              </Flex> */}
+              <Box py="2">{content}</Box>
             </GridItem>
           </Grid>
         </Card>

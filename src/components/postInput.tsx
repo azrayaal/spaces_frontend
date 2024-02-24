@@ -32,7 +32,8 @@ export default function PostInput() {
       setIsLogIn(true);
     }
   };
-  const onSubmit = async () => {
+  const onSubmit = async (e: any) => {
+    e.preventDefault();
     try {
       const data = {
         content: postContent,
@@ -44,9 +45,9 @@ export default function PostInput() {
     } catch (error) {
       console.log(error);
     }
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 2000);
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   };
   useEffect(() => {
     checkLogin();
@@ -100,92 +101,99 @@ export default function PostInput() {
                 className="avatar"
                 alt="this.src='/bx-space-bar.sv';"
               />
-              <CardBody>
-                <Flex color="gray.600" gap={4}>
-                  {/* input text */}
-                  <textarea
-                    ref={textareaRef}
-                    id="myTextarea"
-                    style={{
-                      color: "#CBD5E0",
-                      backgroundColor: "#262626",
-                      padding: "0.1rem 0.1rem",
-                      width: "100%",
-                      fontSize: "1.1rem",
-                      lineHeight: "1.5",
-                      resize: "none",
-                      outline: "none",
-                    }}
-                    rows={1}
-                    placeholder="What's Happening?!"
-                    value={postContent}
-                    onChange={(event) => setPostContent(event.target.value)}
-                  ></textarea>
-                </Flex>
-                {/* input IMG */}
-                <label htmlFor="image">
-                  {imagePreview && (
-                    <Image
-                      width={200}
-                      height={200}
-                      src={imagePreview}
-                      className="img-upload"
-                      alt="upload"
-                    />
-                  )}
-                </label>
-                <Box mt={2}>
-                  <div
-                    style={{
-                      marginBottom: "10px",
-                      borderBottom: "2px solid #319795",
-                    }}
-                  />
-                  <Flex>
-                    <Box className="input img">
-                      <Box
-                        as="label"
-                        htmlFor="image"
-                        cursor="pointer"
-                        display="inline-block"
-                        margin="auto"
-                      >
-                        <Center>
-                          <Text color={"teal"} fontSize={20}>
-                            <RiImageAddFill />
-                          </Text>
-                        </Center>
-                      </Box>
-                      <Input
-                        type="file"
-                        id="image"
-                        accept="image/png, image/jpeg"
-                        name="image"
-                        formEncType="multipart/form-data"
-                        onChange={(event) => {
-                          const img = event.target.files![0];
-                          setImagePreview(URL.createObjectURL(img));
-                          console.log("img url", URL.createObjectURL(img));
-                          console.log("img file", img);
-                          return setPostImage(img);
-                        }}
-                        display={"none"}
-                      />
-                    </Box>
-                    <Spacer />
-                    <Box className="post button">
-                      <Button
-                        borderRadius="50px"
-                        size="sm"
-                        colorScheme="teal"
-                        onClick={onSubmit}
-                      >
-                        post
-                      </Button>
-                    </Box>
+              <form
+                // action="post"
+                encType="multipart/form-data"
+                onSubmit={onSubmit}
+                style={{ width: "100%" }}
+              >
+                <CardBody>
+                  <Flex color="gray.600" gap={4}>
+                    {/* input text */}
+                    <textarea
+                      ref={textareaRef}
+                      id="myTextarea"
+                      style={{
+                        color: "#CBD5E0",
+                        backgroundColor: "#262626",
+                        padding: "0.1rem 0.1rem",
+                        width: "100%",
+                        fontSize: "1.1rem",
+                        lineHeight: "1.5",
+                        resize: "none",
+                        outline: "none",
+                      }}
+                      rows={1}
+                      placeholder="What's Happening?!"
+                      value={postContent}
+                      onChange={(event) => setPostContent(event.target.value)}
+                    ></textarea>
                   </Flex>
-                </Box>
-              </CardBody>
+                  {/* input IMG */}
+                  <label htmlFor="image">
+                    {imagePreview && (
+                      <Image
+                        width={200}
+                        height={200}
+                        src={imagePreview}
+                        className="img-upload"
+                        alt="upload"
+                      />
+                    )}
+                  </label>
+                  <Box mt={2}>
+                    <div
+                      style={{
+                        marginBottom: "10px",
+                        borderBottom: "2px solid #319795",
+                      }}
+                    />
+                    <Flex>
+                      <Box className="input img">
+                        <Box
+                          as="label"
+                          htmlFor="image"
+                          cursor="pointer"
+                          display="inline-block"
+                          margin="auto"
+                        >
+                          <Center>
+                            <Text color={"teal"} fontSize={20}>
+                              <RiImageAddFill />
+                            </Text>
+                          </Center>
+                        </Box>
+                        <Input
+                          type="file"
+                          id="image"
+                          accept="image/png, image/jpeg"
+                          name="image"
+                          formEncType="multipart/form-data"
+                          onChange={(event) => {
+                            const img = event.target.files![0];
+                            setImagePreview(URL.createObjectURL(img));
+                            // console.log("img url", URL.createObjectURL(img));
+                            // console.log("img file", img);
+                            setPostImage(img);
+                          }}
+                          display={"none"}
+                        />
+                      </Box>
+                      <Spacer />
+                      <Box className="post button">
+                        <Button
+                          borderRadius="50px"
+                          size="sm"
+                          colorScheme="teal"
+                          type="submit"
+                        >
+                          post
+                        </Button>
+                      </Box>
+                    </Flex>
+                  </Box>
+                </CardBody>
+              </form>
             </Card>
           </Box>
         </>

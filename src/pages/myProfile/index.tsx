@@ -17,6 +17,26 @@ import { DetailUserTypes } from "../../datas/data-types";
 
 export default function MyProfile() {
   const [detailUser, setDetailUser] = useState<DetailUserTypes>();
+  const [activeContent, setActiveContent] = useState<Boolean>(false);
+  const [activeFollowing, setActiveFollowing] = useState<Boolean>(false);
+  const [activeFollower, setActiveFollower] = useState<Boolean>(false);
+
+  const handleActiveContent = () => {
+    setActiveFollowing(false);
+    setActiveFollower(false);
+    setActiveContent(true);
+  };
+  const handleActiveFollowing = () => {
+    setActiveFollower(false);
+    setActiveContent(false);
+    setActiveFollowing(true);
+  };
+  const handleActiveFollower = () => {
+    setActiveFollowing(false);
+    setActiveContent(false);
+    setActiveFollower(true);
+  };
+
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -104,43 +124,43 @@ export default function MyProfile() {
       <Card bg="mainBg.200" borderRadius="lg" color={"gray.100"}>
         <Grid
           h="100%"
-          // pos={"fixed"}
           templateColumns="repeat(6, 1fr)"
           position={"relative"}
           mb={{ base: "50px", md: "0px" }}
         >
           <GridItem colSpan={{ base: 0, md: 2 }}>
             <Button
-              bg="mainBg.200"
-              // outlineColor={"mainBg.200"}
+              onClick={handleActiveContent}
+              bgColor={activeContent ? "teal" : "mainBg.200"}
               w={"100%"}
               borderLeftRadius={"lg"}
               borderRightRadius={"none"}
               color={"gray.100"}
               _hover={{ bg: "teal" }}
-              _active={{ bg: "teal" }}
               _focus={{ outline: "none" }}
               border="none"
               outline={"none"}
             >
               <Center>
-                {/* <Box> */}
-                <Text fontSize="sm" py={2} as="b">
+                <Text
+                  fontSize="sm"
+                  py={2}
+                  as="b"
+                  color={activeContent ? "inherit" : "gray.400"}
+                >
                   Space
                 </Text>
-                {/* </Box> */}
               </Center>
             </Button>
           </GridItem>
           <GridItem colSpan={{ base: 0, md: 2 }}>
             <Button
-              bg="mainBg.200"
-              // outlineColor={"mainBg.200"}
+              onClick={handleActiveFollowing}
+              bgColor={activeFollowing ? "teal" : "mainBg.200"}
               w={"100%"}
               borderRadius={"none"}
               color={"gray.100"}
               _hover={{ bg: "teal" }}
-              _active={{ bg: "teal" }}
               _focus={{ outline: "none" }}
               border="none"
               outline={"none"}
@@ -151,7 +171,12 @@ export default function MyProfile() {
                     <Text fontSize="sm" py={2} as="b">
                       {detailUser?.followingTotal}
                     </Text>
-                    <Text fontSize="sm" py={2} pl={1} color={"gray.400"}>
+                    <Text
+                      fontSize="sm"
+                      py={2}
+                      pl={1}
+                      color={activeFollowing ? "inherit" : "gray.400"}
+                    >
                       Following
                     </Text>
                   </Flex>
@@ -161,8 +186,8 @@ export default function MyProfile() {
           </GridItem>
           <GridItem colSpan={{ base: 0, md: 2 }}>
             <Button
-              bg="mainBg.200"
-              // outlineColor={"mainBg.200"}
+              onClick={handleActiveFollower}
+              bgColor={activeFollower ? "teal" : "mainBg.200"}
               w={"100%"}
               borderLeftRadius={"none"}
               borderRightRadius={"lg"}
@@ -179,7 +204,12 @@ export default function MyProfile() {
                     <Text fontSize="sm" py={2} as="b">
                       {detailUser?.followerTotal}
                     </Text>
-                    <Text fontSize="sm" py={2} pl={1} color={"gray.400"}>
+                    <Text
+                      fontSize="sm"
+                      py={2}
+                      pl={1}
+                      color={activeFollower ? "inherit" : "gray.400"}
+                    >
                       Followers
                     </Text>
                   </Flex>

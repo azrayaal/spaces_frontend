@@ -23,30 +23,59 @@ export const onSubmitLogin = () => {
     e.preventDefault();
     try {
       const response = await API.post("signin", form);
-      const { token } = response.data;
-      const tokenBase64 = window.btoa(token);
-      Cookies.set("token", tokenBase64, {
-        expires: 1,
-      });
-      if (token) {
+      if (!form.password && !form.username) {
         toast({
           title: "Log in status",
-          description: "Success!",
-          position: "top-left",
-          status: "success",
-          duration: 4000,
-          isClosable: true,
-        });
-        navigate("/");
-      } else {
-        toast({
-          title: "Log in status",
-          description: `${response.data}`,
+          description: `All data must be filled!`,
           position: "top-left",
           status: "error",
-          duration: 4000,
+          duration: 2000,
           isClosable: true,
         });
+      } else if (!form.username) {
+        toast({
+          title: "Log in status",
+          description: `username must be filled!`,
+          position: "top-left",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      } else if (!form.password) {
+        toast({
+          title: "Log in status",
+          description: `password must be filled!`,
+          position: "top-left",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+      } else {
+        if (response.data.token) {
+          const { token } = response.data;
+          const tokenBase64 = window.btoa(token);
+          Cookies.set("token", tokenBase64, {
+            expires: 1,
+          });
+          toast({
+            title: "Log in status",
+            description: "Success!",
+            position: "top-left",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+          });
+          navigate("/");
+        } else {
+          toast({
+            title: "Log in status",
+            description: `${response.data}`,
+            position: "top-left",
+            status: "error",
+            duration: 2000,
+            isClosable: true,
+          });
+        }
       }
     } catch (error) {
       toast({

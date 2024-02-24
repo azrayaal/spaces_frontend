@@ -1,12 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { DataContentTypes } from "../datas/data-types";
 import { API } from "../libs/api";
+import { ContentState } from "../datas/data-Redux";
 
-interface ContentState {
-  isLoading: boolean;
-  isError: boolean;
-  contents: DataContentTypes[];
-}
 const initialState: ContentState = {
   isLoading: false,
   isError: false,

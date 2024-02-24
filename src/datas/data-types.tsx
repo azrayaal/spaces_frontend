@@ -97,9 +97,7 @@ export interface DataDetailTypes {
   id: number;
   image: string;
   posted_at: number;
-
   profile_picture: string;
-
   user: {
     email: string;
     full_name: string;

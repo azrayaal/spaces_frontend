@@ -40,6 +40,7 @@ export interface DetailUserTypes {
   following: string | number;
   followingTotal: number;
   id: number;
+  user: {};
 }
 
 // export interface Obj {

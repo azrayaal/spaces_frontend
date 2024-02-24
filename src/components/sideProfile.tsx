@@ -16,7 +16,7 @@ export default function SideProfile(props: any) {
     props;
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate(`/my-profile/${id}`);
+    navigate(`/my-profile`);
   };
   const img = `http://res.cloudinary.com/ddpo1vjim/image/upload/v1708434267/SpaceS/`;
   return (

@@ -13,7 +13,10 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { DetailUserTypes } from "../../datas/data-types";
+import { DetailUserTypes, RootState } from "../../datas/data-types";
+import { useDispatch, useSelector } from "react-redux";
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { fetchUserDetailFromToken } from "../../features/userDetailThunks";
 
 export default function MyProfile() {
   const [detailUser, setDetailUser] = useState<DetailUserTypes>();
@@ -37,28 +40,22 @@ export default function MyProfile() {
     setActiveFollower(true);
   };
 
-  const navigate = useNavigate();
-  const { id } = useParams();
+  const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708435567/SpaceS/`;
 
-  const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708243347/`;
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const editProfile = () => {
     navigate("/edit-profile");
   };
 
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const userDetail = useSelector((state: RootState) => state.userDetail);
+  console.log("userDetailRedux", userDetail.userDetail);
+
   useEffect(() => {
-    const getDataDetailUser = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3000/api/v1/user/${id}`
-        );
-        console.log("response detail user", response.data);
-        setDetailUser(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getDataDetailUser();
+    setDetailUser(userDetail.userDetail);
+    dispatch(fetchUserDetailFromToken());
   }, [id]);
   return (
     // <Box pb={4}>

@@ -24,7 +24,7 @@ function App() {
           <Route path="/" element={<Home />}>
             <Route index element={<MainContent />}></Route>
             {/* <Route path="/spaces/:id" element={<DetailContent />} /> */}
-            <Route path="/my-profile/:id" element={<MyProfile />} />
+            <Route path="/my-profile" element={<MyProfile />} />
             <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/spaces/:id" element={<DetailContent />} />
             <Route path="/search-space" element={<Search />} />

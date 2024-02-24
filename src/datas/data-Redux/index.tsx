@@ -1,4 +1,8 @@
-import { DataContentTypes, DetailUserTypes } from "../data-types";
+import {
+  DataContentTypes,
+  DetailUserTypes,
+  UserFromPayload,
+} from "../data-types";
 
 export interface ContentState {
   isLoading: boolean;
@@ -9,5 +13,5 @@ export interface ContentState {
 export interface DetailContentState {
   isLoading: boolean;
   isError: boolean;
-  userDetail: DetailUserTypes[];
+  userDetail: DetailUserTypes;
 }

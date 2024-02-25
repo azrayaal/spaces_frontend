@@ -13,13 +13,18 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { DetailUserTypes, RootState } from "../../datas/data-types";
+import {
+  DetailUserTypes,
+  RootState,
+  UserFromPayload,
+  UserFromPayloadRedux,
+} from "../../datas/data-types";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { fetchUserDetailFromToken } from "../../features/userDetailThunks";
 
 export default function MyProfile() {
-  const [detailUser, setDetailUser] = useState<DetailUserTypes>();
+  const [detailUser, setDetailUser] = useState<UserFromPayloadRedux>();
   const [activeContent, setActiveContent] = useState<Boolean>(false);
   const [activeFollowing, setActiveFollowing] = useState<Boolean>(false);
   const [activeFollower, setActiveFollower] = useState<Boolean>(false);

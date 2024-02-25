@@ -63,6 +63,7 @@ export interface JWTPayloadsTypes {
 
   user: {
     email: string;
+
     full_name: string;
     username: string;
     profile_picture: string;
@@ -72,15 +73,30 @@ export interface JWTPayloadsTypes {
 }
 
 export interface UserFromPayload {
-  exp: number;
-  iat: number;
+  // exp: number;
+  // iat: number;
   user: any;
+  created_at: string | number;
   email: string;
   full_name: string;
   username: string;
   profile_picture: string;
   profile_description: string;
-  id: string;
+  id: number;
+  followingTotal: number;
+  followerTotal: number;
+}
+
+export interface UserFromPayloadRedux {
+  email: string;
+  id: number;
+  full_name: string;
+  username: string;
+  profile_picture: string;
+  profile_description: string;
+  created_at: string;
+  followingTotal: 0;
+  followerTotal: 0;
 }
 
 export interface SuggestionTypes {
@@ -89,7 +105,6 @@ export interface SuggestionTypes {
   full_name: string;
   email: string;
   profile_picture: string;
-
   profile_description: string;
 }
 

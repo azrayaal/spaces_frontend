@@ -1,10 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { DetailContentState } from "../datas/data-Redux";
+import { UserDetailState } from "../datas/data-Redux";
 
-const initialState: DetailContentState = {
+const initialState: UserDetailState = {
   isLoading: false,
   isError: false,
-  userDetail: [],
+  // userDetail: [],
+  userDetail: {
+    id: 0,
+    email: "",
+    full_name: "",
+    username: "",
+    profile_picture: "",
+    profile_description: "",
+    created_at: "",
+    followingTotal: 0,
+    followerTotal: 0,
+  },
 };
 
 export const userDetailSlice = createSlice({

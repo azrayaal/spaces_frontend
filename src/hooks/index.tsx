@@ -5,7 +5,12 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { API } from "../libs/api";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import { DetailUserTypes, RootState } from "../datas/data-types";
+import {
+  DetailUserTypes,
+  RootState,
+  UserFromPayload,
+  UserFromPayloadRedux,
+} from "../datas/data-types";
 import { fetchUserDetailFromToken } from "../features/userDetailThunks";
 
 export const onSubmitLogin = () => {
@@ -100,17 +105,21 @@ export const onSubmitLogin = () => {
 };
 
 export const checkLogin = () => {
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const userDetail = useSelector((state: RootState) => state.userDetail);
 
   const [isLogin, setIsLogIn] = useState<Boolean>(false);
-  const [dataUserLogin, setDataUserLogin] = useState<DetailUserTypes>();
+  const [dataUserLogin, setDataUserLogin] = useState<UserFromPayloadRedux>();
 
   useEffect(() => {
+    dispatch(fetchUserDetailFromToken());
     setDataUserLogin(userDetail.userDetail);
-    if (userDetail.userDetail.email) {
-      setIsLogIn(true);
+    if (userDetail.userDetail.id === 0) {
+      setIsLogIn(false);
     }
-  }, [userDetail]);
+  }, []);
+
+  // console.log("userDetail hooks", userDetail.userDetail.id);
 
   return { dataUserLogin, isLogin };
 };

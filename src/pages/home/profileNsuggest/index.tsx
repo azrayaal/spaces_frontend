@@ -4,14 +4,13 @@ import SideProfile from "../../../components/sideProfile";
 import { useEffect, useState } from "react";
 import SideProfileNotLogin from "../../../components/sideProfileNotLogin";
 import { API } from "../../../libs/api";
-import { SuggestionTypes, UserFromPayload } from "../../../datas/data-types";
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
+import { SuggestionTypes } from "../../../datas/data-types";
+import { checkLogin } from "../../../hooks";
 
 export default function ProfileNSuggest() {
-  const [dataUserLogin, setDataUserLogin] = useState<any>();
-  const [isLogin, setIsLogin] = useState<boolean>(false);
   const [suggestData, setSuggestData] = useState([]);
+
+  const { dataUserLogin, isLogin } = checkLogin();
 
   const suggestAPI = async () => {
     try {
@@ -25,19 +24,6 @@ export default function ProfileNSuggest() {
   };
 
   useEffect(() => {
-    const token = Cookies.get("token");
-    const checkLogin = () => {
-      if (token) {
-        setIsLogin(true);
-      }
-    };
-    if (token) {
-      const jwtToken = atob(token);
-      const payload: UserFromPayload = jwtDecode(jwtToken);
-      setDataUserLogin(payload.user);
-    }
-
-    checkLogin();
     suggestAPI();
   }, []);
   return (

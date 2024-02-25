@@ -14,16 +14,6 @@ import { RiImageAddFill } from "react-icons/ri";
 import { useEffect, useRef, useState } from "react";
 import { APIPOST } from "../libs/api";
 import { Cloudinary } from "cloudinary-core";
-import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
-import {
-  DetailUserTypes,
-  RootState,
-  UserFromPayload,
-} from "../datas/data-types";
-import { useDispatch, useSelector } from "react-redux";
-import { ThunkDispatch } from "@reduxjs/toolkit";
-import { fetchUserDetailFromToken } from "../features/userDetailThunks";
 import { checkLogin } from "../hooks";
 
 export default function PostInput() {
@@ -34,6 +24,7 @@ export default function PostInput() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { dataUserLogin, isLogin } = checkLogin();
+  // console.log("isLogin post input", isLogin);
 
   const onSubmit = async (e: any) => {
     e.preventDefault();

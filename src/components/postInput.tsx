@@ -16,22 +16,25 @@ import { APIPOST } from "../libs/api";
 import { Cloudinary } from "cloudinary-core";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import { UserFromPayload } from "../datas/data-types";
+import {
+  DetailUserTypes,
+  RootState,
+  UserFromPayload,
+} from "../datas/data-types";
+import { useDispatch, useSelector } from "react-redux";
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { fetchUserDetailFromToken } from "../features/userDetailThunks";
+import { checkLogin } from "../hooks";
 
 export default function PostInput() {
-  const [dataUserLogin, setDataUserLogin] = useState<UserFromPayload>();
-  const [isLogin, setIsLogIn] = useState<Boolean>(false);
   const [postImage, setPostImage] = useState<any>();
   const [postContent, setPostContent] = useState<string>("");
   const [imagePreview, setImagePreview] = useState<any>(null);
   const [imageUrl, setImageUrl] = useState<string>("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const checkLogin = () => {
-    if (dataUserLogin?.email) {
-      setIsLogIn(true);
-    }
-  };
+  const { dataUserLogin, isLogin } = checkLogin();
+
   const onSubmit = async (e: any) => {
     e.preventDefault();
     try {
@@ -49,9 +52,8 @@ export default function PostInput() {
       window.location.reload();
     }, 2000);
   };
-  useEffect(() => {
-    checkLogin();
 
+  useEffect(() => {
     const textarea = textareaRef.current;
     if (textarea) {
       textarea.addEventListener("input", function () {
@@ -65,16 +67,8 @@ export default function PostInput() {
       const url = cl.url(
         `v1708434267/SpaceS/${dataUserLogin?.profile_picture}.jpg`
       );
-      console.log("url", url);
+      // console.log("url", url);
       setImageUrl(url);
-    }
-
-    const token = Cookies.get("token");
-    if (token) {
-      const jwtToken = atob(token);
-      const payload: UserFromPayload = jwtDecode(jwtToken);
-      setDataUserLogin(payload.user);
-      // console.log("", payload.user);
     }
   }, [dataUserLogin?.profile_picture]);
   return (

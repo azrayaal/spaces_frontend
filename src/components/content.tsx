@@ -52,7 +52,7 @@ export default function ContentSpace(props: DataContentTypes) {
 
   return (
     <>
-      <Box m={4} display={{ base: "none", md: "block" }}>
+      <Box mx={4} my={4} display={{ base: "none", md: "block" }}>
         <Card
           direction={{ base: "column", sm: "row" }}
           overflow="hidden"
@@ -61,6 +61,7 @@ export default function ContentSpace(props: DataContentTypes) {
           bg="mainBg.200"
           borderColor="mainBg.200"
           color="grey.200"
+          // borderRadius={0}
         >
           {/* button option */}
           <>

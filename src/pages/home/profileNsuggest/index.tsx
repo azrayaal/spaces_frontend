@@ -35,7 +35,6 @@ export default function ProfileNSuggest() {
       const jwtToken = atob(token);
       const payload: UserFromPayload = jwtDecode(jwtToken);
       setDataUserLogin(payload.user);
-      // console.log("profile suggest", payload.user);
     }
 
     checkLogin();

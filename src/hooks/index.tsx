@@ -1,8 +1,12 @@
 import Cookies from "js-cookie";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { API } from "../libs/api";
+import { useDispatch, useSelector } from "react-redux";
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { DetailUserTypes, RootState } from "../datas/data-types";
+import { fetchUserDetailFromToken } from "../features/userDetailThunks";
 
 export const onSubmitLogin = () => {
   const navigate = useNavigate();
@@ -93,4 +97,20 @@ export const onSubmitLogin = () => {
     handleDataLogin,
     fetchLogin,
   };
+};
+
+export const checkLogin = () => {
+  const userDetail = useSelector((state: RootState) => state.userDetail);
+
+  const [isLogin, setIsLogIn] = useState<Boolean>(false);
+  const [dataUserLogin, setDataUserLogin] = useState<DetailUserTypes>();
+
+  useEffect(() => {
+    setDataUserLogin(userDetail.userDetail);
+    if (userDetail.userDetail.email) {
+      setIsLogIn(true);
+    }
+  }, [userDetail]);
+
+  return { dataUserLogin, isLogin };
 };

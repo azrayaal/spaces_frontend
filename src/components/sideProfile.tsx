@@ -9,7 +9,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-// import { UserFromPayload } from "../datas/data-types";
 
 export default function SideProfile(props: any) {
   const { full_name, username, profile_description, id, profile_picture } =

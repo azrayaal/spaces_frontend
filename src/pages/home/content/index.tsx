@@ -10,6 +10,7 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 export default function MainContent() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const dataContent = useSelector((state: RootState) => state.content);
+  console.log("dataCOntent", dataContent);
 
   useEffect(() => {
     dispatch(fetchContent());

@@ -4,13 +4,23 @@ import SideProfile from "../../../components/sideProfile";
 import { useEffect, useState } from "react";
 import SideProfileNotLogin from "../../../components/sideProfileNotLogin";
 import { API } from "../../../libs/api";
-import { SuggestionTypes } from "../../../datas/data-types";
+import { RootState, SuggestionTypes } from "../../../datas/data-types";
 import { checkLogin } from "../../../hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserDetail } from "../../../features/userDetailSlice";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 export default function ProfileNSuggest() {
   const [suggestData, setSuggestData] = useState([]);
 
-  const { dataUserLogin, isLogin } = checkLogin();
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const dataUserLogin = useSelector((state: RootState) => state.userDetail);
+  console.log("dataUserLogin profile", dataUserLogin);
+
+  // const { dataUserLogin, isLogin } = checkLogin();
+  const { isLogin } = checkLogin();
+  // const dispatch = useDispatch();
+  // console.log("isLogin dari profile", isLogin);
 
   const suggestAPI = async () => {
     try {
@@ -24,6 +34,7 @@ export default function ProfileNSuggest() {
   };
 
   useEffect(() => {
+    dispatch(fetchUserDetail());
     suggestAPI();
   }, []);
   return (
@@ -31,11 +42,13 @@ export default function ProfileNSuggest() {
       {isLogin ? (
         <>
           <SideProfile
-            full_name={dataUserLogin?.full_name}
-            username={dataUserLogin?.username}
-            profile_description={dataUserLogin?.profile_description}
-            profile_picture={dataUserLogin?.profile_picture}
-            id={dataUserLogin?.id}
+            id={dataUserLogin?.userDetail.id}
+            full_name={dataUserLogin?.userDetail.full_name}
+            username={dataUserLogin?.userDetail.username}
+            profile_description={dataUserLogin?.userDetail.profile_description}
+            profile_picture={dataUserLogin?.userDetail.profile_picture}
+            followingTotal={dataUserLogin?.userDetail.followingTotal}
+            followerTotal={dataUserLogin?.userDetail.followerTotal}
           />
           <Box m={4}>
             <Card color="gray.100" bg="mainBg.200">

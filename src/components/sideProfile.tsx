@@ -11,13 +11,21 @@ import {
 import { useNavigate } from "react-router-dom";
 
 export default function SideProfile(props: any) {
-  const { full_name, username, profile_description, id, profile_picture } =
-    props;
+  const {
+    full_name,
+    username,
+    profile_description,
+    id,
+    profile_picture,
+    followingTotal,
+    followerTotal,
+  } = props;
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(`/my-profile`);
   };
   const img = `http://res.cloudinary.com/ddpo1vjim/image/upload/v1708434267/SpaceS/`;
+
   return (
     <Box m={4}>
       <Card bg="mainBg.200" borderRadius="lg">
@@ -76,7 +84,7 @@ export default function SideProfile(props: any) {
               <Box>
                 <Flex>
                   <Text fontSize="sm" py={2} as="b">
-                    291
+                    {followingTotal}
                   </Text>
                   <Text fontSize="sm" py={2} pl={1}>
                     Following
@@ -86,7 +94,7 @@ export default function SideProfile(props: any) {
               <Box>
                 <Flex pl={4}>
                   <Text fontSize="sm" py={2} as="b">
-                    100
+                    {followerTotal}
                   </Text>
                   <Text fontSize="sm" py={2} pl={1}>
                     Followers

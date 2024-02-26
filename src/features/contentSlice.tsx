@@ -3,12 +3,6 @@ import { DataContentTypes } from "../datas/data-types";
 import { API } from "../libs/api";
 import { ContentState } from "../datas/data-Redux";
 
-const initialState: ContentState = {
-  isLoading: false,
-  isError: false,
-  contents: [],
-};
-
 export const fetchContent = createAsyncThunk(
   "content/fetchContent",
   async () => {
@@ -21,6 +15,12 @@ export const fetchContent = createAsyncThunk(
     }
   }
 );
+
+const initialState: ContentState = {
+  isLoading: false,
+  isError: false,
+  contents: [],
+};
 
 const contentSlice = createSlice({
   name: "content",
@@ -53,6 +53,7 @@ const contentSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(fetchContent.fulfilled, (state, action) => {
+      // console.log("action payload", action.payload);
       state.isLoading = false;
       state.contents = action.payload;
       state.isError = false;

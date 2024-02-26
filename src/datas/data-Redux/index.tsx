@@ -14,5 +14,7 @@ export interface ContentState {
 export interface UserDetailState {
   isLoading: boolean;
   isError: boolean;
-  userDetail: UserFromPayloadRedux;
+  // userDetail: WritableDraft<UserFromPayloadRedux>;
+  // userDetail: UserFromPayloadRedux;
+  userDetail: UserFromPayload;
 }

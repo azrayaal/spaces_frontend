@@ -40,7 +40,9 @@ export interface DetailUserTypes {
   following: string | number;
   followingTotal: number;
   id: number;
-  user: {};
+  user: {
+    id: number;
+  };
 }
 
 // export interface Obj {
@@ -88,15 +90,15 @@ export interface UserFromPayload {
 }
 
 export interface UserFromPayloadRedux {
-  email: string;
   id: number;
+  email: string;
   full_name: string;
   username: string;
   profile_picture: string;
   profile_description: string;
   created_at: string;
-  followingTotal: 0;
-  followerTotal: 0;
+  followingTotal: number;
+  followerTotal: number;
 }
 
 export interface SuggestionTypes {

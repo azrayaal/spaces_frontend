@@ -21,7 +21,7 @@ import {
 } from "../../datas/data-types";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import { fetchUserDetailFromToken } from "../../features/userDetailThunks";
+// import { fetchUserDetailFromToken } from "../../features/userDetailThunks";
 
 export default function MyProfile() {
   const [detailUser, setDetailUser] = useState<UserFromPayloadRedux>();
@@ -60,7 +60,7 @@ export default function MyProfile() {
 
   useEffect(() => {
     setDetailUser(userDetail.userDetail);
-    dispatch(fetchUserDetailFromToken());
+    // dispatch(fetchUserDetailFromToken());
   }, [id]);
   return (
     // <Box pb={4}>

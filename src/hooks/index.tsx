@@ -3,19 +3,17 @@ import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { API } from "../libs/api";
-import { useDispatch, useSelector } from "react-redux";
-import { ThunkDispatch } from "@reduxjs/toolkit";
-import {
-  DetailUserTypes,
-  RootState,
-  UserFromPayload,
-  UserFromPayloadRedux,
-} from "../datas/data-types";
-import { fetchUserDetailFromToken } from "../features/userDetailThunks";
+// import { useDispatch, useSelector } from "react-redux";
+// import { ThunkDispatch } from "@reduxjs/toolkit";
+// import { RootState, UserFromPayloadRedux } from "../datas/data-types";
+// import { ThunkDispatch } from "@reduxjs/toolkit";
+// import { fetchUserDetail } from "../features/userDetailSlice";
+// import { fetchUserDetailFromToken } from "../features/userDetailThunks";
 
 export const onSubmitLogin = () => {
   const navigate = useNavigate();
   const toast = useToast();
+
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -105,21 +103,26 @@ export const onSubmitLogin = () => {
 };
 
 export const checkLogin = () => {
-  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const userDetail = useSelector((state: RootState) => state.userDetail);
+  // const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  // const userDetail = useSelector((state: RootState) => state.userDetail);
+  // console.log("userDetail from promiseHooks", userDetail);
 
-  const [isLogin, setIsLogIn] = useState<Boolean>(false);
-  const [dataUserLogin, setDataUserLogin] = useState<UserFromPayloadRedux>();
+  const [isLogin, setIsLogInMy profile] = useState<Boolean>(false);
+  // const [dataUserLogin, setDataUserLogin] = useState<UserFromPayloadRedux>();
 
   useEffect(() => {
-    dispatch(fetchUserDetailFromToken());
-    setDataUserLogin(userDetail.userDetail);
-    if (userDetail.userDetail.id === 0) {
-      setIsLogIn(false);
+    // dispatch(fetchUserDetail());
+
+    const token = Cookies.get("token");
+    // setDataUserLogin(userDetail.userDetail);
+    if (token) {
+      setIsLogIn(true);
+      // userDetail;
     }
   }, []);
 
-  // console.log("userDetail hooks", userDetail.userDetail.id);
-
-  return { dataUserLogin, isLogin };
+  // return { dataUserLogin, isLogin };
+  return { isLogin };
 };
+
+export 

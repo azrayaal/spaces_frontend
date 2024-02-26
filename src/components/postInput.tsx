@@ -15,6 +15,7 @@ import { useEffect, useRef, useState } from "react";
 import { APIPOST } from "../libs/api";
 import { Cloudinary } from "cloudinary-core";
 import { checkLogin } from "../hooks";
+// import dotenv from "dotenv";
 
 export default function PostInput() {
   const [postImage, setPostImage] = useState<any>();
@@ -24,7 +25,6 @@ export default function PostInput() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { dataUserLogin, isLogin } = checkLogin();
-  // console.log("isLogin post input", isLogin);
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -44,6 +44,11 @@ export default function PostInput() {
     }, 2000);
   };
 
+  // console.log(
+  //   "process.env.CLOUDINARY_LINK_IMG",
+  //   process.env.CLOUDINARY_LINK_IMG
+  // );
+
   useEffect(() => {
     const textarea = textareaRef.current;
     if (textarea) {
@@ -62,6 +67,7 @@ export default function PostInput() {
       setImageUrl(url);
     }
   }, [dataUserLogin?.profile_picture]);
+
   return (
     <>
       {isLogin ? (

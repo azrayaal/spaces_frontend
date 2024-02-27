@@ -90,15 +90,16 @@ export interface UserFromPayload {
 }
 
 export interface UserFromPayloadRedux {
-  id: number;
-  email: string;
-  full_name: string;
-  username: string;
-  profile_picture: string;
-  profile_description: string;
-  created_at: string;
-  followingTotal: number;
-  followerTotal: number;
+  id: number | undefined;
+  email: string | undefined;
+  full_name: string | undefined;
+  username: string | undefined;
+  profile_picture: string | undefined;
+  profile_description: string | undefined;
+  created_at: string | undefined;
+  followingTotal: number | undefined;
+  followerTotal: number | undefined;
+  header: string | undefined;
 }
 
 export interface SuggestionTypes {
@@ -108,6 +109,14 @@ export interface SuggestionTypes {
   email: string;
   profile_picture: string;
   profile_description: string;
+  suggestions: {
+    id: number;
+    username: string;
+    full_name: string;
+    email: string;
+    profile_picture: string;
+    profile_description: string;
+  };
 }
 
 export interface DataDetailTypes {
@@ -142,6 +151,31 @@ export interface DataContentTypes {
   full_name: string;
   username: string;
   profile_picture: string;
+}
+
+export interface DataContentTypes {
+  id: number;
+  content: string;
+  image: string;
+  created_at: any;
+  Total_Likes: number;
+  Total_Replies: number;
+  user: {
+    full_name: string;
+    username: string;
+    profile_picture: string;
+    id: string;
+  };
+  full_name: string;
+  username: string;
+  profile_picture: string;
+}
+
+export interface SuggestionTypesRedux {
+  full_name: string;
+  username: string;
+  profile_picture: string;
+  id: number;
 }
 
 import { store } from "../store/index";

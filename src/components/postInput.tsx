@@ -15,6 +15,10 @@ import { useEffect, useRef, useState } from "react";
 import { APIPOST } from "../libs/api";
 import { Cloudinary } from "cloudinary-core";
 import { checkLogin } from "../hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { RootState } from "../datas/data-types";
+import { fetchUserDetail } from "../features/userDetailSlice";
 // import dotenv from "dotenv";
 
 export default function PostInput() {
@@ -24,7 +28,11 @@ export default function PostInput() {
   const [imageUrl, setImageUrl] = useState<string>("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const { dataUserLogin, isLogin } = checkLogin();
+  const { isLogin } = checkLogin();
+  console.log(isLogin);
+
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const dataUserLogin = useSelector((state: RootState) => state.userDetail);
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -32,7 +40,7 @@ export default function PostInput() {
       const data = {
         content: postContent,
         image: postImage,
-        userId: dataUserLogin?.id,
+        userId: dataUserLogin?.userDetail.id,
       };
       await APIPOST.post("spaces", data);
       console.log("data post", data);
@@ -44,11 +52,6 @@ export default function PostInput() {
     }, 2000);
   };
 
-  // console.log(
-  //   "process.env.CLOUDINARY_LINK_IMG",
-  //   process.env.CLOUDINARY_LINK_IMG
-  // );
-
   useEffect(() => {
     const textarea = textareaRef.current;
     if (textarea) {
@@ -58,15 +61,15 @@ export default function PostInput() {
       });
     }
 
-    if (dataUserLogin?.profile_picture) {
+    if (dataUserLogin?.userDetail.profile_picture) {
       const cl = new Cloudinary({ cloud_name: "ddpo1vjim", folder: "SpaceS" });
       const url = cl.url(
-        `v1708434267/SpaceS/${dataUserLogin?.profile_picture}.jpg`
+        `v1708434267/SpaceS/${dataUserLogin?.userDetail.profile_picture}.jpg`
       );
-      // console.log("url", url);
       setImageUrl(url);
     }
-  }, [dataUserLogin?.profile_picture]);
+    dispatch(fetchUserDetail());
+  }, [dataUserLogin?.userDetail.profile_picture]);
 
   return (
     <>

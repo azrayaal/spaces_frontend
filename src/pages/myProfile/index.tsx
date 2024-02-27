@@ -74,7 +74,7 @@ export default function MyProfile() {
           borderTopRadius={"md"}
           h={200}
           w="100%"
-          src="https://source.unsplash.com/EvZZ_68sQwM"
+          src={`${imgCLoud}${detailUser?.header}.jpg`}
           alt="Caffe Latte"
         />
         <Box m={4} color="gray.100">

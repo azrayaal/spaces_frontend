@@ -107,7 +107,7 @@ export const checkLogin = () => {
   // const userDetail = useSelector((state: RootState) => state.userDetail);
   // console.log("userDetail from promiseHooks", userDetail);
 
-  const [isLogin, setIsLogInMy profile] = useState<Boolean>(false);
+  const [isLogin, setIsLogIn] = useState<Boolean>(false);
   // const [dataUserLogin, setDataUserLogin] = useState<UserFromPayloadRedux>();
 
   useEffect(() => {
@@ -124,5 +124,3 @@ export const checkLogin = () => {
   // return { dataUserLogin, isLogin };
   return { isLogin };
 };
-
-export 

@@ -16,6 +16,7 @@ export default function SideProfile(props: any) {
     username,
     profile_description,
     id,
+    header,
     profile_picture,
     followingTotal,
     followerTotal,
@@ -39,7 +40,7 @@ export default function SideProfile(props: any) {
               borderRadius="md"
               h={20}
               w="100%"
-              src="https://source.unsplash.com/EvZZ_68sQwM"
+              src={`${img}${header}.jpg`}
               alt="Caffe Latte"
             />
             <Center>

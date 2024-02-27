@@ -9,8 +9,7 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 
 export default function MainContent() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const dataContent = useSelector((state: RootState) => state.content);
-  console.log("dataCOntent", dataContent);
+  const dataContent = useSelector((state: RootState) => state.content.contents);
 
   useEffect(() => {
     dispatch(fetchContent());
@@ -23,7 +22,7 @@ export default function MainContent() {
       <Center></Center>
       {/* content */}
 
-      {dataContent.contents.map((data: DataContentTypes) => (
+      {dataContent.map((data: DataContentTypes) => (
         <ContentSpace
           key={data.id}
           id={data.id}

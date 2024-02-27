@@ -23,7 +23,7 @@ const initialState: ContentState = {
 };
 
 const contentSlice = createSlice({
-  name: "content",
+  name: "contents",
   initialState,
   // reducers: {
   //   setContent: (state, action) => {

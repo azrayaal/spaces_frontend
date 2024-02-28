@@ -1,15 +1,16 @@
 import ContentSpace from "../../../components/content";
 import PostInput from "../../../components/postInput";
-import { Center } from "@chakra-ui/react";
+import { Center, Image } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { DataContentTypes, RootState } from "../../../datas/data-types";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContent } from "../../../features/contentSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
+// import { useRedux } from "../../../hooks";
 
 export default function MainContent() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const dataContent = useSelector((state: RootState) => state.content.contents);
+  const dataContent = useSelector((state: RootState) => state.content.data);
 
   useEffect(() => {
     dispatch(fetchContent());

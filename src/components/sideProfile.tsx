@@ -9,6 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { useImgUrl } from "../hooks";
 
 export default function SideProfile(props: any) {
   const {
@@ -25,7 +26,7 @@ export default function SideProfile(props: any) {
   const handleClick = () => {
     navigate(`/my-profile`);
   };
-  const img = `http://res.cloudinary.com/ddpo1vjim/image/upload/v1708434267/SpaceS/`;
+  const { imageUrl } = useImgUrl();
 
   return (
     <Box m={4}>
@@ -40,7 +41,7 @@ export default function SideProfile(props: any) {
               borderRadius="md"
               h={20}
               w="100%"
-              src={`${img}${header}.jpg`}
+              src={`${imageUrl}${header}.jpg`}
               alt="Caffe Latte"
             />
             <Center>
@@ -55,7 +56,7 @@ export default function SideProfile(props: any) {
                 w={14}
                 left={2}
                 maxW={{ base: "100%", sm: "200px" }}
-                src={`${img}${profile_picture}.jpg`}
+                src={`${imageUrl}${profile_picture}.jpg`}
                 alt="Caffe Latte"
               />
             </Center>

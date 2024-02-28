@@ -19,6 +19,7 @@ import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import React, { useState, useEffect } from "react";
+import { useImgUrl } from "../hooks";
 
 export default function ContentSpace(props: DataContentTypes) {
   const {
@@ -41,7 +42,8 @@ export default function ContentSpace(props: DataContentTypes) {
     setLiked(true);
   };
 
-  const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708411150/SpaceS/`;
+  const { imageUrl } = useImgUrl();
+
   const openOption = () => {
     setOpenOpt(true);
   };
@@ -137,7 +139,8 @@ export default function ContentSpace(props: DataContentTypes) {
             maxW={{ base: "56px", sm: "56px" }}
             minH={{ base: "56px", sm: "56px" }}
             maxH={{ base: "56px", sm: "56px" }}
-            src={`${imgCLoud}${profile_picture}.jpg`}
+            // src={`${imageUrl}${profile_picture}.jpg`}
+            src={`${imageUrl}${profile_picture}.jpg`}
           />
           <Stack>
             <CardBody w={480}>
@@ -157,10 +160,10 @@ export default function ContentSpace(props: DataContentTypes) {
                 </Box>
                 <Box py="2">{content}</Box>
 
-                <Image
-                  // src={`${imgCLoud}${avatar}.jpg`}
-                  borderRadius={10}
-                ></Image>
+                {image && (
+                  <Image src={`${imageUrl}${image}.jpg`} borderRadius={10} />
+                )}
+
                 <Flex pt="2">
                   <Text
                     fontSize="16"
@@ -231,12 +234,20 @@ export default function ContentSpace(props: DataContentTypes) {
                     @{username}
                   </Text>
                 </Flex>
-                <Image src={image} borderRadius={10} />
+                {/* <Image
+                  src={`https://res.cloudinary.com/ddpo1vjim/image/upload/v1709088253/SpaceS/hcjqoaztmmi2ykok6wpi.png`}
+                  borderRadius={10}
+                /> */}
+                {/* <Image src={`${imageUrl}${image}.jpg`} borderRadius={10} /> */}
               </Box>
               <Box py="2">{content}</Box>
             </GridItem>
           </Grid>
         </Card>
+        <Image
+          src={`https://res.cloudinary.com/ddpo1vjim/image/upload/v1709081319/SpaceS/420493985_10168814166540727_1543298811460332584_n-1709081317356.png.jpg`}
+          borderRadius={10}
+        />
       </Box>
     </>
   );

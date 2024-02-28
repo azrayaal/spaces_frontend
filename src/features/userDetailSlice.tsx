@@ -3,8 +3,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API } from "../libs/api";
 import {
   DetailUserTypes,
-  UserFromPayload,
   UserFromPayloadRedux,
+  // UserFromPayload,
+  // UserFromPayloadRedux,
 } from "../datas/data-types";
 
 import Cookies from "js-cookie";
@@ -20,7 +21,9 @@ export const fetchUserDetail = createAsyncThunk(
       const idUserLogin = payload.user.id;
 
       try {
-        const response = await API.get<UserDetailState>(`user/${idUserLogin}`);
+        const response = await API.get<UserDetailState[]>(
+          `user/${idUserLogin}`
+        );
 
         return response.data;
       } catch (error) {
@@ -32,16 +35,15 @@ export const fetchUserDetail = createAsyncThunk(
 );
 
 export interface UserDetailState {
-  // isLoading: boolean;
-  // isError: boolean;
+  isLoading: boolean;
+  isError: boolean;
   // userDetail: WritableDraft<UserFromPayloadRedux>;
   userDetail: UserFromPayloadRedux;
   // userDetail: UserFromPayload;
 }
-
 const initialState: UserDetailState = {
-  // isLoading: false,
-  // isError: false,
+  isLoading: false,
+  isError: false,
   // userDetail: null,
   userDetail: {
     id: 0,
@@ -109,18 +111,6 @@ export const userDetailSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchUserDetail.fulfilled, (state, action) => {
       state.userDetail = action.payload;
-      // state.userDetail.id = action.payload?.userDetail.id;
-      // state.userDetail.email = action.payload?.userDetail.email;
-      // state.userDetail.full_name = action.payload?.userDetail.full_name;
-      // state.userDetail.username = action.payload?.userDetail.username;
-      // state.userDetail.email = action.payload?.userDetail.email;
-      // state.userDetail.profile_picture =
-      //   action.payload?.userDetail.profile_picture;
-      // state.userDetail.profile_description =
-      //   action.payload?.userDetail.profile_description;
-      // state.userDetail.followingTotal =
-      //   action.payload?.userDetail.followingTotal;
-      // state.userDetail.followerTotal = action.payload?.userDetail.followerTotal;
     });
   },
 });

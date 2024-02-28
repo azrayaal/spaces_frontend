@@ -2,7 +2,12 @@ import Cookies from "js-cookie";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { API } from "../libs/api";
+import { API, API_Header } from "../libs/api";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../datas/data-types";
+import { fetchContent } from "../features/contentSlice";
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { Cloudinary } from "cloudinary-core";
 // import { useDispatch, useSelector } from "react-redux";
 // import { ThunkDispatch } from "@reduxjs/toolkit";
 // import { RootState, UserFromPayloadRedux } from "../datas/data-types";
@@ -102,25 +107,113 @@ export const onSubmitLogin = () => {
   };
 };
 
-export const checkLogin = () => {
-  // const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  // const userDetail = useSelector((state: RootState) => state.userDetail);
-  // console.log("userDetail from promiseHooks", userDetail);
+export const useOnSubmitPost = () => {
+  // const navigate = useNavigate();
+  const toast = useToast();
+  const [imagePreview, setImagePreview] = useState<any>(null);
 
+  const dataUserogin = useSelector(
+    (state: RootState) => state.userDetail.userDetail.id
+  );
+
+  // const files = (event.target as HTMLInputElement).files;
+
+  const [form, setForm] = useState({
+    content: "",
+    userId: dataUserogin,
+    image: File,
+  });
+
+  const handleDataPost = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+
+    setForm({
+      ...form,
+      [name]: name === "image" ? files![0] : e.target.value,
+    });
+
+    // Set image preview
+    if (name === "image" && files && files![0]) {
+      setImagePreview(URL.createObjectURL(files![0]));
+    }
+  };
+
+  const postContent = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      console.log("data post", form);
+      try {
+        const response = await API_Header.post("spaces", form);
+        toast({
+          title: "POST",
+          description: `SUCCES!`,
+          position: "top-left",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        console.log("response post", response);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 2000);
+      } catch (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return {
+    postContent,
+    handleDataPost,
+    imagePreview,
+  };
+};
+
+export const checkLogin = () => {
   const [isLogin, setIsLogIn] = useState<Boolean>(false);
-  // const [dataUserLogin, setDataUserLogin] = useState<UserFromPayloadRedux>();
 
   useEffect(() => {
-    // dispatch(fetchUserDetail());
-
     const token = Cookies.get("token");
-    // setDataUserLogin(userDetail.userDetail);
     if (token) {
       setIsLogIn(true);
-      // userDetail;
     }
   }, []);
 
-  // return { dataUserLogin, isLogin };
   return { isLogin };
+};
+
+export const useImgUrl = () => {
+  const [imageUrl] = useState<string>(
+    `http://res.cloudinary.com/ddpo1vjim/image/upload/v1708434267/SpaceS/`
+  );
+  // const dataUserLogin = useSelector((state: RootState) => state.userDetail);
+
+  // const [imageUrl, setImageUrl] = useState<string>("");
+
+  // const { isLogin } = checkLogin();
+  // console.log("isLogin hooks img url", isLogin);
+  // if (isLogin) {
+  //   useEffect(() => {
+  //     if (dataUserLogin?.userDetail.profile_picture) {
+  //       const cl = new Cloudinary({
+  //         cloud_name: "ddpo1vjim",
+  //         folder: "SpaceS",
+  //       });
+  //       const url = cl.url(
+  //         `v1708434267/SpaceS/${dataUserLogin?.userDetail.profile_picture}.jpg`
+  //       );
+  //       setImageUrl(url);
+  //     }
+  //   }, [dataUserLogin?.userDetail.profile_picture]);
+  // } else {
+  //   useEffect(() => {
+  //     setImageUrl("");
+  //   }, []);
+  // }
+
+  // console.log("imgUrl", imageUrl);
+
+  return { imageUrl };
 };

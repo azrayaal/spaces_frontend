@@ -1,9 +1,9 @@
 import { Box, Card, Heading } from "@chakra-ui/react";
 import Suggestions from "../../../components/suggestion";
 import SideProfile from "../../../components/sideProfile";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SideProfileNotLogin from "../../../components/sideProfileNotLogin";
-import { RootState, SuggestionTypes } from "../../../datas/data-types";
+import { RootState, SuggestionTypesRedux } from "../../../datas/data-types";
 import { checkLogin } from "../../../hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserDetail } from "../../../features/userDetailSlice";
@@ -15,18 +15,15 @@ export default function ProfileNSuggest() {
   const dataUserLogin = useSelector(
     (state: RootState) => state.userDetail.userDetail
   );
-  const suggestData = useSelector(
-    (state: RootState) => state.suggests.suggests.suggestions
-  );
-  // const data = suggestData.suggests.suggestions;
+  const suggestData = useSelector((state: RootState) => state.suggests.data);
+
   const { isLogin } = checkLogin();
-  console.log("datasuggest dari profile", suggestData);
-  console.log("dataUserLogin dari profile", dataUserLogin);
 
   useEffect(() => {
-    // dispatch(fetchUserDetail());
+    dispatch(fetchUserDetail());
     dispatch(fetchSuggest());
   }, []);
+
   return (
     <>
       {isLogin ? (
@@ -47,14 +44,20 @@ export default function ProfileNSuggest() {
                 Suggested for you
               </Heading>
 
-              {suggestData.map((i: SuggestionTypes[]) => (
-                <Suggestions
-                  key={i.id}
-                  avatar={i.profile_picture}
-                  profileName={i.full_name}
-                  userName={i.username}
-                />
-              ))}
+              {Array.isArray(suggestData) && suggestData.length > 0 ? (
+                suggestData.map((data: SuggestionTypesRedux) => (
+                  <Suggestions
+                    key={data.id}
+                    avatar={data.profile_picture}
+                    profileName={data.full_name}
+                    userName={data.username}
+                  />
+                ))
+              ) : (
+                <Box p={4}>
+                  <p>No suggestions available</p>
+                </Box>
+              )}
             </Card>
           </Box>
         </>

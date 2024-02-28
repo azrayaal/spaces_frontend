@@ -10,24 +10,24 @@ import {
   Grid,
   GridItem,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  DetailUserTypes,
-  RootState,
-  UserFromPayload,
-  UserFromPayloadRedux,
-} from "../../datas/data-types";
-import { useDispatch, useSelector } from "react-redux";
-import { ThunkDispatch } from "@reduxjs/toolkit";
-// import { fetchUserDetailFromToken } from "../../features/userDetailThunks";
+import { RootState, UserFromPayloadRedux } from "../../datas/data-types";
+import { useSelector } from "react-redux";
+import { useImgUrl } from "../../hooks";
 
 export default function MyProfile() {
-  const [detailUser, setDetailUser] = useState<UserFromPayloadRedux>();
   const [activeContent, setActiveContent] = useState<Boolean>(false);
   const [activeFollowing, setActiveFollowing] = useState<Boolean>(false);
   const [activeFollower, setActiveFollower] = useState<Boolean>(false);
+
+  const { imageUrl } = useImgUrl();
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const editProfile = () => {
+    navigate("/edit-profile");
+  };
 
   const handleActiveContent = () => {
     setActiveFollowing(false);
@@ -45,23 +45,11 @@ export default function MyProfile() {
     setActiveFollower(true);
   };
 
-  const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708435567/SpaceS/`;
+  const userDetail = useSelector(
+    (state: RootState) => state.userDetail.userDetail
+  );
 
-  const { id } = useParams();
-  const navigate = useNavigate();
-
-  const editProfile = () => {
-    navigate("/edit-profile");
-  };
-
-  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const userDetail = useSelector((state: RootState) => state.userDetail);
-  console.log("userDetailRedux", userDetail.userDetail);
-
-  useEffect(() => {
-    setDetailUser(userDetail.userDetail);
-    // dispatch(fetchUserDetailFromToken());
-  }, [id]);
+  useEffect(() => {}, [id]);
   return (
     // <Box pb={4}>
     <>
@@ -74,7 +62,7 @@ export default function MyProfile() {
           borderTopRadius={"md"}
           h={200}
           w="100%"
-          src={`${imgCLoud}${detailUser?.header}.jpg`}
+          src={`${imageUrl}${userDetail.header}.jpg`}
           alt="Caffe Latte"
         />
         <Box m={4} color="gray.100">
@@ -91,8 +79,7 @@ export default function MyProfile() {
                 w={28}
                 left={2}
                 maxW={{ base: "100%", sm: "200px" }}
-                // src={`${profilePict}.jpg`}
-                src={`${imgCLoud}${detailUser?.profile_picture}.jpg`}
+                src={`${imageUrl}${userDetail.profile_picture}.jpg`}
                 alt="Caffe Latte"
               />
             </Center>
@@ -109,16 +96,16 @@ export default function MyProfile() {
             </Box>
           </Box>
           <Heading size="md" mt={62}>
-            {detailUser?.full_name}
+            {userDetail.full_name}
           </Heading>
           <Text fontSize="md" color={"gray.400"}>
-            @{detailUser?.username}
+            @{userDetail.username}
           </Text>
           <Text fontSize="md" py={2}>
-            {detailUser?.profile_description}
+            {userDetail.profile_description}
           </Text>
           <Text fontSize="md" color={"gray.400"} pb={3}>
-            Joined {detailUser?.created_at}
+            Joined {userDetail.created_at}
           </Text>
         </Box>
       </Box>
@@ -171,7 +158,7 @@ export default function MyProfile() {
                 <Box>
                   <Flex>
                     <Text fontSize="sm" py={2} as="b">
-                      {detailUser?.followingTotal}
+                      {userDetail.followingTotal}
                     </Text>
                     <Text
                       fontSize="sm"
@@ -204,7 +191,7 @@ export default function MyProfile() {
                 <Box>
                   <Flex pl={4}>
                     <Text fontSize="sm" py={2} as="b">
-                      {detailUser?.followerTotal}
+                      {userDetail.followerTotal}
                     </Text>
                     <Text
                       fontSize="sm"

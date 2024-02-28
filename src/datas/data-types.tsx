@@ -109,14 +109,15 @@ export interface SuggestionTypes {
   email: string;
   profile_picture: string;
   profile_description: string;
-  suggestions: {
-    id: number;
-    username: string;
-    full_name: string;
-    email: string;
-    profile_picture: string;
-    profile_description: string;
-  };
+
+  // suggestions: {
+  //   id: number;
+  //   username: string;
+  //   full_name: string;
+  //   email: string;
+  //   profile_picture: string;
+  //   profile_description: string;
+  // };
 }
 
 export interface DataDetailTypes {
@@ -153,29 +154,21 @@ export interface DataContentTypes {
   profile_picture: string;
 }
 
-export interface DataContentTypes {
-  id: number;
-  content: string;
-  image: string;
-  created_at: any;
-  Total_Likes: number;
-  Total_Replies: number;
-  user: {
-    full_name: string;
-    username: string;
-    profile_picture: string;
-    id: string;
-  };
-  full_name: string;
-  username: string;
-  profile_picture: string;
-}
-
 export interface SuggestionTypesRedux {
-  full_name: string;
-  username: string;
-  profile_picture: string;
+  suggestions: {
+    id: number;
+    username: string;
+    full_name: string;
+    email: string;
+    profile_picture: string;
+    profile_description: string;
+  };
   id: number;
+  username: string;
+  full_name: string;
+  email: string;
+  profile_picture: string;
+  profile_description: string;
 }
 
 import { store } from "../store/index";

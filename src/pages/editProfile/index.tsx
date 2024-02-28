@@ -1,6 +1,9 @@
 import { Box, Image, Center, Button, Text, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { RiImageAddFill } from "react-icons/ri";
+import { useSelector } from "react-redux";
+import { RootState } from "../../datas/data-types";
+import { useImgUrl } from "../../hooks";
 
 export default function EditProfile() {
   const [editFull_name, setEditFullName] = useState<string>("");
@@ -10,6 +13,13 @@ export default function EditProfile() {
   const [profilePreview, setProfilePreview] = useState<any>(null);
   const [editHeader, setEditHeader] = useState<any>();
   const [headerPreview, setHeaderPreview] = useState<any>(null);
+
+  const detailUser = useSelector(
+    (state: RootState) => state.userDetail.userDetail
+  );
+  const { imageUrl } = useImgUrl();
+
+  console.log(imageUrl);
 
   return (
     // <Box pb={4}>
@@ -78,7 +88,7 @@ export default function EditProfile() {
               borderTopRadius={"md"}
               h={200}
               w="100%"
-              src="https://source.unsplash.com/EvZZ_68sQwM"
+              src={`${imageUrl}${detailUser.header}.jpg`}
               alt="Caffe Latte"
               filter="grayscale(80%)"
             />
@@ -165,7 +175,7 @@ export default function EditProfile() {
               maxW={{ base: "100%", sm: "200px" }}
               // src={`${profilePict}.jpg`}
               filter="grayscale(80%)"
-              src={`https://source.unsplash.com/EvZZ_68sQwM`}
+              src={`${imageUrl}${detailUser.profile_picture}.jpg`}
               alt="Caffe Latte"
             />
           </Center>
@@ -194,7 +204,7 @@ export default function EditProfile() {
             marginTop: "24px",
           }}
           rows={1}
-          placeholder="Full Name"
+          placeholder={detailUser.full_name}
           value={editFull_name}
           onChange={(event) => setEditFullName(event.target.value)}
         />
@@ -211,7 +221,7 @@ export default function EditProfile() {
             // marginTop: "24px",
           }}
           rows={1}
-          placeholder="@username"
+          placeholder={`@${detailUser.username}`}
           value={editusername}
           onChange={(event) => setEditUsername(event.target.value)}
         />
@@ -229,7 +239,7 @@ export default function EditProfile() {
             marginBottom: "8px",
           }}
           rows={1}
-          placeholder="BIO"
+          placeholder={detailUser.profile_description}
           value={editbio}
           onChange={(event) => setEditBio(event.target.value)}
         />

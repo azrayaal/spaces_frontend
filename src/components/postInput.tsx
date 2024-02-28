@@ -12,45 +12,44 @@ import {
 } from "@chakra-ui/react";
 import { RiImageAddFill } from "react-icons/ri";
 import { useEffect, useRef, useState } from "react";
-import { APIPOST } from "../libs/api";
+import { API_Header } from "../libs/api";
 import { Cloudinary } from "cloudinary-core";
-import { checkLogin } from "../hooks";
+import { checkLogin, useOnSubmitPost, useImgUrl } from "../hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { RootState } from "../datas/data-types";
-import { fetchUserDetail } from "../features/userDetailSlice";
-// import dotenv from "dotenv";
 
 export default function PostInput() {
-  const [postImage, setPostImage] = useState<any>();
-  const [postContent, setPostContent] = useState<string>("");
-  const [imagePreview, setImagePreview] = useState<any>(null);
-  const [imageUrl, setImageUrl] = useState<string>("");
+  // const [postImage, setPostImage] = useState<any>();
+  // const [postContent, setPostContent] = useState<string>("");
+  // const [imagePreview, setImagePreview] = useState<any>(null);
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { isLogin } = checkLogin();
-  console.log(isLogin);
+  const { imageUrl } = useImgUrl();
 
-  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const dataUserLogin = useSelector((state: RootState) => state.userDetail);
 
-  const onSubmit = async (e: any) => {
-    e.preventDefault();
-    try {
-      const data = {
-        content: postContent,
-        image: postImage,
-        userId: dataUserLogin?.userDetail.id,
-      };
-      await APIPOST.post("spaces", data);
-      console.log("data post", data);
-    } catch (error) {
-      console.log(error);
-    }
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
-  };
+  // const onSubmit = async (e: any) => {
+  //   e.preventDefault();
+  //   try {
+  //     const data = {
+  //       content: postContent,
+  //       image: postImage,
+  //       userId: dataUserLogin?.userDetail.id,
+  //     };
+  //     await API_Header.post("spaces", data);
+  //     console.log("data post", data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 2000);
+  // };
+
+  const { handleDataPost, postContent, imagePreview } = useOnSubmitPost();
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -60,16 +59,7 @@ export default function PostInput() {
         this.style.height = this.scrollHeight + "px";
       });
     }
-
-    if (dataUserLogin?.userDetail.profile_picture) {
-      const cl = new Cloudinary({ cloud_name: "ddpo1vjim", folder: "SpaceS" });
-      const url = cl.url(
-        `v1708434267/SpaceS/${dataUserLogin?.userDetail.profile_picture}.jpg`
-      );
-      setImageUrl(url);
-    }
-    dispatch(fetchUserDetail());
-  }, [dataUserLogin?.userDetail.profile_picture]);
+  }, []);
 
   return (
     <>
@@ -91,21 +81,21 @@ export default function PostInput() {
                 marginLeft={4}
                 marginTop={4}
                 maxW={{ base: "100%", sm: "200px" }}
-                src={`${imageUrl}`}
+                src={`${imageUrl}${dataUserLogin.userDetail.profile_picture}.jpg`}
                 className="avatar"
                 alt="this.src='/bx-space-bar.sv';"
               />
               <form
                 // action="post"
                 encType="multipart/form-data"
-                onSubmit={onSubmit}
+                onSubmit={(e) => postContent(e)}
                 style={{ width: "100%" }}
               >
                 <CardBody>
                   <Flex color="gray.600" gap={4}>
                     {/* input text */}
-                    <textarea
-                      ref={textareaRef}
+                    <input
+                      // ref={textareaRef}
                       id="myTextarea"
                       style={{
                         color: "#CBD5E0",
@@ -117,11 +107,13 @@ export default function PostInput() {
                         resize: "none",
                         outline: "none",
                       }}
-                      rows={1}
+                      // rows={1}
                       placeholder="What's Happening?!"
-                      value={postContent}
-                      onChange={(event) => setPostContent(event.target.value)}
-                    ></textarea>
+                      name="content"
+                      // value={postContent}
+                      // onChange={(event) => setPostContent(event.target.value)}
+                      onChange={(e) => handleDataPost(e)}
+                    ></input>
                   </Flex>
                   {/* input IMG */}
                   <label htmlFor="image">
@@ -157,19 +149,31 @@ export default function PostInput() {
                             </Text>
                           </Center>
                         </Box>
+                        {/* <Input
+                          type="file"
+                          id="image"
+                          accept="image/png, image/jpeg"
+                          name="image"
+                          formEncType="multipart/form-data"
+                          // onChange={(e) => handleDataPost(e.target.files![0])}
+                          // onChange={(e) => {
+                          //   const img = e.target.files![0];
+
+                          // handleDataPost(img);
+                          // setImagePreview(URL.createObjectURL(img));
+                          // console.log("img url", URL.createObjectURL(img));
+                          // console.log("img file", img);
+                          // setPostImage(img);
+                          // }}
+                          display={"none"}
+                        /> */}
                         <Input
                           type="file"
                           id="image"
                           accept="image/png, image/jpeg"
                           name="image"
                           formEncType="multipart/form-data"
-                          onChange={(event) => {
-                            const img = event.target.files![0];
-                            setImagePreview(URL.createObjectURL(img));
-                            // console.log("img url", URL.createObjectURL(img));
-                            // console.log("img file", img);
-                            setPostImage(img);
-                          }}
+                          onChange={handleDataPost}
                           display={"none"}
                         />
                       </Box>

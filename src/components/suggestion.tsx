@@ -8,6 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useImgUrl } from "../hooks";
 
 export interface SuggestionProps {
   avatar: string;
@@ -20,6 +21,7 @@ export default function Suggestions(props: SuggestionProps) {
 
   const [followed, setFollowed] = useState<boolean>(false);
   const imgCLoud = `http://res.cloudinary.com/ddpo1vjim/image/upload/v1708434267/SpaceS/`;
+
   const onFollowed = () => {
     setFollowed(!followed);
   };

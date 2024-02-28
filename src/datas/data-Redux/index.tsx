@@ -2,6 +2,7 @@ import {
   DataContentTypes,
   DetailUserTypes,
   SuggestionTypes,
+  SuggestionTypesRedux,
   UserFromPayload,
   UserFromPayloadRedux,
 } from "../data-types";
@@ -9,20 +10,15 @@ import {
 export interface ContentState {
   isLoading: boolean;
   isError: boolean;
-  contents: DataContentTypes[];
+  data: DataContentTypes[];
 }
 
 export interface SuggestState {
   isLoading: boolean;
   isError: boolean;
-  data: SuggestionTypes[];
-  // suggests: any;
+  data: SuggestionTypesRedux[];
 }
 
 export interface UserDetailState {
-  // isLoading: boolean;
-  // isError: boolean;
-  // userDetail: WritableDraft<UserFromPayloadRedux>;
   userDetail: UserFromPayloadRedux | null;
-  // userDetail: UserFromPayload;
 }

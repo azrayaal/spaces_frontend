@@ -1,26 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {
-  DataContentTypes,
-  SuggestionTypes,
-  SuggestionTypesRedux,
-} from "../datas/data-types";
-import { API, APIPOST } from "../libs/api";
+import { API_Header } from "../libs/api";
 import { SuggestState } from "../datas/data-Redux";
-import axios from "axios";
+import Cookies from "js-cookie";
 
 export const fetchSuggest = createAsyncThunk(
   "suggest/fetchSuggest",
   async () => {
-    try {
-      const response = await APIPOST.get<SuggestionTypes[]>("suggestion");
-      //   const response = await axios.get<SuggestionTypes[]>(
-      //     "http://localhost:3000/api/v1/suggestion"
-      //   );
-      //   console.log("response.data.suggestions", response.data);
-      return response.data;
-    } catch (error) {
-      console.log("Error while fetching content:", error);
-      throw error;
+    const token = Cookies.get("token");
+    if (token) {
+      try {
+        const response = await API_Header.get("suggestion");
+        return response.data;
+      } catch (error) {
+        console.log("Error while fetching content:", error);
+        throw error;
+      }
     }
   }
 );
@@ -40,7 +34,6 @@ const suggestSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(fetchSuggest.fulfilled, (state, action) => {
-      // console.log("action payload", action.payload);
       state.isLoading = false;
       state.data = action.payload;
       state.isError = false;

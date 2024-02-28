@@ -29,10 +29,10 @@ const token = Cookies.get("token");
 const jwtToken = token ? atob(token) : null;
 
 // Define headers with Authorization token
-const headers = {
-  Authorization: `Bearer ${jwtToken}`,
-  "Content-type": "multipart/form-data",
-};
+// const headers = {
+//   Authorization: `Bearer ${jwtToken}`,
+//   "Content-type": "multipart/form-data",
+// };
 
 // Create Axios instance for general requests (API)
 const API: AxiosInstance = axios.create({
@@ -41,10 +41,13 @@ const API: AxiosInstance = axios.create({
 });
 
 // Create Axios instance with custom headers for authorized requests (APIPOST)
-const APIPOST: AxiosInstance = axios.create({
+const API_Header: AxiosInstance = axios.create({
   baseURL: `http://localhost:3000/api/v1/`,
-  headers,
+  headers: {
+    Authorization: `Bearer ${jwtToken}`,
+    "Content-type": "multipart/form-data",
+  },
 });
 
 // Export both API and APIPOST
-export { API, APIPOST };
+export { API, API_Header };

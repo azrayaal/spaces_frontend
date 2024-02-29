@@ -61,7 +61,6 @@ export default function PostInput() {
                 alt="this.src='/bx-space-bar.sv';"
               />
               <form
-                // action="post"
                 encType="multipart/form-data"
                 onSubmit={(e) => postContent(e)}
                 style={{ width: "100%" }}

@@ -1,5 +1,6 @@
 import {
   DataContentTypes,
+  DataDetailTypes,
   DetailUserTypes,
   SuggestionTypes,
   SuggestionTypesRedux,
@@ -11,6 +12,13 @@ export interface ContentState {
   isLoading: boolean;
   isError: boolean;
   data: DataContentTypes[];
+}
+
+export interface ContentDetailState {
+  isLoading: boolean;
+  isError: boolean;
+  data: DataDetailTypes;
+  // data: DataContentTypes[];
 }
 
 export interface SuggestState {

@@ -14,27 +14,28 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import { DataDetailTypes } from "../../datas/data-types";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchContentDetail } from "../../features/contentDetail.slice";
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { RootState } from "../../datas/data-types";
+import ContentSpace from "../../components/content";
 
 export default function DetailContent() {
-  const [dataDetail, setDataDetail] = useState<DataDetailTypes>();
   const { id } = useParams();
-  const imgCLoud = `https://res.cloudinary.com/ddpo1vjim/image/upload/v1708243347/${dataDetail?.user.profile_picture}`;
+  const dataId = parseInt(id);
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
+  const dataDetail = useSelector((state: RootState) => state.contentDetail);
+  const userloginId = useSelector(
+    (state: RootState) => state.userDetail.userDetail
+  );
+  console.log(dataDetail);
+
+  const imgCLoud = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
 
   useEffect(() => {
-    const getDataDetail = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3000/api/v1/spaces/${id}`
-        );
-        // console.log("response.data", response.data);
-        setDataDetail(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getDataDetail();
-  }, [id]);
+    dispatch(fetchContentDetail(dataId));
+  }, [dataId]);
 
   return (
     <>
@@ -58,7 +59,7 @@ export default function DetailContent() {
             maxW={{ base: "56px", sm: "56px" }}
             minH={{ base: "56px", sm: "56px" }}
             maxH={{ base: "56px", sm: "56px" }}
-            src={`${imgCLoud}.jpg`}
+            src={`${imgCLoud}${dataDetail.user.profile_picture}.jpg`}
             alt="this.src='/bx-space-bar.sv';"
           />
           <Stack>
@@ -66,9 +67,9 @@ export default function DetailContent() {
               <Box>
                 <Flex>
                   <Center>
-                    <Heading size="md">{dataDetail?.user.full_name}</Heading>
+                    <Heading size="md">{dataDetail.user.full_name}</Heading>
                     <Text pt="1" color="gray.400" px={2}>
-                      @{dataDetail?.user.username}
+                      @{dataDetail.user.username}
                     </Text>
                     <Text pt="1" color="gray.400">
                       •12h
@@ -76,9 +77,14 @@ export default function DetailContent() {
                   </Center>
                 </Flex>
               </Box>
-              <Text py="2">{dataDetail?.content}</Text>
+              <Text py="2">{dataDetail.content}</Text>
 
-              {/* <Image src={dataDetail?.content} borderRadius={10}></Image> */}
+              {dataDetail.image && (
+                <Image
+                  src={`${imgCLoud}${dataDetail.image}.jpg`}
+                  borderRadius={10}
+                ></Image>
+              )}
             </CardBody>
           </Stack>
         </Card>
@@ -92,7 +98,7 @@ export default function DetailContent() {
           bg="mainBg.200"
           borderColor="mainBg.200"
         >
-          {/* <Image
+          <Image
             borderRadius="100%"
             objectFit="cover"
             h={14}
@@ -100,33 +106,34 @@ export default function DetailContent() {
             marginLeft={4}
             marginTop={4}
             maxW={{ base: "100%", sm: "200px" }}
-            src={`${dataUser?.user.profile_picture}`}
+            src={`${imgCLoud}${userloginId.profile_picture}.jpg`}
             alt="this.src='/bx-space-bar.sv';"
-          /> */}
+          />
           <CardBody>
-            <Flex color="gray.600" gap={4}>
-              {/* input text */}
-              <textarea
-                // ref={textareaRef}
-                id="myTextarea"
-                style={{
-                  color: "#CBD5E0",
-                  backgroundColor: "#262626",
-                  padding: "0.1rem 0.1rem",
-                  width: "100%",
-                  fontSize: "1.1rem",
-                  lineHeight: "1.5",
-                  resize: "none",
-                  outline: "none",
-                }}
-                rows={1}
-                placeholder="Reply"
-                // value={postContent}
-                // onChange={(event) => setPostContent(event.target.value)}
-              ></textarea>
-            </Flex>
-            {/* input IMG */}
-            {/* <label htmlFor="image">
+            <form action="">
+              <Flex color="gray.600" gap={4}>
+                {/* input text */}
+                <textarea
+                  // ref={textareaRef}
+                  id="myTextarea"
+                  style={{
+                    color: "#CBD5E0",
+                    backgroundColor: "#262626",
+                    padding: "0.1rem 0.1rem",
+                    width: "100%",
+                    fontSize: "1.1rem",
+                    lineHeight: "1.5",
+                    resize: "none",
+                    outline: "none",
+                  }}
+                  rows={1}
+                  placeholder="Reply"
+                  // value={postContent}
+                  // onChange={(event) => setPostContent(event.target.value)}
+                ></textarea>
+              </Flex>
+              {/* input IMG */}
+              {/* <label htmlFor="image">
               {imagePreview ? (
                 <Image
                   width={200}
@@ -139,29 +146,29 @@ export default function DetailContent() {
                 <></>
               )}
             </label> */}
-            <Box mt={2}>
-              <div
-                style={{
-                  marginBottom: "10px",
-                  borderBottom: "2px solid #319795",
-                }}
-              />
-              <Flex>
-                <Box className="input img">
-                  <Box
-                    as="label"
-                    htmlFor="image"
-                    cursor="pointer"
-                    display="inline-block"
-                    margin="auto"
-                  >
-                    <Center>
-                      <Text color={"teal"} fontSize={20}>
-                        {/* <RiImageAddFill /> */}
-                      </Text>
-                    </Center>
-                  </Box>
-                  {/* <Input
+              <Box mt={2}>
+                <div
+                  style={{
+                    marginBottom: "10px",
+                    borderBottom: "2px solid #319795",
+                  }}
+                />
+                <Flex>
+                  <Box className="input img">
+                    <Box
+                      as="label"
+                      htmlFor="image"
+                      cursor="pointer"
+                      display="inline-block"
+                      margin="auto"
+                    >
+                      <Center>
+                        <Text color={"teal"} fontSize={20}>
+                          {/* <RiImageAddFill /> */}
+                        </Text>
+                      </Center>
+                    </Box>
+                    {/* <Input
                     type="file"
                     id="image"
                     accept="image/png, image/jpeg"
@@ -174,22 +181,41 @@ export default function DetailContent() {
                     }}
                     display={"none"}
                   /> */}
-                </Box>
-                <Spacer />
-                <Box className="post button">
-                  <Button
-                    borderRadius="50px"
-                    size="sm"
-                    colorScheme="teal"
-                    // onClick={onSubmit}
-                  >
-                    post
-                  </Button>
-                </Box>
-              </Flex>
-            </Box>
+                  </Box>
+                  <Spacer />
+                  <Box className="post button">
+                    <Button
+                      borderRadius="50px"
+                      size="sm"
+                      colorScheme="teal"
+                      type="submit"
+                      // onClick={onSubmit}
+                    >
+                      post
+                    </Button>
+                  </Box>
+                </Flex>
+              </Box>
+            </form>
           </CardBody>
         </Card>
+        {/* {DetailContent.map((data) => (
+          <ContentSpace
+            key={data.id}
+            id={data.id}
+            content={data.content}
+            image={data.image}
+            Total_Likes={data.Total_Likes}
+            Total_Replies={data.Total_Replies}
+            created_at={data.created_at}
+            userId={data.user.id}
+            profile_picture={data.user.profile_picture}
+            full_name={data.user.full_name}
+            username={data.user.username}
+            email={data.user.email}
+            user={data.user}
+          />
+        ))} */}
       </Box>
     </>
   );

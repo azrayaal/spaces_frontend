@@ -3,6 +3,9 @@ import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { API, API_Header } from "../libs/api";
+import { useDispatch } from "react-redux";
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { fetchContent } from "../features/contentSlice";
 
 export const onSubmitLogin = () => {
   const navigate = useNavigate();
@@ -121,7 +124,7 @@ export const useOnSubmitPost = () => {
       setImagePreview(URL.createObjectURL(files![0]));
     }
   };
-
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const postContent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("data post", form);
@@ -137,12 +140,15 @@ export const useOnSubmitPost = () => {
           isClosable: true,
         });
         console.log("response post", response);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        dispatch(fetchContent());
+
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 1000);
       } catch (error) {
         throw error;
       }
+      e.target.reset();
     } catch (error) {
       console.log(error);
     }

@@ -121,19 +121,25 @@ export interface SuggestionTypes {
 }
 
 export interface DataDetailTypes {
-  content: string;
   id: number;
+  content: string;
   image: string;
-  posted_at: number;
-  profile_picture: string;
+  created_at: string;
+  total_Replies: number;
+  total_Likes: number;
   user: {
-    email: string;
-    full_name: string;
+    id: number;
     username: string;
+    full_name: string;
     profile_picture: string;
-    profile_description: string;
-    id: string;
   };
+  replies: any[];
+  // {
+  //   content: string;
+  //   created_at: string;
+  //   id: number;
+  //   image: string;
+  // }
 }
 
 export interface DataContentTypes {
@@ -156,16 +162,6 @@ export interface DataContentTypes {
   username: string;
   profile_picture: string;
   email: string;
-
-  // spaces_id: number;
-  // spaces_content: string;
-  // spaces_image: null;
-  // user_id: number;
-  // full_name: string;
-  // username: string;
-  // email: string;
-  // profile_picture: string;
-  // profile_description: string;
 }
 
 export interface SuggestionTypesRedux {

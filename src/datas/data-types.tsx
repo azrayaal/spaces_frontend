@@ -147,11 +147,25 @@ export interface DataContentTypes {
     full_name: string;
     username: string;
     profile_picture: string;
-    id: string;
+    userId: number;
+    id: number;
+    email: string;
   };
+  userId: number;
   full_name: string;
   username: string;
   profile_picture: string;
+  email: string;
+
+  // spaces_id: number;
+  // spaces_content: string;
+  // spaces_image: null;
+  // user_id: number;
+  // full_name: string;
+  // username: string;
+  // email: string;
+  // profile_picture: string;
+  // profile_description: string;
 }
 
 export interface SuggestionTypesRedux {

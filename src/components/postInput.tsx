@@ -11,43 +11,18 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { RiImageAddFill } from "react-icons/ri";
-import { useEffect, useRef, useState } from "react";
-import { API_Header } from "../libs/api";
-import { Cloudinary } from "cloudinary-core";
+import { useEffect, useRef } from "react";
 import { checkLogin, useOnSubmitPost, useImgUrl } from "../hooks";
-import { useDispatch, useSelector } from "react-redux";
-import { ThunkDispatch } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 import { RootState } from "../datas/data-types";
 
 export default function PostInput() {
-  // const [postImage, setPostImage] = useState<any>();
-  // const [postContent, setPostContent] = useState<string>("");
-  // const [imagePreview, setImagePreview] = useState<any>(null);
-
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { isLogin } = checkLogin();
   const { imageUrl } = useImgUrl();
 
   const dataUserLogin = useSelector((state: RootState) => state.userDetail);
-
-  // const onSubmit = async (e: any) => {
-  //   e.preventDefault();
-  //   try {
-  //     const data = {
-  //       content: postContent,
-  //       image: postImage,
-  //       userId: dataUserLogin?.userDetail.id,
-  //     };
-  //     await API_Header.post("spaces", data);
-  //     console.log("data post", data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   setTimeout(() => {
-  //     window.location.reload();
-  //   }, 2000);
-  // };
 
   const { handleDataPost, postContent, imagePreview } = useOnSubmitPost();
 
@@ -149,24 +124,6 @@ export default function PostInput() {
                             </Text>
                           </Center>
                         </Box>
-                        {/* <Input
-                          type="file"
-                          id="image"
-                          accept="image/png, image/jpeg"
-                          name="image"
-                          formEncType="multipart/form-data"
-                          // onChange={(e) => handleDataPost(e.target.files![0])}
-                          // onChange={(e) => {
-                          //   const img = e.target.files![0];
-
-                          // handleDataPost(img);
-                          // setImagePreview(URL.createObjectURL(img));
-                          // console.log("img url", URL.createObjectURL(img));
-                          // console.log("img file", img);
-                          // setPostImage(img);
-                          // }}
-                          display={"none"}
-                        /> */}
                         <Input
                           type="file"
                           id="image"

@@ -17,6 +17,7 @@ import PostInput from "../../../components/postInput";
 
 import { dataSidebarLogIn } from "../../../datas/data-dummy";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function SideNavbar() {
   const [isLogin, setIsLogIn] = useState(false);
@@ -28,9 +29,10 @@ export default function SideNavbar() {
       setIsLogIn(true);
     }
   };
-
+  const navigate = useNavigate();
   const onLogout = () => {
     Cookies.remove("token");
+    navigate("/");
     window.location.reload();
   };
 

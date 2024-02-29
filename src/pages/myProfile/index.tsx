@@ -12,21 +12,20 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { RootState, UserFromPayloadRedux } from "../../datas/data-types";
+import { RootState } from "../../datas/data-types";
 import { useSelector } from "react-redux";
-import { useImgUrl } from "../../hooks";
 
 export default function MyProfile() {
   const [activeContent, setActiveContent] = useState<Boolean>(false);
   const [activeFollowing, setActiveFollowing] = useState<Boolean>(false);
   const [activeFollower, setActiveFollower] = useState<Boolean>(false);
 
-  const { imageUrl } = useImgUrl();
-  const { id } = useParams();
+  const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
+
   const navigate = useNavigate();
 
   const editProfile = () => {
-    navigate("/edit-profile");
+    navigate(`/edit-profile/${userDetail.id}`);
   };
 
   const handleActiveContent = () => {
@@ -49,7 +48,6 @@ export default function MyProfile() {
     (state: RootState) => state.userDetail.userDetail
   );
 
-  useEffect(() => {}, [id]);
   return (
     // <Box pb={4}>
     <>

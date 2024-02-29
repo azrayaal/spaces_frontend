@@ -12,14 +12,15 @@ import {
   GridItem,
   Spacer,
 } from "@chakra-ui/react";
-import { DataContentTypes } from "../datas/data-types";
+import { DataContentTypes, RootState } from "../datas/data-types";
 import { GrSettingsOption } from "react-icons/gr";
 import { IoChatboxSharp, IoShareSocialSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
-import React, { useState, useEffect } from "react";
-import { useImgUrl } from "../hooks";
+import { useState } from "react";
+import { checkLogin, useImgUrl } from "../hooks";
+import { useSelector } from "react-redux";
 
 export default function ContentSpace(props: DataContentTypes) {
   const {
@@ -29,23 +30,37 @@ export default function ContentSpace(props: DataContentTypes) {
     Total_Replies,
     Total_Likes,
     created_at,
-    user: { full_name, username, profile_picture },
+    user: { full_name, username, profile_picture, email },
   } = props;
   const [openOpt, setOpenOpt] = useState<Boolean>(false);
   const [liked, setLiked] = useState<Boolean>(false);
   const [commented, setcommented] = useState<Boolean>(false);
+  const { imageUrl } = useImgUrl();
+
+  // const { isLogin } = checkLogin();
+  // // let loginEmail = ''
+  // // if (isLogin) {
+  // const loginEmail = useSelector(
+  //   (state: RootState) => state.userDetail.userDetail.email
+  // );
+  // // }
+
+  // const openOption = () => {
+  //   if (loginEmail === email) {
+  //     setOpenOpt(true);
+  //   }
+  // };
+  const openOption = () => {
+    // if (loginEmail === email) {
+    setOpenOpt(true);
+    // }
+  };
 
   const switchComment = () => {
     setcommented(true);
   };
   const switchLike = () => {
     setLiked(true);
-  };
-
-  const { imageUrl } = useImgUrl();
-
-  const openOption = () => {
-    setOpenOpt(true);
   };
 
   const closeOption = () => {

@@ -11,7 +11,6 @@ import {
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";
-// import Cookies from "js-cookie";
 import { useState } from "react";
 import { IoMdBackspace } from "react-icons/io";
 import { useNavigate } from "react-router-dom";

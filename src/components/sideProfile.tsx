@@ -9,8 +9,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useImgUrl } from "../hooks";
-
 export default function SideProfile(props: any) {
   const {
     full_name,
@@ -26,7 +24,7 @@ export default function SideProfile(props: any) {
   const handleClick = () => {
     navigate(`/my-profile`);
   };
-  const { imageUrl } = useImgUrl();
+  const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
 
   return (
     <Box m={4}>

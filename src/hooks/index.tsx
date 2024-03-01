@@ -1,11 +1,12 @@
 import Cookies from "js-cookie";
 import { useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { API, API_Header } from "../libs/api";
 import { useDispatch } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { fetchContent } from "../features/contentSlice";
+import { fetchContentDetail } from "../features/contentDetailslice";
 
 export const onSubmitLogin = () => {
   const navigate = useNavigate();
@@ -128,7 +129,6 @@ export const useOnSubmitPost = () => {
 
   const postContent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("data post", form);
     try {
       try {
         const response = await API_Header.post("spaces", form);
@@ -149,7 +149,8 @@ export const useOnSubmitPost = () => {
       } catch (error) {
         throw error;
       }
-      e.target.reset();
+      const target = e.target as HTMLFormElement;
+      target.reset();
     } catch (error) {
       console.log(error);
     }
@@ -233,6 +234,69 @@ export const useOnsubmitRegister = () => {
   }
 };
 
+export const useOnSubmitReply = () => {
+  const toast = useToast();
+  const { id } = useParams();
+  const dataId = parseInt(id);
+
+  const [imagePreview, setImagePreview] = useState<any>(null);
+
+  const [form, setForm] = useState({
+    content: "",
+    spaceId: dataId,
+    image: File,
+  });
+
+  const handleReplyPost = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+
+    setForm({
+      ...form,
+      [name]: name === "image" ? files![0] : e.target.value,
+    });
+
+    if (name === "image" && files && files![0]) {
+      setImagePreview(URL.createObjectURL(files![0]));
+    }
+  };
+
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
+  const postReply = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await API_Header.post("reply", form);
+      // console.log(response);
+      dispatch(fetchContentDetail(dataId));
+      toast({
+        title: "Reply Status",
+        description: "Success!",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+        position: "top-left",
+      });
+
+      const target = e.target as HTMLFormElement;
+      target.reset();
+    } catch (error) {
+      throw error;
+    }
+  };
+  return {
+    postReply,
+    handleReplyPost,
+    imagePreview,
+  };
+};
+
+export const useLike = () => {
+  try {
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const useOnSubmitEdit = (id: any) => {
   const toast = useToast();
   const navigate = useNavigate();
@@ -298,12 +362,4 @@ export const checkLogin = () => {
   }, []);
 
   return { isLogin };
-};
-
-export const useImgUrl = () => {
-  const [imageUrl] = useState<string>(
-    `http://res.cloudinary.com/ddpo1vjim/image/upload/v1708434267/SpaceS/`
-  );
-
-  return { imageUrl };
 };

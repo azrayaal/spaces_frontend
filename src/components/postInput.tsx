@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { RiImageAddFill } from "react-icons/ri";
 import { useEffect, useRef } from "react";
-import { checkLogin, useOnSubmitPost, useImgUrl } from "../hooks";
+import { checkLogin, useOnSubmitPost } from "../hooks";
 import { useSelector } from "react-redux";
 import { RootState } from "../datas/data-types";
 
@@ -20,7 +20,8 @@ export default function PostInput() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { isLogin } = checkLogin();
-  const { imageUrl } = useImgUrl();
+
+  const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
 
   const dataUserLogin = useSelector((state: RootState) => state.userDetail);
 

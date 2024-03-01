@@ -19,7 +19,7 @@ import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { useState } from "react";
-import { checkLogin, useImgUrl } from "../hooks";
+import { checkLogin } from "../hooks";
 import { useSelector } from "react-redux";
 
 export default function ContentSpace(props: DataContentTypes) {
@@ -35,7 +35,7 @@ export default function ContentSpace(props: DataContentTypes) {
   const [openOpt, setOpenOpt] = useState<Boolean>(false);
   const [liked, setLiked] = useState<Boolean>(false);
   const [commented, setcommented] = useState<Boolean>(false);
-  const { imageUrl } = useImgUrl();
+  const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
 
   // const { isLogin } = checkLogin();
   // // let loginEmail = ''

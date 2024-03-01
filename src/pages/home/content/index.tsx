@@ -1,6 +1,5 @@
 import ContentSpace from "../../../components/content";
 import PostInput from "../../../components/postInput";
-import { Center } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { DataContentTypes, RootState } from "../../../datas/data-types";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +18,6 @@ export default function MainContent() {
     <>
       <PostInput />
 
-      <Center></Center>
       {/* content */}
 
       {dataContent.map((data: DataContentTypes) => (

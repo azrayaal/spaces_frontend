@@ -30,7 +30,7 @@ export default function EditProfile() {
             margin="auto"
             position={"absolute"}
             zIndex={4}
-            right={"55%"}
+            right={"50%"}
             top={"11%"}
             border="4px"
             borderColor="mainBg.200"

@@ -2,7 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import contentReducer from "../features/contentSlice";
 import userDetailReducer from "../features/userDetailSlice";
 import suggestsReducer from "../features/suggestSlice";
-import detailContentReducer from "../features/contentDetail.slice";
+import detailContentReducer from "../features/contentDetailslice";
+import allReplyContentReducer from "../features/allReplyContentSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     userDetail: userDetailReducer,
     suggests: suggestsReducer,
     contentDetail: detailContentReducer,
+    allReplyContent: allReplyContentReducer,
   },
 });

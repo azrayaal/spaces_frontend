@@ -133,13 +133,26 @@ export interface DataDetailTypes {
     full_name: string;
     profile_picture: string;
   };
-  replies: any[];
+  // replies: any[];
   // {
   //   content: string;
   //   created_at: string;
   //   id: number;
   //   image: string;
   // }
+}
+
+export interface AllReplyContent {
+  id: number;
+  content: string;
+  image: string;
+  created_at: string;
+  user: {
+    id: number;
+    username: string;
+    full_name: string;
+    profile_picture: string;
+  };
 }
 
 export interface DataContentTypes {

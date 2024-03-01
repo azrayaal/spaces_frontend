@@ -7,7 +7,6 @@ export const fetchContentDetail = createAsyncThunk(
   async (id: number) => {
     try {
       const response = await API.get(`spaces/${id}`);
-      console.log("response.data", response);
       return response.data;
     } catch (error) {
       console.log("Error while fetching contentDetail:", error);
@@ -32,7 +31,6 @@ const initialState: ContentDetailState = {
       full_name: "",
       profile_picture: "",
     },
-    replies: [],
   },
 };
 
@@ -45,6 +43,7 @@ const contentDetailSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(fetchContentDetail.fulfilled, (state, action) => {
+      console.log(action.payload);
       state.isLoading = false;
       state.data = action.payload;
       state.isError = false;

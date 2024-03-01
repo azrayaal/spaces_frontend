@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   Box,
@@ -15,81 +14,50 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContentDetail } from "../../features/contentDetail.slice";
+import { fetchContentDetail } from "../../features/contentDetailslice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { RootState } from "../../datas/data-types";
 import ContentSpace from "../../components/content";
+import { fetchAllReplyContent } from "../../features/allReplyContentSlice";
+import CardContetDetail from "./component/cardContetDetail";
 
 export default function DetailContent() {
   const { id } = useParams();
   const dataId = parseInt(id);
+
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
-  const dataDetail = useSelector((state: RootState) => state.contentDetail);
+  const dataDetail = useSelector(
+    (state: RootState) => state.contentDetail.data
+  );
   const userloginId = useSelector(
     (state: RootState) => state.userDetail.userDetail
   );
-  console.log(dataDetail);
-
+  const allReplyContent = useSelector(
+    (state: RootState) => state.allReplyContent.data
+  );
   const imgCLoud = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
+  console.log(allReplyContent);
+  // console.log(dataDetail);
 
   useEffect(() => {
     dispatch(fetchContentDetail(dataId));
+    dispatch(fetchAllReplyContent(dataId));
   }, [dataId]);
 
   return (
     <>
       <Box m={4} display={{ base: "none", md: "block" }}>
-        <Card
-          direction={{ base: "column", sm: "row" }}
-          overflow="hidden"
-          variant="outline"
-          bg="mainBg.200"
-          borderColor="mainBg.200"
-          color="grey.200"
-        >
-          <Image
-            borderRadius="100%"
-            objectFit="cover"
-            h={14}
-            w={14}
-            marginLeft={4}
-            marginTop={6}
-            minW={{ base: "56px", sm: "56px" }}
-            maxW={{ base: "56px", sm: "56px" }}
-            minH={{ base: "56px", sm: "56px" }}
-            maxH={{ base: "56px", sm: "56px" }}
-            src={`${imgCLoud}${dataDetail.user.profile_picture}.jpg`}
-            alt="this.src='/bx-space-bar.sv';"
-          />
-          <Stack>
-            <CardBody w={480}>
-              <Box>
-                <Flex>
-                  <Center>
-                    <Heading size="md">{dataDetail.user.full_name}</Heading>
-                    <Text pt="1" color="gray.400" px={2}>
-                      @{dataDetail.user.username}
-                    </Text>
-                    <Text pt="1" color="gray.400">
-                      •12h
-                    </Text>
-                  </Center>
-                </Flex>
-              </Box>
-              <Text py="2">{dataDetail.content}</Text>
-
-              {dataDetail.image && (
-                <Image
-                  src={`${imgCLoud}${dataDetail.image}.jpg`}
-                  borderRadius={10}
-                ></Image>
-              )}
-            </CardBody>
-          </Stack>
-        </Card>
+        <CardContetDetail
+          id={dataDetail.id}
+          key={dataDetail.id}
+          content={dataDetail.content}
+          image={dataDetail.image}
+          profile_picture={dataDetail.user.profile_picture}
+          full_name={dataDetail.user.full_name}
+          username={dataDetail.user.username}
+        />
       </Box>
-
       <Box m={4} display={{ base: "none", md: "block" }}>
         <Card
           direction={{ base: "column", sm: "row" }}
@@ -199,23 +167,19 @@ export default function DetailContent() {
             </form>
           </CardBody>
         </Card>
-        {/* {DetailContent.map((data) => (
-          <ContentSpace
-            key={data.id}
-            id={data.id}
-            content={data.content}
-            image={data.image}
-            Total_Likes={data.Total_Likes}
-            Total_Replies={data.Total_Replies}
-            created_at={data.created_at}
-            userId={data.user.id}
-            profile_picture={data.user.profile_picture}
-            full_name={data.user.full_name}
-            username={data.user.username}
-            email={data.user.email}
-            user={data.user}
-          />
-        ))} */}
+        <Box pt={4}>
+          {allReplyContent.map((i) => (
+            <CardContetDetail
+              id={i.id}
+              key={i.id}
+              content={i.content}
+              image={i.image}
+              profile_picture={i.user.profile_picture}
+              full_name={i.user.full_name}
+              username={i.user.username}
+            />
+          ))}
+        </Box>
       </Box>
     </>
   );

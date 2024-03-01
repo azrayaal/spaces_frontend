@@ -125,12 +125,14 @@ export const useOnSubmitPost = () => {
     }
   };
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
   const postContent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("data post", form);
     try {
       try {
         const response = await API_Header.post("spaces", form);
+        dispatch(fetchContent());
         toast({
           title: "POST",
           description: `SUCCES!`,
@@ -140,7 +142,6 @@ export const useOnSubmitPost = () => {
           isClosable: true,
         });
         console.log("response post", response);
-        dispatch(fetchContent());
 
         // setTimeout(() => {
         //   window.location.reload();

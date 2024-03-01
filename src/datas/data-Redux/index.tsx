@@ -1,4 +1,5 @@
 import {
+  AllReplyContent,
   DataContentTypes,
   DataDetailTypes,
   DetailUserTypes,
@@ -18,6 +19,13 @@ export interface ContentDetailState {
   isLoading: boolean;
   isError: boolean;
   data: DataDetailTypes;
+  // data: DataContentTypes[];
+}
+
+export interface AllReplyContentState {
+  isLoading: boolean;
+  isError: boolean;
+  data: AllReplyContent[];
   // data: DataContentTypes[];
 }
 

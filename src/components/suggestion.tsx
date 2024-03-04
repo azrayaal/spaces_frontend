@@ -8,7 +8,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useImgUrl } from "../hooks";
 
 export interface SuggestionProps {
   avatar: string;

@@ -8,7 +8,7 @@ export const dataSidebarLogIn = [
     name: "Home",
   },
   {
-    link: "/search-space",
+    link: "/search",
     logo: <FaSearch />,
     name: "Search",
   },

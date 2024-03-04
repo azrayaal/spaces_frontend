@@ -27,7 +27,7 @@ function App() {
             <Route path="/my-profile" element={<MyProfile />} />
             <Route path="/edit-profile/:id" element={<EditProfile />} />
             <Route path="/spaces/:id" element={<DetailContent />} />
-            <Route path="/search-space" element={<Search />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/follows" element={<Follow />} />
             {/*  */}
             {/* <Route path="/test-redux" element={<TestRedux />} /> */}

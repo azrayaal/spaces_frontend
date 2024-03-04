@@ -10,64 +10,68 @@ import {
   Center,
   Text,
 } from "@chakra-ui/react";
-import { APIPOST } from "../../libs/api";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-// import { IoSearch } from "react-icons/io5";
+import { API } from "../../libs/api";
+import ContentSpace from "../../components/content";
+import { DataContentTypes, DetailUserTypes } from "../../datas/data-types";
+import UserCard from "./userCard";
 
 export default function Search() {
-  // const [content, setContent] = useState();
-  const [content, setSearchContent] = useState("");
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  // const [active, setActive] = useSearchParams(false);
-  const [activeContent, setActiveContent] = useState<Boolean>(false);
+  const [content, setContent] = useState("");
+  // const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useState("content");
+  const [showContent, setShowContent] = useState(false);
+  const [showUser, setShowUser] = useState(false);
+  const [activeContent, setActiveContent] = useState<Boolean>(true);
   const [activeUser, setActiveUser] = useState<Boolean>(false);
+  const [dataContent, setDataContent] = useState(null);
+  const [dataUser, setDataUser] = useState(null);
+  const [url, setUrl] = useState("space");
 
   const contentSpaceButton = () => {
+    // setSearchParams({ content: `${content}` });
     setSearchParams("content");
+    setUrl("space");
     setActiveUser(false);
     setActiveContent(true);
+    setShowUser(false);
   };
 
   const userSearchButton = () => {
-    setSearchParams("user");
+    // setSearchParams({ user: `${content}` });
+    setSearchParams("username");
+    setUrl("user");
     setActiveContent(false);
     setActiveUser(true);
+    setShowContent(false);
   };
 
-  console.log(searchParams);
-  // console.log("content", content);
-  const fetchSearchContent = async () => {
+  const fetchSearchContent = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
-      const data = content;
-      const response = await axios.post(
-        `http://localhost:3000/api/v1/search-space?content=${data}`
+      const response = await API.get(
+        `search-${url}?${searchParams}=${content}`
       );
-      console.log(response);
-      // const response = await APIPOST.post(
-      //   `search-space?content=${searchContent}`
-      // );
+      if (response.data.contentSearch) {
+        setDataContent(response.data.contentSearch);
+        console.log("response.content", dataContent);
+        setShowContent(true);
+      } else if (response.data.userSearch) {
+        setDataUser(response.data.userSearch);
+        console.log("response.user", dataUser);
+        setShowUser(true);
+      }
+      // setContent("");
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    fetchSearchContent();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>
-      {/* <div>Tutorial: {searchParams.get("tutorial")}</div>
-
-      <input
-        type="text"
-        // value={searchParams}
-        onChange={(e) => setSearchParams(e.target.value)}
-      /> */}
-
       <Box py={4}>
         <Card bg="mainBg.200" borderRadius="lg" color={"gray.100"} mb={4}>
           <Grid
@@ -137,67 +141,75 @@ export default function Search() {
         </Card>
         {/* search input section */}
         <Card p={5} bg={"mainBg.200"}>
-          <Flex>
-            {/* <form
-              action=""
-              encType="multipart/form-data"
-              onSubmit={fetchSearchContent}
-              style={{ width: "100%" }}
-            > */}
-            <textarea
-              id="myTextarea"
-              style={{
-                color: "#CBD5E0",
-                backgroundColor: "#262626",
-                padding: "0.1rem 0.1rem",
-                width: "100%",
-                fontSize: "1.1rem",
-                lineHeight: "1.5",
-                resize: "none",
-                outline: "none",
-              }}
-              rows={1}
-              placeholder="Search..."
-              value={content}
-              onChange={(event) => setSearchContent(event.target.value)}
-            ></textarea>
-            <Spacer px={2} />
-            {/* <Button> */}
-            <Button onClick={fetchSearchContent}>
-              {/* <IoSearch /> */}
-              Search
-            </Button>
-            {/* </form> */}
-          </Flex>
+          <form
+            action=""
+            onSubmit={(e) => fetchSearchContent(e)}
+            encType="multipart/form-data"
+          >
+            <Flex>
+              <input
+                id="myTextarea"
+                style={{
+                  color: "#CBD5E0",
+                  backgroundColor: "#262626",
+                  padding: "0.1rem 0.1rem",
+                  width: "100%",
+                  fontSize: "1.1rem",
+                  lineHeight: "1.5",
+                  resize: "none",
+                  outline: "none",
+                }}
+                name="content"
+                placeholder="Search..."
+                // onChange={(e) => handleDataSearch(e)}
+                onChange={(e) => setContent(e.target.value)}
+              ></input>
+              <Spacer px={2} />
+              <Button type="submit">Search</Button>
+            </Flex>
+          </form>
         </Card>
         {/* end of search section */}
-        {/* search input section user */}
-        {/* <Card p={5} bg={"mainBg.200"}>
-          <Flex>
-            <textarea
-              id="myTextarea"
-              style={{
-                color: "#CBD5E0",
-                backgroundColor: "#262626",
-                padding: "0.1rem 0.1rem",
-                width: "100%",
-                fontSize: "1.1rem",
-                lineHeight: "1.5",
-                resize: "none",
-                outline: "none",
-              }}
-              rows={1}
-              placeholder="Search..."
-              // value={postContent}
-              // onChange={(event) => setPostContent(event.target.value)}
-            ></textarea>
-            <Spacer px={2} />
-            <Button>
-              Search
-            </Button>
-          </Flex>
-        </Card> */}
-        {/* end of search section user */}
+        {
+          showContent &&
+            dataContent.map((data: DataContentTypes) => (
+              <ContentSpace
+                key={data.id}
+                id={data.id}
+                content={data.content}
+                image={data.image}
+                Total_Likes={data.Total_Likes}
+                Total_Replies={data.Total_Replies}
+                created_at={data.created_at}
+                userId={data.user.id}
+                profile_picture={data.user.profile_picture}
+                full_name={data.user.full_name}
+                username={data.user.username}
+                email={data.user.email}
+                user={data.user}
+              />
+            ))
+          // : (
+          //   <>
+          //     <Box py={4}>data not found</Box>
+          //   </>
+          // )
+        }
+
+        {showUser &&
+          dataUser.map((data: DetailUserTypes) => (
+            <UserCard
+              id={data.id}
+              key={data.id}
+              username={data.username}
+              profile_description={data.profile_description}
+              profile_picture={data.profile_picture}
+              full_name={data.full_name}
+              created_at={data.created_at}
+            />
+          ))}
+
+        {/* <h1>{dataContent.id}</h1> */}
       </Box>
     </>
   );

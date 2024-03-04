@@ -41,7 +41,7 @@ export default function PostInput() {
     <>
       {isLogin ? (
         <>
-          <Box m={4} display={{ base: "none", md: "block" }}>
+          <Box my={4} display={{ base: "none", md: "block" }}>
             <Card
               direction={{ base: "column", sm: "row" }}
               overflow="hidden"
@@ -85,8 +85,6 @@ export default function PostInput() {
                       // rows={1}
                       placeholder="What's Happening?!"
                       name="content"
-                      // value={postContent}
-                      // onChange={(event) => setPostContent(event.target.value)}
                       onChange={(e) => handleDataPost(e)}
                     ></input>
                   </Flex>

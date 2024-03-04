@@ -14,7 +14,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchContentDetail } from "../../features/contentDetailslice";
+import { fetchContentDetail } from "../../features/contentDetailSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { RootState } from "../../datas/data-types";
 import ContentSpace from "../../components/content";

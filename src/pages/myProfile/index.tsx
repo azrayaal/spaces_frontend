@@ -12,11 +12,12 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { RootState } from "../../datas/data-types";
+import { DataContentTypes, RootState } from "../../datas/data-types";
 import { useSelector } from "react-redux";
+import ContentSpace from "../../components/content";
 
 export default function MyProfile() {
-  const [activeContent, setActiveContent] = useState<Boolean>(false);
+  const [activeContent, setActiveContent] = useState<Boolean>(true);
   const [activeFollowing, setActiveFollowing] = useState<Boolean>(false);
   const [activeFollower, setActiveFollower] = useState<Boolean>(false);
 
@@ -48,8 +49,13 @@ export default function MyProfile() {
     (state: RootState) => state.userDetail.userDetail
   );
 
+  const allContent = useSelector((state: RootState) => state.content.data);
+
+  const filteredContentByuserId = allContent.filter(
+    (i) => i.user.id === userDetail.id
+  );
+
   return (
-    // <Box pb={4}>
     <>
       <Box bg="mainBg.200" borderRadius="lg">
         <Image
@@ -107,7 +113,6 @@ export default function MyProfile() {
           </Text>
         </Box>
       </Box>
-
       <Card bg="mainBg.200" borderRadius="lg" color={"gray.100"}>
         <Grid
           h="100%"
@@ -206,6 +211,25 @@ export default function MyProfile() {
           </GridItem>
         </Grid>
       </Card>
+
+      {activeContent &&
+        filteredContentByuserId.map((data: DataContentTypes) => (
+          <ContentSpace
+            key={data.id}
+            id={data.id}
+            content={data.content}
+            image={data.image}
+            Total_Likes={data.Total_Likes}
+            Total_Replies={data.Total_Replies}
+            created_at={data.created_at}
+            userId={data.user.id}
+            profile_picture={data.user.profile_picture}
+            full_name={data.user.full_name}
+            username={data.user.username}
+            email={data.user.email}
+            user={data.user}
+          />
+        ))}
     </>
     // </Box>
   );

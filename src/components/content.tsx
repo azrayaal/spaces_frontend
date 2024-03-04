@@ -11,6 +11,7 @@ import {
   Center,
   GridItem,
   Spacer,
+  Input,
 } from "@chakra-ui/react";
 import { DataContentTypes, RootState } from "../datas/data-types";
 import { GrSettingsOption } from "react-icons/gr";
@@ -19,7 +20,7 @@ import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { useState } from "react";
-import { checkLogin } from "../hooks";
+import { checkLogin, useLike } from "../hooks";
 import { useSelector } from "react-redux";
 
 export default function ContentSpace(props: DataContentTypes) {
@@ -37,6 +38,9 @@ export default function ContentSpace(props: DataContentTypes) {
   const [commented, setcommented] = useState<Boolean>(false);
   const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
 
+  // const { id } = useParams();
+  // const spacesId = id
+  const { postLike } = useLike(id);
   // const { isLogin } = checkLogin();
   // // let loginEmail = ''
   // // if (isLogin) {
@@ -69,7 +73,7 @@ export default function ContentSpace(props: DataContentTypes) {
 
   return (
     <>
-      <Box mx={4} my={4} display={{ base: "none", md: "block" }}>
+      <Box my={4} display={{ base: "none", md: "block" }}>
         <Card
           direction={{ base: "column", sm: "row" }}
           overflow="hidden"
@@ -178,20 +182,38 @@ export default function ContentSpace(props: DataContentTypes) {
                 {image && (
                   <Image src={`${imageUrl}${image}.jpg`} borderRadius={10} />
                 )}
+              </Link>
 
+              <form
+                action=""
+                onSubmit={postLike}
+                // onSubmit={(e) => postContent(e)}
+              >
                 <Flex pt="2">
-                  <Text
-                    fontSize="16"
-                    onClick={switchLike}
-                    color={liked ? "red.500" : "inherit"}
-                  >
-                    <Flex>
-                      <Center>
-                        <FaHeart />{" "}
-                        <span style={{ marginLeft: "5px" }}>{Total_Likes}</span>
-                      </Center>
-                    </Flex>
-                  </Text>
+                  <button type="submit">
+                    <Input
+                      type="text"
+                      display={"none"}
+                      id="likes"
+                      name="likes"
+                      onChange={switchLike}
+                    />
+                    <Text
+                      as="label"
+                      htmlFor="likes"
+                      fontSize="16"
+                      color={liked ? "red.500" : "inherit"}
+                    >
+                      <Flex>
+                        <Center>
+                          <FaHeart />{" "}
+                          <span style={{ marginLeft: "5px" }}>
+                            {Total_Likes}
+                          </span>
+                        </Center>
+                      </Flex>
+                    </Text>
+                  </button>
                   <Text
                     pl="3"
                     fontSize="16"
@@ -208,7 +230,7 @@ export default function ContentSpace(props: DataContentTypes) {
                     </Flex>
                   </Text>
                 </Flex>
-              </Link>
+              </form>
             </CardBody>
           </Stack>
         </Card>

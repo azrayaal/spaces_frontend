@@ -10,6 +10,7 @@ export default function MainContent() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const dataContent = useSelector((state: RootState) => state.content.data);
   console.log("dataContent", dataContent);
+
   useEffect(() => {
     dispatch(fetchContent());
   }, []);

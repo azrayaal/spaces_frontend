@@ -6,7 +6,7 @@ import { API, API_Header } from "../libs/api";
 import { useDispatch } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { fetchContent } from "../features/contentSlice";
-import { fetchContentDetail } from "../features/contentDetailslice";
+import { fetchContentDetail } from "../features/contentDetailSlice";
 
 export const onSubmitLogin = () => {
   const navigate = useNavigate();
@@ -125,6 +125,7 @@ export const useOnSubmitPost = () => {
       setImagePreview(URL.createObjectURL(files![0]));
     }
   };
+
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
   const postContent = async (e: FormEvent<HTMLFormElement>) => {
@@ -265,7 +266,7 @@ export const useOnSubmitReply = () => {
   const postReply = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await API_Header.post("reply", form);
+      await API_Header.post("reply", form);
       // console.log(response);
       dispatch(fetchContentDetail(dataId));
       toast({
@@ -290,11 +291,41 @@ export const useOnSubmitReply = () => {
   };
 };
 
-export const useLike = () => {
-  try {
-  } catch (error) {
-    throw error;
-  }
+export const useLike = (id) => {
+  const spacesId = parseInt(id);
+
+  const [form, setForm] = useState({
+    spacesId: 0,
+  });
+
+  const handleLike = (e: ChangeEvent<HTMLInputElement>) => {
+    setForm({
+      spacesId: spacesId,
+    });
+
+    // const { name, files } = e.target;
+
+    // setForm({
+    //   ...form,
+    //   [name]: name === "image" ? files![0] : e.target.value,
+    // });
+  };
+
+  const postLike = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      console.log(spacesId);
+      const response = await API_Header.post("likes", form);
+      console.log(response);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  return {
+    handleLike,
+    postLike,
+  };
 };
 
 export const useOnSubmitEdit = (id: any) => {

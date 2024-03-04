@@ -45,6 +45,22 @@ export interface DetailUserTypes {
   };
 }
 
+export interface FollowingTypes {
+  created_at: string;
+  id: number;
+  follower: {
+    id: number;
+    username: string;
+    full_name: string;
+    email: string;
+    profile_description: string;
+    profile_picture: string;
+    created_at: string;
+  };
+
+  // follower: DetailUserTypes;
+}
+
 // export interface Obj {
 //   email: string;
 //   full_name: string;

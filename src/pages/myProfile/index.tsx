@@ -12,9 +12,16 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { DataContentTypes, RootState } from "../../datas/data-types";
-import { useSelector } from "react-redux";
+import {
+  DataContentTypes,
+  FollowingTypes,
+  RootState,
+} from "../../datas/data-types";
+import { useDispatch, useSelector } from "react-redux";
 import ContentSpace from "../../components/content";
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { fetchFollow } from "../../features/follow";
+import UserCard from "../search/userCard";
 
 export default function MyProfile() {
   const [activeContent, setActiveContent] = useState<Boolean>(true);
@@ -44,16 +51,23 @@ export default function MyProfile() {
     setActiveContent(false);
     setActiveFollower(true);
   };
-
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const userDetail = useSelector(
     (state: RootState) => state.userDetail.userDetail
   );
 
   const allContent = useSelector((state: RootState) => state.content.data);
+  const allFollow = useSelector((state: RootState) => state.allFollow.data);
+
+  console.log("allFollow", allFollow);
 
   const filteredContentByuserId = allContent.filter(
     (i) => i.user.id === userDetail.id
   );
+
+  useEffect(() => {
+    dispatch(fetchFollow());
+  }, []);
 
   return (
     <>
@@ -228,6 +242,19 @@ export default function MyProfile() {
             username={data.user.username}
             email={data.user.email}
             user={data.user}
+          />
+        ))}
+
+      {activeFollowing &&
+        allFollow.map((data: FollowingTypes) => (
+          <UserCard
+            id={data.follower.id}
+            key={data.follower.id}
+            username={data.follower.username}
+            profile_description={data.follower.profile_description}
+            profile_picture={data.follower.profile_picture}
+            full_name={data.follower.full_name}
+            created_at={data.follower.created_at}
           />
         ))}
     </>

@@ -4,6 +4,7 @@ import userDetailReducer from "../features/userDetailSlice";
 import suggestsReducer from "../features/suggestSlice";
 import detailContentReducer from "../features/contentDetailSlice";
 import allReplyContentReducer from "../features/allReplyContentSlice";
+import allFollowReducer from "../features/follow";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     suggests: suggestsReducer,
     contentDetail: detailContentReducer,
     allReplyContent: allReplyContentReducer,
+    allFollow: allFollowReducer,
   },
 });

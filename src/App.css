@@ -7,6 +7,13 @@
   /* text-align: center; */
 }
 
+.custom-button-delete {
+  border: none !important;
+  border-color: transparent !important;
+  border-width: 0 !important;
+  border-style: none !important;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

@@ -40,6 +40,7 @@ export default function SideNavbar() {
   useEffect(() => {
     checkLogin();
   }, []);
+
   return (
     <>
       <Box m={4}>
@@ -68,9 +69,7 @@ export default function SideNavbar() {
           </UnorderedList>
         )}
       </Box>
-
       {/* create */}
-
       {isLogin ? (
         <>
           <Center>
@@ -102,7 +101,6 @@ export default function SideNavbar() {
           </Link>
         </Center>
       )}
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent bg={"mainBg.200"} minW="650px">

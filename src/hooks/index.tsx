@@ -8,6 +8,7 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 import { fetchContent } from "../features/contentSlice";
 import { fetchContentDetail } from "../features/contentDetailSlice";
 import axios from "axios";
+import { fetchUserDetail } from "../features/userDetailSlice";
 
 export const onSubmitLogin = () => {
   const navigate = useNavigate();
@@ -310,6 +311,63 @@ export const postLike = async (id) => {
         },
       }
     );
+    // dispatch(fetchContent());
+  } catch (error) {
+    throw error;
+  }
+};
+// const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+
+export const postFollow = async (id) => {
+  const followerId = id;
+  const token = Cookies.get("token");
+  const jwtToken = token ? atob(token) : null;
+
+  try {
+    // const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const response = await axios.post(
+      "http://localhost:3000/api/v1/follow",
+      { followerId },
+      {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      }
+    );
+    // dispatch(fetchUserDetail());
+    console.log(response);
+    // dispatch(fetchContent());
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteContent = async (id) => {
+  const spaceId = id;
+  const token = Cookies.get("token");
+  const jwtToken = token ? atob(token) : null;
+  try {
+    // const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const response = await axios.delete(
+      `http://localhost:3000/api/v1/space-delete/${id}`,
+      {
+        data: { spaceId },
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      }
+    );
+    // toast({
+    //   title: "Content Status",
+    //   description: `Content has been deleted!`,
+    //   position: "top-left",
+    //   status: "error",
+    //   duration: 2000,
+    //   isClosable: true,
+    // });
+
+    // dispatch(fetchUserDetail());
+    console.log(response);
     // dispatch(fetchContent());
   } catch (error) {
     throw error;

@@ -11,8 +11,7 @@ import {
   Center,
   GridItem,
   Spacer,
-  Input,
-  space,
+  Button,
 } from "@chakra-ui/react";
 import { DataContentTypes, DetailUserTypes } from "../datas/data-types";
 import { GrSettingsOption } from "react-icons/gr";
@@ -21,8 +20,7 @@ import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { checkLogin, postLike } from "../hooks";
-import axios from "axios";
+import { checkLogin, deleteContent, postLike } from "../hooks";
 import Cookies from "js-cookie";
 import { API } from "../libs/api";
 import { jwtDecode } from "jwt-decode";
@@ -39,9 +37,8 @@ export default function ContentSpace(props: DataContentTypes) {
     user: { full_name, username, profile_picture, email },
   } = props;
   const [openOpt, setOpenOpt] = useState<Boolean>(false);
-  // const [liked, setLiked] = useState<Boolean>(false);
   const [likedData, setLikedData] = useState([]);
-  // const [profile, setProfile] = useState();
+  const [liked, setLiked] = useState<Boolean>(false);
   const [commented, setcommented] = useState<Boolean>(false);
   const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
   const [totalLikes, setTotalLikes] = useState(0);
@@ -49,9 +46,12 @@ export default function ContentSpace(props: DataContentTypes) {
   const { isLogin } = checkLogin();
   const token = Cookies.get("token");
   const jwtToken = token ? atob(token) : null;
+
+  let idProfile;
+
   if (isLogin) {
     const payload: DetailUserTypes = jwtDecode(jwtToken);
-    const idProfile = payload.user.id;
+    idProfile = payload.user.id;
   }
 
   const getAllLikes = async (id) => {
@@ -60,15 +60,14 @@ export default function ContentSpace(props: DataContentTypes) {
 
       setTotalLikes(response.data.total_likes);
       setLikedData(response.data.likes);
+      // setLikedData(isLikedByCurrentUser);
     } catch (error) {
       console.log(error);
     }
   };
 
   const openOption = () => {
-    // if (loginEmail === email) {
     setOpenOpt(true);
-    // }
   };
 
   const switchComment = () => {
@@ -80,6 +79,13 @@ export default function ContentSpace(props: DataContentTypes) {
   };
 
   useEffect(() => {
+    const isLikedByCurrentUser = likedData.some(
+      (item) => item.user.id === idProfile
+    );
+
+    if (isLikedByCurrentUser) {
+      setLiked(true);
+    }
     getAllLikes(id);
   }, []);
 
@@ -131,16 +137,32 @@ export default function ContentSpace(props: DataContentTypes) {
                   p={2}
                   gap={2}
                 >
-                  <Link to={`http://localhost:3000/api/v1/${id}`}>
-                    <Flex>
-                      <Center gap={1}>
-                        <Text color={"red.500"}>
-                          <MdDelete />
+                  {/* <Link to={`http://localhost:3000/api/v1/${id}`}> */}
+                  <Flex>
+                    <Center gap={1}>
+                      <Text color={"red.500"}>
+                        <MdDelete />
+                      </Text>
+                      <Button
+                        className="custom-button-delete"
+                        onClick={() => deleteContent(id)}
+                        variant={"link"}
+                        border={"none"}
+                        outline={"none"}
+                        _hover={{ textDecoration: "none" }}
+                        style={{
+                          border: "none",
+                          outline: "none",
+                          borderColor: "transparent",
+                        }}
+                      >
+                        <Text color={"red.500"} cursor={"pointer"}>
+                          Delete
                         </Text>
-                        <Text color={"red.500"}>Delete</Text>
-                      </Center>
-                    </Flex>
-                  </Link>
+                      </Button>
+                    </Center>
+                  </Flex>
+                  {/* </Link> */}
                   <Link to="">
                     <Flex>
                       <Center gap={1}>
@@ -201,7 +223,7 @@ export default function ContentSpace(props: DataContentTypes) {
                   as="label"
                   htmlFor="likes"
                   fontSize="16"
-                  // color={liked ? "red.500" : "inherit"}
+                  color={liked ? "red.500" : "inherit"}
                 >
                   <Flex>
                     <Center>

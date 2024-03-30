@@ -50,6 +50,7 @@ export default function ProfileNSuggest() {
                     avatar={data.profile_picture}
                     profileName={data.full_name}
                     userName={data.username}
+                    id={data.id}
                   />
                 ))
               ) : (

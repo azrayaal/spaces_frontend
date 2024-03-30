@@ -29,10 +29,6 @@ export default function SideProfile(props: any) {
   };
   const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
 
-  // const dissapear = () => {
-
-  // };
-
   return (
     <Box m={4} display={button ? "block" : "none"}>
       <Card bg="mainBg.200" borderRadius="lg">

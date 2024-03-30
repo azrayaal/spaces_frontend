@@ -9,7 +9,6 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 export default function MainContent() {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const dataContent = useSelector((state: RootState) => state.content.data);
-  console.log("dataContent", dataContent);
 
   useEffect(() => {
     dispatch(fetchContent());
@@ -18,9 +17,6 @@ export default function MainContent() {
   return (
     <>
       <PostInput />
-
-      {/* content */}
-
       {dataContent.map((data: DataContentTypes) => (
         <ContentSpace
           key={data.id}
@@ -36,6 +32,7 @@ export default function MainContent() {
           username={data.user.username}
           email={data.user.email}
           user={data.user}
+          spacesId={data.id}
         />
       ))}
     </>

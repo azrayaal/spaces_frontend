@@ -3,6 +3,7 @@ import {
   DataContentTypes,
   DataDetailTypes,
   DetailUserTypes,
+  FollowerTypes,
   FollowingTypes,
   SuggestionTypes,
   SuggestionTypesRedux,
@@ -16,10 +17,16 @@ export interface ContentState {
   data: DataContentTypes[];
 }
 
-export interface FollowState {
+export interface FollowingState {
   isLoading: boolean;
   isError: boolean;
   data: FollowingTypes[];
+}
+
+export interface FollowerState {
+  isLoading: boolean;
+  isError: boolean;
+  data: FollowerTypes[];
 }
 
 export interface ContentDetailState {

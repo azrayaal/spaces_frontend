@@ -29,6 +29,7 @@ export default function SideNavbar() {
       setIsLogIn(true);
     }
   };
+
   const navigate = useNavigate();
   const onLogout = () => {
     Cookies.remove("token");

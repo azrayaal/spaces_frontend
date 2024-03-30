@@ -62,7 +62,6 @@ export default function Search() {
         console.log("response.user", dataUser);
         setShowUser(true);
       }
-      // setContent("");
     } catch (error) {
       console.log(error);
     }
@@ -186,6 +185,7 @@ export default function Search() {
               username={data.user.username}
               email={data.user.email}
               user={data.user}
+              spacesId={data.id}
             />
           ))}
 

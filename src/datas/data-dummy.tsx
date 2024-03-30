@@ -12,11 +12,11 @@ export const dataSidebarLogIn = [
     logo: <FaSearch />,
     name: "Search",
   },
-  {
-    link: "/follows",
-    logo: <FaHeart />,
-    name: "Follows",
-  },
+  // {
+  //   link: "/follows",
+  //   logo: <FaHeart />,
+  //   name: "Follows",
+  // },
   {
     link: `/my-profile/`,
     logo: <GiPlagueDoctorProfile />,

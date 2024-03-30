@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { fetchContent } from "../features/contentSlice";
 import { fetchContentDetail } from "../features/contentDetailSlice";
+import axios from "axios";
 
 export const onSubmitLogin = () => {
   const navigate = useNavigate();
@@ -74,6 +75,7 @@ export const onSubmitLogin = () => {
             isClosable: true,
           });
           navigate("/");
+          window.location.reload();
         } else {
           toast({
             title: "Log in status",
@@ -291,41 +293,27 @@ export const useOnSubmitReply = () => {
   };
 };
 
-export const useLike = (id) => {
-  const spacesId = parseInt(id);
+export const postLike = async (id) => {
+  // e.preventDefault();
+  const spacesId = id;
+  const token = Cookies.get("token");
+  const jwtToken = token ? atob(token) : null;
 
-  const [form, setForm] = useState({
-    spacesId: 0,
-  });
-
-  const handleLike = (e: ChangeEvent<HTMLInputElement>) => {
-    setForm({
-      spacesId: spacesId,
-    });
-
-    // const { name, files } = e.target;
-
-    // setForm({
-    //   ...form,
-    //   [name]: name === "image" ? files![0] : e.target.value,
-    // });
-  };
-
-  const postLike = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      console.log(spacesId);
-      const response = await API_Header.post("likes", form);
-      console.log(response);
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  return {
-    handleLike,
-    postLike,
-  };
+  try {
+    // const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    await axios.post(
+      "http://localhost:3000/api/v1/likes",
+      { spacesId },
+      {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`,
+        },
+      }
+    );
+    // dispatch(fetchContent());
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const useOnSubmitEdit = (id: any) => {

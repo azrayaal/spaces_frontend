@@ -32,8 +32,6 @@ export default function LoginForm() {
               w={300}
               name="username"
               type={"username"}
-              //   value={"username"}
-              //   onChange={(event) => setUsername(event.target.value)}
               onChange={(e) => handleDataLogin(e)}
             />
             <InputGroup size="md">
@@ -42,8 +40,6 @@ export default function LoginForm() {
                 name="password"
                 type={show ? "text" : "password"}
                 placeholder="Enter password"
-                // value={"password"}
-                //   onChange={(event) => setPassword(event.target.value)}
                 onChange={(e) => handleDataLogin(e)}
               />
               <InputRightElement width="4.5rem">
@@ -56,7 +52,6 @@ export default function LoginForm() {
               <Text>Create account?</Text>
             </a>
             <Button type="submit">Log In</Button>
-            {/* <Button onClick={onSubmit}>Log In</Button> */}
           </Stack>
         </Box>
       </form>

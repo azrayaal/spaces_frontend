@@ -11,6 +11,23 @@ export default function EditProfile() {
   const detailUser = useSelector(
     (state: RootState) => state.userDetail.userDetail
   );
+
+  interface UserStateTypes {
+    full_name: string;
+    username: string;
+    profile_picture: string;
+    profile_description: string;
+  }
+
+  const [user, setUser] = useState<UserStateTypes>({
+    full_name: detailUser.full_name,
+    username: detailUser.username,
+    profile_picture: detailUser.profile_picture,
+    profile_description: detailUser.profile_description,
+  });
+
+  console.log(user);
+
   const { handleDataEdit, postDataEdit, headerPreview } = useOnSubmitEdit(id);
   const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
 
@@ -165,7 +182,6 @@ export default function EditProfile() {
                 w={28}
                 left={2}
                 maxW={{ base: "100%", sm: "200px" }}
-                // src={`${profilePict}.jpg`}
                 filter="grayscale(80%)"
                 src={`${imageUrl}${detailUser.profile_picture}.jpg`}
                 alt="Caffe Latte"
@@ -183,7 +199,6 @@ export default function EditProfile() {
               </Button>
             </Box>
           </Box>
-
           <input
             style={{
               color: "#CBD5E0",
@@ -198,8 +213,14 @@ export default function EditProfile() {
             }}
             name="full_name"
             required={true}
-            placeholder={detailUser.full_name}
-            onChange={(e) => handleDataEdit(e)}
+            value={user.full_name}
+            onChange={(event) => {
+              setUser({
+                ...user,
+                full_name: event.target.value,
+              });
+              handleDataEdit(event); // Call handleDataEdit function with the event
+            }}
           />
           <input
             style={{
@@ -212,11 +233,19 @@ export default function EditProfile() {
               outline: "none",
               paddingBottom: "10px",
             }}
+            defaultValue={`${user.username}`}
             name="username"
             required={true}
-            placeholder={`@${detailUser.username}`}
-            onChange={(e) => handleDataEdit(e)}
+            value={user.username}
+            onChange={(event) => {
+              setUser({
+                ...user,
+                username: event.target.value,
+              });
+              handleDataEdit(event);
+            }}
           />
+
           <input
             style={{
               paddingBottom: "10px",
@@ -232,8 +261,14 @@ export default function EditProfile() {
             }}
             name="profile_description"
             required={true}
-            placeholder={detailUser.profile_description}
-            onChange={(e) => handleDataEdit(e)}
+            value={user.profile_description}
+            onChange={(event) => {
+              setUser({
+                ...user,
+                profile_description: event.target.value,
+              });
+              handleDataEdit(event);
+            }}
           />
           <Text fontSize="md" color={"gray.400"} pb={4}>
             Joined may 2020

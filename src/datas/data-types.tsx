@@ -57,8 +57,20 @@ export interface FollowingTypes {
     profile_picture: string;
     created_at: string;
   };
+}
 
-  // follower: DetailUserTypes;
+export interface FollowerTypes {
+  created_at: string;
+  id: number;
+  following: {
+    id: number;
+    username: string;
+    full_name: string;
+    email: string;
+    profile_description: string;
+    profile_picture: string;
+    created_at: string;
+  };
 }
 
 // export interface Obj {
@@ -172,6 +184,7 @@ export interface AllReplyContent {
 }
 
 export interface DataContentTypes {
+  spacesId: number;
   id: number;
   content: string;
   image: string;

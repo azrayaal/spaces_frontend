@@ -14,14 +14,16 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   DataContentTypes,
+  FollowerTypes,
   FollowingTypes,
   RootState,
 } from "../../datas/data-types";
 import { useDispatch, useSelector } from "react-redux";
 import ContentSpace from "../../components/content";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import { fetchFollow } from "../../features/follow";
+import { fetchFollowing } from "../../features/following";
 import UserCard from "../search/userCard";
+import { fetchFollower } from "../../features/follower";
 
 export default function MyProfile() {
   const [activeContent, setActiveContent] = useState<Boolean>(true);
@@ -57,16 +59,20 @@ export default function MyProfile() {
   );
 
   const allContent = useSelector((state: RootState) => state.content.data);
-  const allFollow = useSelector((state: RootState) => state.allFollow.data);
+  const allFollowing = useSelector(
+    (state: RootState) => state.allFollowing.data
+  );
+  const allFollower = useSelector((state: RootState) => state.allFollower.data);
 
-  console.log("allFollow", allFollow);
+  console.log("allFollower", allFollower);
 
   const filteredContentByuserId = allContent.filter(
     (i) => i.user.id === userDetail.id
   );
 
   useEffect(() => {
-    dispatch(fetchFollow());
+    dispatch(fetchFollowing());
+    dispatch(fetchFollower());
   }, []);
 
   return (
@@ -246,7 +252,7 @@ export default function MyProfile() {
         ))}
 
       {activeFollowing &&
-        allFollow.map((data: FollowingTypes) => (
+        allFollowing.map((data: FollowingTypes) => (
           <UserCard
             id={data.follower.id}
             key={data.follower.id}
@@ -255,6 +261,19 @@ export default function MyProfile() {
             profile_picture={data.follower.profile_picture}
             full_name={data.follower.full_name}
             created_at={data.follower.created_at}
+          />
+        ))}
+
+      {activeFollower &&
+        allFollower.map((data) => (
+          <UserCard
+            id={data.following.id}
+            key={data.following.id}
+            username={data.following.username}
+            profile_description={data.following.profile_description}
+            profile_picture={data.following.profile_picture}
+            full_name={data.following.full_name}
+            created_at={data.following.created_at}
           />
         ))}
     </>

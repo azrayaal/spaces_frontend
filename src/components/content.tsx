@@ -12,16 +12,20 @@ import {
   GridItem,
   Spacer,
   Input,
+  space,
 } from "@chakra-ui/react";
-import { DataContentTypes, RootState } from "../datas/data-types";
+import { DataContentTypes, DetailUserTypes } from "../datas/data-types";
 import { GrSettingsOption } from "react-icons/gr";
 import { IoChatboxSharp, IoShareSocialSharp } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
-import { useState } from "react";
-import { checkLogin, useLike } from "../hooks";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { checkLogin, postLike } from "../hooks";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { API } from "../libs/api";
+import { jwtDecode } from "jwt-decode";
 
 export default function ContentSpace(props: DataContentTypes) {
   const {
@@ -31,29 +35,36 @@ export default function ContentSpace(props: DataContentTypes) {
     Total_Replies,
     Total_Likes,
     created_at,
+    spacesId,
     user: { full_name, username, profile_picture, email },
   } = props;
   const [openOpt, setOpenOpt] = useState<Boolean>(false);
-  const [liked, setLiked] = useState<Boolean>(false);
+  // const [liked, setLiked] = useState<Boolean>(false);
+  const [likedData, setLikedData] = useState([]);
+  // const [profile, setProfile] = useState();
   const [commented, setcommented] = useState<Boolean>(false);
   const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
+  const [totalLikes, setTotalLikes] = useState(0);
 
-  // const { id } = useParams();
-  // const spacesId = id
-  const { postLike } = useLike(id);
-  // const { isLogin } = checkLogin();
-  // // let loginEmail = ''
-  // // if (isLogin) {
-  // const loginEmail = useSelector(
-  //   (state: RootState) => state.userDetail.userDetail.email
-  // );
-  // // }
+  const { isLogin } = checkLogin();
+  const token = Cookies.get("token");
+  const jwtToken = token ? atob(token) : null;
+  if (isLogin) {
+    const payload: DetailUserTypes = jwtDecode(jwtToken);
+    const idProfile = payload.user.id;
+  }
 
-  // const openOption = () => {
-  //   if (loginEmail === email) {
-  //     setOpenOpt(true);
-  //   }
-  // };
+  const getAllLikes = async (id) => {
+    try {
+      const response = await API.get(`likes/${id}`);
+
+      setTotalLikes(response.data.total_likes);
+      setLikedData(response.data.likes);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const openOption = () => {
     // if (loginEmail === email) {
     setOpenOpt(true);
@@ -63,13 +74,14 @@ export default function ContentSpace(props: DataContentTypes) {
   const switchComment = () => {
     setcommented(true);
   };
-  const switchLike = () => {
-    setLiked(true);
-  };
 
   const closeOption = () => {
     setOpenOpt(false);
   };
+
+  useEffect(() => {
+    getAllLikes(id);
+  }, []);
 
   return (
     <>
@@ -184,53 +196,37 @@ export default function ContentSpace(props: DataContentTypes) {
                 )}
               </Link>
 
-              <form
-                action=""
-                onSubmit={postLike}
-                // onSubmit={(e) => postContent(e)}
-              >
-                <Flex pt="2">
-                  <button type="submit">
-                    <Input
-                      type="text"
-                      display={"none"}
-                      id="likes"
-                      name="likes"
-                      onChange={switchLike}
-                    />
-                    <Text
-                      as="label"
-                      htmlFor="likes"
-                      fontSize="16"
-                      color={liked ? "red.500" : "inherit"}
-                    >
-                      <Flex>
-                        <Center>
-                          <FaHeart />{" "}
-                          <span style={{ marginLeft: "5px" }}>
-                            {Total_Likes}
-                          </span>
-                        </Center>
-                      </Flex>
-                    </Text>
-                  </button>
-                  <Text
-                    pl="3"
-                    fontSize="16"
-                    onClick={switchComment}
-                    color={commented ? "blue.500" : "inherit"}
-                  >
-                    <Flex>
-                      <Center>
-                        <IoChatboxSharp />{" "}
-                        <span style={{ marginLeft: "5px" }}>
-                          {Total_Replies}
-                        </span>
-                      </Center>
-                    </Flex>
-                  </Text>
-                </Flex>
-              </form>
+              <Flex pt="2">
+                <Text
+                  as="label"
+                  htmlFor="likes"
+                  fontSize="16"
+                  // color={liked ? "red.500" : "inherit"}
+                >
+                  <Flex>
+                    <Center>
+                      <button onClick={() => postLike(id)}>
+                        <FaHeart />{" "}
+                      </button>
+                      <span style={{ marginLeft: "5px" }}>{totalLikes}</span>
+                    </Center>
+                  </Flex>
+                </Text>
+
+                <Text
+                  pl="3"
+                  fontSize="16"
+                  onClick={switchComment}
+                  color={commented ? "blue.500" : "inherit"}
+                >
+                  <Flex>
+                    <Center>
+                      <IoChatboxSharp />{" "}
+                      <span style={{ marginLeft: "5px" }}>{Total_Replies}</span>
+                    </Center>
+                  </Flex>
+                </Text>
+              </Flex>
             </CardBody>
           </Stack>
         </Card>
@@ -271,11 +267,6 @@ export default function ContentSpace(props: DataContentTypes) {
                     @{username}
                   </Text>
                 </Flex>
-                {/* <Image
-                  src={`https://res.cloudinary.com/ddpo1vjim/image/upload/v1709088253/SpaceS/hcjqoaztmmi2ykok6wpi.png`}
-                  borderRadius={10}
-                /> */}
-                {/* <Image src={`${imageUrl}${image}.jpg`} borderRadius={10} /> */}
               </Box>
               <Box py="2">{content}</Box>
             </GridItem>

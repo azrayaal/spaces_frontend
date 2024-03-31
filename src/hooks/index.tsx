@@ -12,6 +12,8 @@ import { fetchUserDetail } from "../features/userDetailSlice";
 import { fetchSuggest } from "../features/suggestSlice";
 import { RootState } from "../datas/data-types";
 import { fetchAllReplyContent } from "../features/allReplyContentSlice";
+import { fetchFollowing } from "../features/following";
+import { fetchFollower } from "../features/follower";
 
 export const onSubmitLogin = () => {
   const navigate = useNavigate();
@@ -323,7 +325,7 @@ export const postLike = async (id) => {
   }
 };
 
-export const useFollow = () => {
+export const useOtherFollow = () => {
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const postFollow = async (id) => {
     const followerId = id;
@@ -331,7 +333,7 @@ export const useFollow = () => {
     const jwtToken = token ? atob(token) : null;
 
     try {
-      const response = await axios.post(
+      await axios.post(
         `${import.meta.env.VITE_PUBLIC_API}/api/v1/follow`,
         { followerId },
         {
@@ -342,7 +344,37 @@ export const useFollow = () => {
       );
       dispatch(fetchUserDetail());
       dispatch(fetchSuggest());
-      console.log(response);
+      // dispatch(fetchFollowing());
+      // dispatch(fetchFollower());
+      // console.log(response);
+    } catch (error) {
+      throw error;
+    }
+  };
+  return { postFollow };
+};
+export const useFollow = () => {
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const postFollow = async (id) => {
+    const followerId = id;
+    const token = Cookies.get("token");
+    const jwtToken = token ? atob(token) : null;
+
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_PUBLIC_API}/api/v1/follow`,
+        { followerId },
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
+      dispatch(fetchUserDetail());
+      dispatch(fetchSuggest());
+      dispatch(fetchFollowing());
+      dispatch(fetchFollower());
+      // console.log(response);
     } catch (error) {
       throw error;
     }
@@ -410,20 +442,52 @@ export const useOnSubmitEdit = (id: any) => {
     full_name: "",
     username: "",
     profile_description: "",
-    // profile_picture: File
-    header: File,
+    profile_picture: null,
+    header: null,
   });
 
+  // const handleDataEdit = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const { name, files } = e.target;
+
+  //   if (name === "header" && files && files![0]) {
+  //     setHeaderPreview(URL.createObjectURL(files![0]));
+  //   }
+
+  //   setForm({
+  //     ...form,
+  //     [name]: name === "header" ? files![0] : e.target.value,
+  //   });
+  // };
+
   const handleDataEdit = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, files } = e.target;
+    const { name, value, files } = e.target;
 
-    setForm({
-      ...form,
-      [name]: name === "header" ? files![0] : e.target.value,
-    });
-
-    if (name === "header" && files && files![0]) {
-      setHeaderPreview(URL.createObjectURL(files![0]));
+    if (!value && name !== "header" && name !== "profile_picture") {
+      setForm({
+        ...form,
+        [name]: null,
+      });
+    } else if (
+      (name === "header" || name === "profile_picture") &&
+      files &&
+      files[0]
+    ) {
+      if (name === "header") {
+        setHeaderPreview(URL.createObjectURL(files[0]));
+      } else {
+        setProfilePreview(URL.createObjectURL(files[0]));
+      }
+      // Create a new File object
+      const file = new File([files[0]], files[0].name, { type: files[0].type });
+      setForm({
+        ...form,
+        [name]: file,
+      });
+    } else {
+      setForm({
+        ...form,
+        [name]: value,
+      });
     }
   };
 

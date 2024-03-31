@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { API_Header } from "../libs/api";
-import { FollowerState } from "../datas/data-Redux";
+import { FollowingState } from "../datas/data-Redux";
 
-export const fetchFollower = createAsyncThunk(
-  "allFollower/fetchAllFollower",
-  async () => {
+export const fetchOtherFollowing = createAsyncThunk(
+  "allFollowing/fetchAllFollowing",
+  async (id: number) => {
     try {
-      const response = await API_Header.get(`follower`);
-      // console.log(response.data);
+      const response = await API_Header.get(`following/${id}`);
+      // console.log(response);
       return response.data;
     } catch (error) {
       console.log("Error while fetching contentDetail:", error);
@@ -16,30 +16,30 @@ export const fetchFollower = createAsyncThunk(
   }
 );
 
-const initialStateReply: FollowerState = {
+const initialStateReply: FollowingState = {
   isLoading: false,
   isError: false,
   data: [],
 };
 
-const allFollowerSlice = createSlice({
-  name: "allFollower",
+const allOtherFollowingSlice = createSlice({
+  name: "allFollowing",
   initialState: initialStateReply,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchFollower.pending, (state) => {
+    builder.addCase(fetchOtherFollowing.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(fetchFollower.fulfilled, (state, action) => {
+    builder.addCase(fetchOtherFollowing.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data = action.payload;
       state.isError = false;
     });
-    builder.addCase(fetchFollower.rejected, (state) => {
+    builder.addCase(fetchOtherFollowing.rejected, (state) => {
       state.isError = true;
       state.isLoading = false;
     });
   },
 });
 
-export default allFollowerSlice.reducer;
+export default allOtherFollowingSlice.reducer;

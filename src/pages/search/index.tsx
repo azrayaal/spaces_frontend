@@ -16,6 +16,7 @@ import { API } from "../../libs/api";
 import ContentSpace from "../../components/content";
 import { DataContentTypes, DetailUserTypes } from "../../datas/data-types";
 import UserCard from "./userCard";
+import { useFollow } from "../../hooks";
 
 export default function Search() {
   const [content, setContent] = useState("");
@@ -66,8 +67,7 @@ export default function Search() {
       console.log(error);
     }
   };
-
-  useEffect(() => {}, []);
+  const { postFollow } = useFollow();
 
   return (
     <>
@@ -192,6 +192,9 @@ export default function Search() {
         {showUser &&
           dataUser.map((data: DetailUserTypes) => (
             <UserCard
+              postFollow={postFollow}
+              my={4}
+              fontSize={"md"}
               id={data.id}
               key={data.id}
               username={data.username}

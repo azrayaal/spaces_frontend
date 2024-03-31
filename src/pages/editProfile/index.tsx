@@ -25,9 +25,7 @@ export default function EditProfile() {
     profile_picture: detailUser.profile_picture,
     profile_description: detailUser.profile_description,
   });
-
-  console.log(user);
-
+  console.log("user:", user);
   const { handleDataEdit, postDataEdit, headerPreview } = useOnSubmitEdit(id);
   const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
 
@@ -69,6 +67,7 @@ export default function EditProfile() {
             formEncType="multipart/form-data"
             onChange={(e) => handleDataEdit(e)}
             display={"none"}
+            multiple
           />
         </Box>
         {/* end of input Header */}
@@ -138,12 +137,14 @@ export default function EditProfile() {
                   accept="image/png, image/jpeg"
                   name="profile_picture"
                   formEncType="multipart/form-data"
-                  onChange={(event) => {
-                    const img = event.target.files![0];
-                    setProfilePreview(URL.createObjectURL(img));
-                    return setEditProfilePicture(img);
-                  }}
+                  // onChange={(event) => {
+                  //   const img = event.target.files![0];
+                  //   setProfilePreview(URL.createObjectURL(img));
+                  //   return setEditProfilePicture(img);
+                  // }}
+                  onChange={(e) => handleDataEdit(e)}
                   display={"none"}
+                  multiple
                 />
               </Box>
               {/* end ofinput image avatar */}
@@ -213,13 +214,13 @@ export default function EditProfile() {
             }}
             name="full_name"
             required={true}
-            value={user.full_name}
+            defaultValue={user.full_name}
             onChange={(event) => {
               setUser({
                 ...user,
                 full_name: event.target.value,
               });
-              handleDataEdit(event); // Call handleDataEdit function with the event
+              handleDataEdit(event);
             }}
           />
           <input

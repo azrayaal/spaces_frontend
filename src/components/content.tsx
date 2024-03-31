@@ -48,16 +48,9 @@ export default function ContentSpace(props: DataContentTypes) {
   const [likedData, setLikedData] = useState([]);
   const [totalReplies, setTotalReplies] = useState(0);
   const [repliedData, setRepliedData] = useState([]);
-  const [date, setDate] = useState();
   const { isLogin } = checkLogin();
   const token = Cookies.get("token");
   const jwtToken = token ? atob(token) : null;
-
-  const navigate = useNavigate();
-
-  const navigateReply = () => {
-    navigate("/");
-  };
 
   let idProfile;
 
@@ -230,27 +223,31 @@ export default function ContentSpace(props: DataContentTypes) {
           />
           <Stack>
             <CardBody w={480}>
+              {/* <Link
+                to={`/profile/${id}`}
+                style={{ color: "inherit", textDecoration: "none" }}
+              > */}
+              <Box w={"550px"}>
+                <Flex justifyContent="space-between">
+                  <Heading size="md">{full_name}</Heading>
+                  <Text color="gray.400" px={2}>
+                    @{username}
+                  </Text>
+                  <Spacer />
+                  <Text color="gray.400">• {timeAgo(created_at)}</Text>
+                </Flex>
+              </Box>
+              {/* </Link> */}
               <Link
                 to={`/spaces/${id}`}
                 style={{ color: "inherit", textDecoration: "none" }}
               >
-                <Box w={"550px"}>
-                  <Flex justifyContent="space-between">
-                    <Heading size="md">{full_name}</Heading>
-                    <Text color="gray.400" px={2}>
-                      @{username}
-                    </Text>
-                    <Spacer />
-                    <Text color="gray.400">• {timeAgo(created_at)}</Text>
-                  </Flex>
-                </Box>
                 <Box py="2">{content}</Box>
 
                 {image && (
                   <Image src={`${imageUrl}${image}.jpg`} borderRadius={10} />
                 )}
               </Link>
-
               <Flex pt="2">
                 <Text
                   as="label"

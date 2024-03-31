@@ -8,6 +8,7 @@ export const fetchContent = createAsyncThunk(
   async () => {
     try {
       const response = await API.get<DataContentTypes[]>("spaces");
+      // console.log(response);
       return response.data;
     } catch (error) {
       console.log("Error while fetching content:", error);

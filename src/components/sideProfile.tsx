@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function SideProfile(props: any) {
-  const [button, setButton] = useState(true);
+  // const [button, setButton] = useState(true);
   const {
     full_name,
     username,
@@ -24,13 +24,13 @@ export default function SideProfile(props: any) {
   } = props;
   const navigate = useNavigate();
   const handleClick = () => {
-    setButton(false);
+    // setButton(false);
     navigate(`/my-profile`);
   };
   const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
 
   return (
-    <Box m={4} display={button ? "block" : "none"}>
+    <Box m={4}>
       <Card bg="mainBg.200" borderRadius="lg">
         <Box m={4} color="gray.100">
           <Heading size="sm">My Profile</Heading>

@@ -24,6 +24,8 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 import { fetchFollowing } from "../../features/following";
 import UserCard from "../search/userCard";
 import { fetchFollower } from "../../features/follower";
+import { timeAgo, useFollow } from "../../hooks";
+import fetchContent from "../../features/asyncThunk/fetchSuggest";
 
 export default function MyProfile() {
   const [activeContent, setActiveContent] = useState<Boolean>(true);
@@ -59,20 +61,23 @@ export default function MyProfile() {
   );
 
   const allContent = useSelector((state: RootState) => state.content.data);
+  // console.log("allContent", allContent);
+
   const allFollowing = useSelector(
     (state: RootState) => state.allFollowing.data
   );
   const allFollower = useSelector((state: RootState) => state.allFollower.data);
 
-  console.log("allFollower", allFollower);
-
   const filteredContentByuserId = allContent.filter(
     (i) => i.user.id === userDetail.id
   );
+  const { postFollow } = useFollow();
+  // console.log(filteredContentByuserId);
 
   useEffect(() => {
     dispatch(fetchFollowing());
     dispatch(fetchFollower());
+    // dispatch(fetchContent());
   }, []);
 
   return (
@@ -129,7 +134,7 @@ export default function MyProfile() {
             {userDetail.profile_description}
           </Text>
           <Text fontSize="md" color={"gray.400"} pb={3}>
-            Joined {userDetail.created_at}
+            Joined {timeAgo(userDetail.created_at)}
           </Text>
         </Box>
       </Box>
@@ -248,12 +253,16 @@ export default function MyProfile() {
             username={data.user.username}
             email={data.user.email}
             user={data.user}
+            spacesId={data.spacesId}
           />
         ))}
 
       {activeFollowing &&
         allFollowing.map((data: FollowingTypes) => (
           <UserCard
+            postFollow={postFollow}
+            my={4}
+            fontSize={"md"}
             id={data.follower.id}
             key={data.follower.id}
             username={data.follower.username}
@@ -267,6 +276,9 @@ export default function MyProfile() {
       {activeFollower &&
         allFollower.map((data) => (
           <UserCard
+            postFollow={postFollow}
+            my={4}
+            fontSize={"md"}
             id={data.following.id}
             key={data.following.id}
             username={data.following.username}

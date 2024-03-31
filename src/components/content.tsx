@@ -15,12 +15,16 @@ import {
 } from "@chakra-ui/react";
 import { DataContentTypes, DetailUserTypes } from "../datas/data-types";
 import { GrSettingsOption } from "react-icons/gr";
-import { IoChatboxSharp, IoShareSocialSharp } from "react-icons/io5";
+import {
+  IoChatboxSharp,
+  IoShareSocialSharp,
+  IoChatboxOutline,
+} from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
-import { Link } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useEffect, useState } from "react";
-import { checkLogin, deleteContent, postLike } from "../hooks";
+import { checkLogin, useDelete, postLike, timeAgo } from "../hooks";
 import Cookies from "js-cookie";
 import { API } from "../libs/api";
 import { jwtDecode } from "jwt-decode";
@@ -37,15 +41,23 @@ export default function ContentSpace(props: DataContentTypes) {
     user: { full_name, username, profile_picture, email },
   } = props;
   const [openOpt, setOpenOpt] = useState<Boolean>(false);
-  const [likedData, setLikedData] = useState([]);
   const [liked, setLiked] = useState<Boolean>(false);
   const [commented, setcommented] = useState<Boolean>(false);
   const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
   const [totalLikes, setTotalLikes] = useState(0);
-
+  const [likedData, setLikedData] = useState([]);
+  const [totalReplies, setTotalReplies] = useState(0);
+  const [repliedData, setRepliedData] = useState([]);
+  const [date, setDate] = useState();
   const { isLogin } = checkLogin();
   const token = Cookies.get("token");
   const jwtToken = token ? atob(token) : null;
+
+  const navigate = useNavigate();
+
+  const navigateReply = () => {
+    navigate("/");
+  };
 
   let idProfile;
 
@@ -53,14 +65,22 @@ export default function ContentSpace(props: DataContentTypes) {
     const payload: DetailUserTypes = jwtDecode(jwtToken);
     idProfile = payload.user.id;
   }
-
   const getAllLikes = async (id) => {
     try {
       const response = await API.get(`likes/${id}`);
-
       setTotalLikes(response.data.total_likes);
       setLikedData(response.data.likes);
-      // setLikedData(isLikedByCurrentUser);
+      // console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getReplies = async (id) => {
+    try {
+      const response = await API.get(`replies/${id}`);
+      setTotalReplies(response.data.total_Replies);
+      setRepliedData(response.data.reply);
     } catch (error) {
       console.log(error);
     }
@@ -78,16 +98,31 @@ export default function ContentSpace(props: DataContentTypes) {
     setOpenOpt(false);
   };
 
+  const { deleteContent } = useDelete();
+
   useEffect(() => {
     const isLikedByCurrentUser = likedData.some(
+      (item) => item.user.id === idProfile
+    );
+    const isRepliedByCurrentUser = repliedData.some(
       (item) => item.user.id === idProfile
     );
 
     if (isLikedByCurrentUser) {
       setLiked(true);
+    } else {
+      setLiked(false);
     }
+
+    if (isRepliedByCurrentUser) {
+      setcommented(true);
+    } else {
+      setcommented(false);
+    }
+
     getAllLikes(id);
-  }, []);
+    getReplies(id);
+  }, [likedData, idProfile]);
 
   return (
     <>
@@ -137,7 +172,6 @@ export default function ContentSpace(props: DataContentTypes) {
                   p={2}
                   gap={2}
                 >
-                  {/* <Link to={`http://localhost:3000/api/v1/${id}`}> */}
                   <Flex>
                     <Center gap={1}>
                       <Text color={"red.500"}>
@@ -162,7 +196,6 @@ export default function ContentSpace(props: DataContentTypes) {
                       </Button>
                     </Center>
                   </Flex>
-                  {/* </Link> */}
                   <Link to="">
                     <Flex>
                       <Center gap={1}>
@@ -208,7 +241,7 @@ export default function ContentSpace(props: DataContentTypes) {
                       @{username}
                     </Text>
                     <Spacer />
-                    <Text color="gray.400">• {created_at}</Text>
+                    <Text color="gray.400">• {timeAgo(created_at)}</Text>
                   </Flex>
                 </Box>
                 <Box py="2">{content}</Box>
@@ -227,8 +260,15 @@ export default function ContentSpace(props: DataContentTypes) {
                 >
                   <Flex>
                     <Center>
-                      <button onClick={() => postLike(id)}>
-                        <FaHeart />{" "}
+                      <button
+                        onClick={() => postLike(id)}
+                        style={{
+                          border: "none",
+                          outline: "none",
+                          borderColor: "transparent",
+                        }}
+                      >
+                        {liked ? <FaHeart /> : <FaRegHeart />}
                       </button>
                       <span style={{ marginLeft: "5px" }}>{totalLikes}</span>
                     </Center>
@@ -237,15 +277,35 @@ export default function ContentSpace(props: DataContentTypes) {
 
                 <Text
                   pl="3"
-                  fontSize="16"
+                  // fontSize="16"
+                  fontSize={commented ? "16" : "17"}
                   onClick={switchComment}
                   color={commented ? "blue.500" : "inherit"}
                 >
                   <Flex>
-                    <Center>
-                      <IoChatboxSharp />{" "}
-                      <span style={{ marginLeft: "5px" }}>{Total_Replies}</span>
-                    </Center>
+                    <Link
+                      to={`/spaces/${id}`}
+                      style={{ color: "inherit", textDecoration: "none" }}
+                    >
+                      <Center>
+                        <button
+                          style={{
+                            border: "none",
+                            outline: "none",
+                            borderColor: "transparent",
+                          }}
+                        >
+                          {commented ? (
+                            <IoChatboxSharp />
+                          ) : (
+                            <IoChatboxOutline />
+                          )}
+                        </button>
+                        <span style={{ marginLeft: "5px" }}>
+                          {Total_Replies}
+                        </span>
+                      </Center>
+                    </Link>
                   </Flex>
                 </Text>
               </Flex>

@@ -39,7 +39,7 @@ export interface ContentDetailState {
 export interface AllReplyContentState {
   isLoading: boolean;
   isError: boolean;
-  data: AllReplyContent[];
+  data: AllReplyContent;
   // data: DataContentTypes[];
 }
 

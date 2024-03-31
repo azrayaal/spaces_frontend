@@ -8,7 +8,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { postFollow } from "../hooks";
+import { useFollow } from "../hooks";
 
 export interface SuggestionProps {
   avatar: string;
@@ -20,7 +20,9 @@ export default function Suggestions(props: SuggestionProps) {
   const { avatar, profileName, userName, id } = props;
 
   const [followed, setFollowed] = useState<boolean>(false);
-  const imgCLoud = `http://res.cloudinary.com/ddpo1vjim/image/upload/v1708434267/SpaceS/`;
+  const imgCLoud = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
+
+  const { postFollow } = useFollow();
 
   const onFollowed = () => {
     setFollowed(!followed);
@@ -54,10 +56,16 @@ export default function Suggestions(props: SuggestionProps) {
             <Button
               borderRadius="50px"
               size="sm"
-              colorScheme="teal"
+              colorScheme={!followed ? "teal" : "red"}
               onClick={() => postFollow(id)}
+              // onClick={onFollowed}
+              style={{
+                border: "none",
+                outline: "none",
+                borderColor: "transparent",
+              }}
             >
-              {!followed ? "Follow" : "Followed"}
+              {!followed ? "Follow" : "Unfollow"}
             </Button>
           </Center>
         </GridItem>

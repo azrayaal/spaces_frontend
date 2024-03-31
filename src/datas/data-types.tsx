@@ -170,7 +170,7 @@ export interface DataDetailTypes {
   // }
 }
 
-export interface AllReplyContent {
+export interface ReplyContent {
   id: number;
   content: string;
   image: string;
@@ -181,6 +181,11 @@ export interface AllReplyContent {
     full_name: string;
     profile_picture: string;
   };
+}
+
+export interface AllReplyContent {
+  reply: ReplyContent[];
+  total_replies: number;
 }
 
 export interface DataContentTypes {

@@ -9,28 +9,15 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-import { FaRegArrowAltCircleLeft } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { timeAgo } from "../../../hooks";
+
 export default function CardContetDetail(props) {
-  const { profile_picture, full_name, username, content, image } = props;
+  const { profile_picture, full_name, username, content, image, created_at } =
+    props;
   const imgCLoud = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
-  const navigate = useNavigate();
-  const handleBack = () => {
-    navigate("/");
-  };
 
   return (
     <>
-      <Heading size="md">
-        <Flex>
-          <Center>
-            <Box mr={5} color={"teal"}>
-              <FaRegArrowAltCircleLeft size="25" onClick={handleBack} />
-            </Box>
-            Post
-          </Center>
-        </Flex>
-      </Heading>
       <Box pt={4}>
         <Card
           direction={{ base: "column", sm: "row" }}
@@ -64,7 +51,7 @@ export default function CardContetDetail(props) {
                       @{username}
                     </Text>
                     <Text pt="1" color="gray.400">
-                      •12h
+                      • {timeAgo(created_at)}
                     </Text>
                   </Center>
                 </Flex>

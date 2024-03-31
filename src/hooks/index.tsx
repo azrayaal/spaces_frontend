@@ -4,11 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { API, API_Header } from "../libs/api";
 import { useDispatch } from "react-redux";
-import { ThunkDispatch } from "@reduxjs/toolkit";
+import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import { fetchContent } from "../features/contentSlice";
 import { fetchContentDetail } from "../features/contentDetailSlice";
 import axios from "axios";
 import { fetchUserDetail } from "../features/userDetailSlice";
+import { fetchSuggest } from "../features/suggestSlice";
+import { RootState } from "../datas/data-types";
+import { fetchAllReplyContent } from "../features/allReplyContentSlice";
 
 export const onSubmitLogin = () => {
   const navigate = useNavigate();
@@ -134,25 +137,17 @@ export const useOnSubmitPost = () => {
   const postContent = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      try {
-        const response = await API_Header.post("spaces", form);
-        dispatch(fetchContent());
-        toast({
-          title: "POST",
-          description: `SUCCES!`,
-          position: "top-left",
-          status: "success",
-          duration: 2000,
-          isClosable: true,
-        });
-        console.log("response post", response);
-
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 1000);
-      } catch (error) {
-        throw error;
-      }
+      // try {
+      await API_Header.post("spaces", form);
+      dispatch(fetchContent());
+      toast({
+        title: "POST",
+        description: `You just posted something!`,
+        position: "top-left",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
       const target = e.target as HTMLFormElement;
       target.reset();
     } catch (error) {
@@ -243,6 +238,8 @@ export const useOnSubmitReply = () => {
   const { id } = useParams();
   const dataId = parseInt(id);
 
+  console.log("dataId", dataId);
+
   const [imagePreview, setImagePreview] = useState<any>(null);
 
   const [form, setForm] = useState({
@@ -271,12 +268,12 @@ export const useOnSubmitReply = () => {
     try {
       await API_Header.post("reply", form);
       // console.log(response);
-      dispatch(fetchContentDetail(dataId));
+      dispatch(fetchAllReplyContent(dataId));
       toast({
         title: "Reply Status",
-        description: "Success!",
+        description: "You just replied!",
         status: "success",
-        duration: 9000,
+        duration: 3000,
         isClosable: true,
         position: "top-left",
       });
@@ -284,7 +281,15 @@ export const useOnSubmitReply = () => {
       const target = e.target as HTMLFormElement;
       target.reset();
     } catch (error) {
-      throw error;
+      console.log(error);
+      toast({
+        title: "Reply Status",
+        description: "Error posting reply!",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-left",
+      });
     }
   };
   return {
@@ -303,7 +308,8 @@ export const postLike = async (id) => {
   try {
     // const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
     await axios.post(
-      "http://localhost:3000/api/v1/likes",
+      // "http://localhost:3000/api/v1/likes"
+      `${import.meta.env.VITE_PUBLIC_API}/api/v1/likes`,
       { spacesId },
       {
         headers: {
@@ -316,62 +322,83 @@ export const postLike = async (id) => {
     throw error;
   }
 };
-// const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
-export const postFollow = async (id) => {
-  const followerId = id;
-  const token = Cookies.get("token");
-  const jwtToken = token ? atob(token) : null;
+export const useFollow = () => {
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const postFollow = async (id) => {
+    const followerId = id;
+    const token = Cookies.get("token");
+    const jwtToken = token ? atob(token) : null;
 
-  try {
-    // const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-    const response = await axios.post(
-      "http://localhost:3000/api/v1/follow",
-      { followerId },
-      {
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      }
-    );
-    // dispatch(fetchUserDetail());
-    console.log(response);
-    // dispatch(fetchContent());
-  } catch (error) {
-    throw error;
-  }
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_PUBLIC_API}/api/v1/follow`,
+        { followerId },
+        {
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
+      dispatch(fetchUserDetail());
+      dispatch(fetchSuggest());
+      console.log(response);
+    } catch (error) {
+      throw error;
+    }
+  };
+  return { postFollow };
 };
 
-export const deleteContent = async (id) => {
-  const spaceId = id;
+export const useDelete = () => {
+  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  const toast = useToast();
   const token = Cookies.get("token");
   const jwtToken = token ? atob(token) : null;
-  try {
-    // const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-    const response = await axios.delete(
-      `http://localhost:3000/api/v1/space-delete/${id}`,
-      {
-        data: { spaceId },
-        headers: {
-          Authorization: `Bearer ${jwtToken}`,
-        },
-      }
-    );
-    // toast({
-    //   title: "Content Status",
-    //   description: `Content has been deleted!`,
-    //   position: "top-left",
-    //   status: "error",
-    //   duration: 2000,
-    //   isClosable: true,
-    // });
 
-    // dispatch(fetchUserDetail());
-    console.log(response);
-    // dispatch(fetchContent());
-  } catch (error) {
-    throw error;
-  }
+  const deleteContent = async (id) => {
+    const spaceId = id;
+    try {
+      const response = await axios.delete(
+        // `http://localhost:3000/api/v1/space-delete/${id}`,
+        `${import.meta.env.VITE_PUBLIC_API}/api/v1/space-delete/${id}`,
+        {
+          data: { spaceId },
+          headers: {
+            Authorization: `Bearer ${jwtToken}`,
+          },
+        }
+      );
+      console.log(response);
+      if (response.data.status === "success") {
+        toast({
+          title: "Content Status",
+          description: `${response.data.message}`,
+          position: "top-left",
+          status: `success`,
+          duration: 3000,
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: "Content Status",
+          description: `${response.data.message}`,
+          position: "top-left",
+          status: `error`,
+          duration: 3000,
+          isClosable: true,
+        });
+      }
+
+      // console.log(response);
+      dispatch(fetchUserDetail());
+      dispatch(fetchContent());
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  return { deleteContent };
 };
 
 export const useOnSubmitEdit = (id: any) => {
@@ -440,3 +467,31 @@ export const checkLogin = () => {
 
   return { isLogin };
 };
+
+export function timeAgo(dateString) {
+  const date = new Date(dateString);
+  const now = new Date();
+  const timeDifference = now.getTime() - date.getTime();
+
+  // Convert time difference from milliseconds to seconds, minutes, hours, days, etc.
+  const seconds = Math.floor(timeDifference / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const hours = Math.floor(minutes / 60);
+  const days = Math.floor(hours / 24);
+  const months = Math.floor(days / 30);
+  const years = Math.floor(months / 12);
+
+  if (seconds < 60) {
+    return seconds + " seconds ago";
+  } else if (minutes < 60) {
+    return minutes + " minutes ago";
+  } else if (hours < 24) {
+    return hours + " hours ago";
+  } else if (days < 30) {
+    return days + " days ago";
+  } else if (months < 12) {
+    return months + " months ago";
+  } else {
+    return years + " years ago";
+  }
+}

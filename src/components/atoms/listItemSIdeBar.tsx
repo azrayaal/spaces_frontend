@@ -1,5 +1,5 @@
 import { ListItem, Flex, Center, Text } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export interface ListItemSideBarProps {
   link: string;
@@ -13,14 +13,16 @@ export default function ListItemSIdeBar(props: ListItemSideBarProps) {
   return (
     <ListItem py={2} style={{ listStyleType: "none" }}>
       <Flex>
-        <NavLink to={link}>
+        <Link to={link}>
+          {/* <NavLink to={link}> */}
           <Center>
             {logo}
             <Text bg="mainBg.900" pl={2}>
               {name}
             </Text>
           </Center>
-        </NavLink>
+        </Link>
+        {/* </NavLink> */}
       </Flex>
     </ListItem>
   );

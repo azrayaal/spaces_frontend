@@ -48,6 +48,7 @@ export interface DetailUserTypes {
 export interface FollowingTypes {
   created_at: string;
   id: number;
+  status: string;
   follower: {
     id: number;
     username: string;

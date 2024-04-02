@@ -94,9 +94,11 @@ export default function ContentSpace(props: DataContentTypes) {
   const { deleteContent } = useDelete();
 
   useEffect(() => {
+    // NOT BEST PRACTICE NEED SOME UPGRADE
     const isLikedByCurrentUser = likedData.some(
       (item) => item.user.id === idProfile
     );
+
     const isRepliedByCurrentUser = repliedData.some(
       (item) => item.user.id === idProfile
     );

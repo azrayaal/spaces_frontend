@@ -9,6 +9,7 @@ import allFollowingReducer from "../features/following";
 import allFollowerReducer from "../features/follower";
 import allOtherFollowingReducer from "../features/otherFollowing";
 import allOtherFollowerReducer from "../features/otherFollower";
+import allUserReducer from "../features/allUserSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     userDetail: userDetailReducer,
     OtherUserDetail: OtherUserDetailReducer,
     suggests: suggestsReducer,
+    allUser: allUserReducer,
     contentDetail: detailContentReducer,
     allReplyContent: allReplyContentReducer,
     allFollowing: allFollowingReducer,

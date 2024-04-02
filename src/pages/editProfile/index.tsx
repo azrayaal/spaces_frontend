@@ -142,7 +142,7 @@ export default function EditProfile() {
                   //   setProfilePreview(URL.createObjectURL(img));
                   //   return setEditProfilePicture(img);
                   // }}
-                  onChange={(e) => handleDataEdit(e)}
+                  // onChange={(e) => handleDataEdit(e)}
                   display={"none"}
                   multiple
                 />

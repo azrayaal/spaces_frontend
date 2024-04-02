@@ -446,50 +446,50 @@ export const useOnSubmitEdit = (id: any) => {
     header: null,
   });
 
-  // const handleDataEdit = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const { name, files } = e.target;
-
-  //   if (name === "header" && files && files![0]) {
-  //     setHeaderPreview(URL.createObjectURL(files![0]));
-  //   }
-
-  //   setForm({
-  //     ...form,
-  //     [name]: name === "header" ? files![0] : e.target.value,
-  //   });
-  // };
-
   const handleDataEdit = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value, files } = e.target;
+    const { name, files } = e.target;
 
-    if (!value && name !== "header" && name !== "profile_picture") {
-      setForm({
-        ...form,
-        [name]: null,
-      });
-    } else if (
-      (name === "header" || name === "profile_picture") &&
-      files &&
-      files[0]
-    ) {
-      if (name === "header") {
-        setHeaderPreview(URL.createObjectURL(files[0]));
-      } else {
-        setProfilePreview(URL.createObjectURL(files[0]));
-      }
-      // Create a new File object
-      const file = new File([files[0]], files[0].name, { type: files[0].type });
-      setForm({
-        ...form,
-        [name]: file,
-      });
-    } else {
-      setForm({
-        ...form,
-        [name]: value,
-      });
+    if (name === "header" && files && files![0]) {
+      setHeaderPreview(URL.createObjectURL(files![0]));
     }
+
+    setForm({
+      ...form,
+      [name]: name === "header" ? files![0] : e.target.value,
+    });
   };
+
+  // const handleDataEdit = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value, files } = e.target;
+
+  //   if (!value && name !== "header" && name !== "profile_picture") {
+  //     setForm({
+  //       ...form,
+  //       [name]: null,
+  //     });
+  //   } else if (
+  //     (name === "header" || name === "profile_picture") &&
+  //     files &&
+  //     files[0]
+  //   ) {
+  //     if (name === "header") {
+  //       setHeaderPreview(URL.createObjectURL(files[0]));
+  //     } else {
+  //       setProfilePreview(URL.createObjectURL(files[0]));
+  //     }
+  //     // Create a new File object
+  //     const file = new File([files[0]], files[0].name, { type: files[0].type });
+  //     setForm({
+  //       ...form,
+  //       [name]: file,
+  //     });
+  //   } else {
+  //     setForm({
+  //       ...form,
+  //       [name]: value,
+  //     });
+  //   }
+  // };
 
   const postDataEdit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -537,7 +537,6 @@ export function timeAgo(dateString) {
   const now = new Date();
   const timeDifference = now.getTime() - date.getTime();
 
-  // Convert time difference from milliseconds to seconds, minutes, hours, days, etc.
   const seconds = Math.floor(timeDifference / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
@@ -559,3 +558,6 @@ export function timeAgo(dateString) {
     return years + " years ago";
   }
 }
+
+const date = "2024-02-28 22:02:56.998";
+console.log(timeAgo(date));

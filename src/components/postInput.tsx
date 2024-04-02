@@ -28,18 +28,18 @@ export default function PostInput() {
   const { handleDataPost, postContent, imagePreview } = useOnSubmitPost();
 
   useEffect(() => {
-    const textarea = textareaRef.current;
-    if (textarea) {
-      textarea.addEventListener("input", function () {
-        this.style.height = "auto";
-        this.style.height = this.scrollHeight + "px";
-      });
-    }
+    // const textarea = textareaRef.current;
+    // if (textarea) {
+    //   textarea.addEventListener("input", function () {
+    //     this.style.height = "auto";
+    //     this.style.height = this.scrollHeight + "px";
+    //   });
+    // }
   }, []);
 
   return (
     <>
-      {isLogin ? (
+      {isLogin && (
         <>
           <Box my={4} display={{ base: "none", md: "block" }}>
             <Card
@@ -150,8 +150,6 @@ export default function PostInput() {
             </Card>
           </Box>
         </>
-      ) : (
-        <Box></Box>
       )}
     </>
   );

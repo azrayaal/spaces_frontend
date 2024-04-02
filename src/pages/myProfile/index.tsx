@@ -39,7 +39,7 @@ export default function MyProfile() {
   const editProfile = () => {
     navigate(`/edit-profile/${userDetail.id}`);
   };
-
+  // pake tab lebih rapih!!
   const handleActiveContent = () => {
     setActiveFollowing(false);
     setActiveFollower(false);
@@ -55,6 +55,8 @@ export default function MyProfile() {
     setActiveContent(false);
     setActiveFollower(true);
   };
+  // taro usedispatch di  root  sama rootstatenya juga!!
+  // jgn pake any3
   const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
   const userDetail = useSelector(
     (state: RootState) => state.userDetail.userDetail
@@ -66,11 +68,14 @@ export default function MyProfile() {
   const allFollowing = useSelector(
     (state: RootState) => state.allFollowing.data
   );
+
   const allFollower = useSelector((state: RootState) => state.allFollower.data);
 
+  // buat aja di BEnya!!
   const filteredContentByuserId = allContent.filter(
     (i) => i.user.id === userDetail.id
   );
+
   const { postFollow } = useFollow();
   // console.log(filteredContentByuserId);
 
@@ -270,6 +275,7 @@ export default function MyProfile() {
             profile_picture={data.follower.profile_picture}
             full_name={data.follower.full_name}
             created_at={data.follower.created_at}
+            status={data.status}
           />
         ))}
 

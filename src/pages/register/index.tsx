@@ -66,6 +66,7 @@ export default function Register() {
             <Input
               borderRadius={10}
               placeholder="Email"
+              type="email"
               w={300}
               value={email}
               onChange={(event) => setEmail(event.target.value)}

@@ -44,7 +44,7 @@ export default function SideNavbar() {
   return (
     <>
       <Box m={4}>
-        <Heading>SpaceS</Heading>
+        <Heading>space</Heading>
         {isLogin ? (
           <UnorderedList my={6} py={2}>
             {dataSidebarLogIn.map((data, index) => (

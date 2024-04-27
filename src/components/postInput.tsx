@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { RiImageAddFill } from "react-icons/ri";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { checkLogin, useOnSubmitPost } from "../hooks";
 import { useSelector } from "react-redux";
 import { RootState } from "../datas/data-types";

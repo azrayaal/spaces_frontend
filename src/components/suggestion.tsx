@@ -19,7 +19,7 @@ export interface SuggestionProps {
 export default function Suggestions(props: SuggestionProps) {
   const { avatar, profileName, userName, id } = props;
 
-  const [followed, setFollowed] = useState<boolean>(false);
+  const [followed] = useState<boolean>(false);
   const imgCLoud = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
 
   const { postFollow } = useFollow();

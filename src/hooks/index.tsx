@@ -308,7 +308,6 @@ export const postLike = async (id) => {
   try {
     // const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
     await axios.post(
-      // "http://localhost:3000/api/v1/likes"
       `${import.meta.env.VITE_PUBLIC_API}/api/v1/likes`,
       { spacesId },
       {
@@ -390,7 +389,6 @@ export const useDelete = () => {
     const spaceId = id;
     try {
       const response = await axios.delete(
-        // `http://localhost:3000/api/v1/space-delete/${id}`,
         `${import.meta.env.VITE_PUBLIC_API}/api/v1/space-delete/${id}`,
         {
           data: { spaceId },

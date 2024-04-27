@@ -9,11 +9,11 @@ import {
   Grid,
   Button,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+// import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { RootState } from "../../datas/data-types";
-import { ThunkDispatch } from "redux-thunk";
+// import { RootState } from "../../datas/data-types";
+// import { ThunkDispatch } from "redux-thunk";
 
 export default function UserCard(props) {
   const {

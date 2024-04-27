@@ -8,7 +8,6 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 export default function SideProfile(props: any) {
   // const [button, setButton] = useState(true);
@@ -16,7 +15,6 @@ export default function SideProfile(props: any) {
     full_name,
     username,
     profile_description,
-    id,
     header,
     profile_picture,
     followingTotal,

@@ -11,10 +11,9 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   DataContentTypes,
-  FollowerTypes,
   FollowingTypes,
   RootState,
 } from "../../datas/data-types";
@@ -25,7 +24,6 @@ import { fetchFollowing } from "../../features/following";
 import UserCard from "../search/userCard";
 import { fetchFollower } from "../../features/follower";
 import { timeAgo, useFollow } from "../../hooks";
-import fetchContent from "../../features/asyncThunk/fetchSuggest";
 
 export default function MyProfile() {
   const [activeContent, setActiveContent] = useState<Boolean>(true);

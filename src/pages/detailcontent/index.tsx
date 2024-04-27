@@ -1,23 +1,10 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Box,
-  Card,
-  Image,
-  Stack,
-  CardBody,
-  Spacer,
-  Flex,
-  Center,
-  Button,
-  Heading,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Center, Heading } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContentDetail } from "../../features/contentDetailSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { RootState } from "../../datas/data-types";
-import ContentSpace from "../../components/content";
 import { fetchAllReplyContent } from "../../features/allReplyContentSlice";
 import CardContetDetail from "./component/cardContetDetail";
 import FormReply from "./component/formReply";

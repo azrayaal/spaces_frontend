@@ -11,9 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { RootState } from "../../datas/data-types";
-import { fetchAllUser } from "../../features/allUserSlice";
 import { ThunkDispatch } from "redux-thunk";
 
 export default function UserCard(props) {
@@ -29,7 +28,7 @@ export default function UserCard(props) {
     postFollow,
   } = props;
   const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
-  const [followed, setFollowed] = useState<boolean>(false);
+  // const [followed, setFollowed] = useState<boolean>(false);
 
   // const onFollowed = () => {
   //   setFollowed(!followed);
@@ -39,9 +38,9 @@ export default function UserCard(props) {
   //   setFollowed(!followed);
   // }
 
-  const allFollowing = useSelector(
-    (state: RootState) => state.allFollowing.data
-  );
+  // const allFollowing = useSelector(
+  //   (state: RootState) => state.allFollowing.data
+  // );
 
   // const allUser = useSelector((state: RootState) => state.allUser.data);
   // console.log("allUser", allUser);
@@ -82,7 +81,7 @@ export default function UserCard(props) {
   // } else {
   //   setFollowed(followed);
   // }
-  const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+  // const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
   useEffect(() => {
     // const isAllFollowing = allFollowing.some((item) => item.follower.id === );

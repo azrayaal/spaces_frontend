@@ -4,13 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { API, API_Header } from "../libs/api";
 import { useDispatch } from "react-redux";
-import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 import { fetchContent } from "../features/contentSlice";
-import { fetchContentDetail } from "../features/contentDetailSlice";
 import axios from "axios";
 import { fetchUserDetail } from "../features/userDetailSlice";
 import { fetchSuggest } from "../features/suggestSlice";
-import { RootState } from "../datas/data-types";
 import { fetchAllReplyContent } from "../features/allReplyContentSlice";
 import { fetchFollowing } from "../features/following";
 import { fetchFollower } from "../features/follower";
@@ -196,7 +194,7 @@ export const useOnsubmitRegister = () => {
       e.preventDefault();
       try {
         console.log(formFinal);
-        const examplePromise = new Promise((resolve, reject) => {
+        const examplePromise = new Promise((resolve) => {
           setTimeout(() => resolve(200), 2000);
         });
         const response = await API_Header.post("register", formFinal);
@@ -437,7 +435,7 @@ export const useOnSubmitEdit = (id: any) => {
   const toast = useToast();
   const navigate = useNavigate();
   const [headerPreview, setHeaderPreview] = useState<any>(null);
-  const [profilePreview, setProfilePreview] = useState<any>(null);
+  // const [profilePreview, setProfilePreview] = useState<any>(null);
   const [form, setForm] = useState({
     full_name: "",
     username: "",

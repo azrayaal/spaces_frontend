@@ -1,5 +1,4 @@
 import {
-  Input,
   Card,
   Box,
   Button,
@@ -10,8 +9,7 @@ import {
   Center,
   Text,
 } from "@chakra-ui/react";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { FormEvent, useState } from "react";
 import { API } from "../../libs/api";
 import ContentSpace from "../../components/content";
 import { DataContentTypes, DetailUserTypes } from "../../datas/data-types";
@@ -202,7 +200,6 @@ export default function Search() {
               profile_picture={data.profile_picture}
               full_name={data.full_name}
               created_at={data.created_at}
-              status={data.status}
             />
           ))}
 

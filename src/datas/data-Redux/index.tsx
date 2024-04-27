@@ -2,12 +2,9 @@ import {
   AllReplyContent,
   DataContentTypes,
   DataDetailTypes,
-  DetailUserTypes,
   FollowerTypes,
   FollowingTypes,
-  SuggestionTypes,
   SuggestionTypesRedux,
-  UserFromPayload,
   UserFromPayloadRedux,
 } from "../data-types";
 

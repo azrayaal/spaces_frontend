@@ -21,7 +21,7 @@ import {
   IoChatboxOutline,
 } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { checkLogin, useDelete, postLike, timeAgo } from "../hooks";
@@ -35,10 +35,15 @@ export default function ContentSpace(props: DataContentTypes) {
     image,
     content,
     Total_Replies,
-    Total_Likes,
+    // Total_Likes,
     created_at,
-    spacesId,
-    user: { full_name, username, profile_picture, email },
+    // spacesId,
+    user: {
+      full_name,
+      username,
+      profile_picture,
+      // email
+    },
   } = props;
   const [openOpt, setOpenOpt] = useState<Boolean>(false);
   const [liked, setLiked] = useState<Boolean>(false);
@@ -46,7 +51,7 @@ export default function ContentSpace(props: DataContentTypes) {
   const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
   const [totalLikes, setTotalLikes] = useState(0);
   const [likedData, setLikedData] = useState([]);
-  const [totalReplies, setTotalReplies] = useState(0);
+  // const [totalReplies, setTotalReplies] = useState(0);
   const [repliedData, setRepliedData] = useState([]);
   const { isLogin } = checkLogin();
   const token = Cookies.get("token");
@@ -72,7 +77,7 @@ export default function ContentSpace(props: DataContentTypes) {
   const getReplies = async (id) => {
     try {
       const response = await API.get(`replies/${id}`);
-      setTotalReplies(response.data.total_Replies);
+      // setTotalReplies(response.data.total_Replies);
       setRepliedData(response.data.reply);
     } catch (error) {
       console.log(error);

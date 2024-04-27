@@ -11,7 +11,7 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   DataContentTypes,
   FollowingTypes,
@@ -20,9 +20,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import ContentSpace from "../../components/content";
 import { ThunkDispatch } from "@reduxjs/toolkit";
-import { fetchFollowing } from "../../features/following";
+// import { fetchFollowing } from "../../features/following";
 import UserCard from "../search/userCard";
-import { fetchFollower } from "../../features/follower";
+// import { fetchFollower } from "../../features/follower";
 import { timeAgo, useOtherFollow } from "../../hooks";
 import { fetchOtherUserDetail } from "../../features/otherUserDetailSlice";
 import { fetchOtherFollowing } from "../../features/otherFollowing";

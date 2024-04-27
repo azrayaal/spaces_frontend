@@ -10,12 +10,8 @@ import {
   Center,
   Image,
   InputGroup,
-  useToast,
 } from "@chakra-ui/react";
-import axios from "axios";
-import { useState } from "react";
 import { IoMdBackspace } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
 import { useOnsubmitRegister } from "../../hooks";
 
 export default function RegisterFinal() {

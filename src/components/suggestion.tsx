@@ -24,9 +24,9 @@ export default function Suggestions(props: SuggestionProps) {
 
   const { postFollow } = useFollow();
 
-  const onFollowed = () => {
-    setFollowed(!followed);
-  };
+  // const onFollowed = () => {
+  //   setFollowed(!followed);
+  // };
 
   return (
     <Box ml={1}>

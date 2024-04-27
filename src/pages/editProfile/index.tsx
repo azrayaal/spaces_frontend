@@ -1,5 +1,5 @@
 import { Box, Image, Center, Button, Text, Input } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { RiImageAddFill } from "react-icons/ri";
 import { useSelector } from "react-redux";
 import { RootState } from "../../datas/data-types";
@@ -29,8 +29,8 @@ export default function EditProfile() {
   const { handleDataEdit, postDataEdit, headerPreview } = useOnSubmitEdit(id);
   const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
 
-  const [editProfilePicture, setEditProfilePicture] = useState<any>();
-  const [profilePreview, setProfilePreview] = useState<any>(null);
+  // const [editProfilePicture, setEditProfilePicture] = useState<any>();
+  const [profilePreview] = useState<any>(null);
 
   return (
     <form onSubmit={postDataEdit} encType="multipart/form-data">

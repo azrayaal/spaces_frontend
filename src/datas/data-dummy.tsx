@@ -1,4 +1,4 @@
-import { FaBeer, FaSearch, FaHeart } from "react-icons/fa";
+import { FaBeer, FaSearch } from "react-icons/fa";
 import { GiPlagueDoctorProfile } from "react-icons/gi";
 
 export const dataSidebarLogIn = [

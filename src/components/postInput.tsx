@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../datas/data-types";
 
 export default function PostInput() {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  // const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const { isLogin } = checkLogin();
 

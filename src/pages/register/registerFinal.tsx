@@ -6,15 +6,18 @@ import {
   Stack,
   Input,
   Button,
-  Link,
   Center,
   Image,
   InputGroup,
 } from "@chakra-ui/react";
 import { IoMdBackspace } from "react-icons/io";
 import { useOnsubmitRegister } from "../../hooks";
+import { Link } from "react-router-dom";
+import Registerform from "./components/registerform";
+import { validationRegisterFinal } from "../../hooks/validation";
 
 export default function RegisterFinal() {
+  const { control, handleSubmit } = validationRegisterFinal();
   const { postRegister, handleDataRegister, imagePreview } =
     useOnsubmitRegister();
 
@@ -29,20 +32,23 @@ export default function RegisterFinal() {
         borderRadius={10}
       >
         <Text fontSize={30} mt={-4} ml={-20}>
-          <Link href="/signin" style={{ textDecoration: "none" }}>
+          <Link to="/register" style={{ textDecoration: "none" }}>
             <IoMdBackspace />
           </Link>
         </Text>
         <Center>
-          <Link href="/" style={{ textDecoration: "none" }}>
-            <Heading>SpaceS</Heading>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Heading>space</Heading>
           </Link>
         </Center>
         <Center>
           <Text>Create your account</Text>
         </Center>
         <Box py={3}>
-          <form encType="multipart/form-data" onSubmit={(e) => postRegister(e)}>
+          <form
+            encType="multipart/form-data"
+            onSubmit={handleSubmit(postRegister)}
+          >
             <Stack spacing={3}>
               <label htmlFor="image">
                 {imagePreview ? (
@@ -94,13 +100,18 @@ export default function RegisterFinal() {
                   />
                 </Box>
               </InputGroup>
-              <Input
-                borderRadius={10}
-                placeholder="Bio"
-                w={300}
-                id="profile_description"
-                name="profile_description"
-                onChange={(e) => handleDataRegister(e)}
+
+              <Registerform
+                control={control}
+                label={"Bio"}
+                name={"profile_description"}
+                placeholder={"Bio"}
+                type={"text"}
+                textHelper={""}
+                id={"profile_picture"}
+                accept={"image/png, image/jpeg"}
+                formEncType={"text/plain"}
+                display={""}
               />
               <Button type="submit">Register </Button>
             </Stack>

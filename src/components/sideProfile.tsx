@@ -41,7 +41,6 @@ export default function SideProfile(props: any) {
               h={20}
               w="100%"
               src={`${imageUrl}${header}.jpg`}
-              alt="Caffe Latte"
             />
             <Center>
               <Image
@@ -56,7 +55,7 @@ export default function SideProfile(props: any) {
                 left={2}
                 maxW={{ base: "100%", sm: "200px" }}
                 src={`${imageUrl}${profile_picture}.jpg`}
-                alt="Caffe Latte"
+                alt="profile pictures"
               />
             </Center>
             <Box pt={4}>

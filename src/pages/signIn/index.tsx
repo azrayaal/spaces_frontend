@@ -1,6 +1,7 @@
-import { Card, Heading, Text, Link, Center } from "@chakra-ui/react";
+import { Card, Heading, Text, Center } from "@chakra-ui/react";
 import { IoMdBackspace } from "react-icons/io";
 import LoginForm from "./loginForm";
+import { Link } from "react-router-dom";
 
 export default function SignIn() {
   return (
@@ -15,13 +16,13 @@ export default function SignIn() {
         borderRadius={10}
       >
         <Text fontSize={30} mt={-4} ml={-20}>
-          <Link href="/" style={{ textDecoration: "none" }}>
+          <Link to="/" style={{ textDecoration: "none" }}>
             <IoMdBackspace />
           </Link>
         </Text>
         <Center>
-          <Link href="/" style={{ textDecoration: "none" }}>
-            <Heading>SpaceS</Heading>
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Heading>space</Heading>
           </Link>
         </Center>
         <Center>

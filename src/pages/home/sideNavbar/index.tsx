@@ -8,16 +8,17 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  Link,
 } from "@chakra-ui/react";
 import Cookies from "js-cookie";
-
+import { Link } from "react-router-dom";
 import ListItemSIdeBar from "../../../components/atoms/listItemSIdeBar";
 import PostInput from "../../../components/postInput";
 
 import { dataSidebarLogIn } from "../../../datas/data-dummy";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { removeUserDetail } from "../../../store";
 
 export default function SideNavbar() {
   const [isLogin, setIsLogIn] = useState(false);
@@ -29,12 +30,14 @@ export default function SideNavbar() {
       setIsLogIn(true);
     }
   };
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const onLogout = () => {
     Cookies.remove("token");
-    navigate("/");
-    window.location.reload();
+    dispatch(removeUserDetail());
+    navigate("/login");
+    // window.location.reload();
   };
 
   useEffect(() => {
@@ -94,7 +97,7 @@ export default function SideNavbar() {
         </>
       ) : (
         <Center>
-          <Link href="/signin">
+          <Link to="/login">
             <Button w={200} mx={4}>
               Log In
             </Button>

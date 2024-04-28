@@ -1,4 +1,5 @@
-import { Box, Button, Center, Link, Card } from "@chakra-ui/react";
+import { Box, Button, Center, Card } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export default function SideProfileNotLogin() {
   return (
@@ -6,7 +7,7 @@ export default function SideProfileNotLogin() {
       <Card bg="mainBg.200" borderRadius="lg" h={200} w={380}>
         <Box m={"auto"} color="gray.100">
           <Center>
-            <Link href="/signin">
+            <Link to="/login">
               <Button w={250}>Log In</Button>
             </Link>
           </Center>

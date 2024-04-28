@@ -54,7 +54,12 @@ const initialState: UserDetailState = {
 export const userDetailSlice = createSlice({
   name: "userDetail",
   initialState,
-  reducers: {},
+  reducers: {
+    // Add a reducer case to handle removing user detail
+    removeUserDetail: (state) => {
+      state.userDetail = initialState.userDetail;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchUserDetail.fulfilled, (state, action) => {
       state.userDetail = action.payload;

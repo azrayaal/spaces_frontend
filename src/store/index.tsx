@@ -26,3 +26,9 @@ export const store = configureStore({
     allOtherFollower: allOtherFollowerReducer,
   },
 });
+
+// actions.js
+import { createAction } from "@reduxjs/toolkit";
+
+// Define an action to remove user detail
+export const removeUserDetail = createAction("REMOVE_USER_DETAIL");

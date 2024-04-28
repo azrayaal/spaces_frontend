@@ -16,6 +16,9 @@ export default function ProfileNSuggest() {
   const dataUserLogin = useSelector(
     (state: RootState) => state.userDetail.userDetail
   );
+
+  console.log(dataUserLogin);
+
   const suggestData = useSelector((state: RootState) => state.suggests.data);
   const { isLogin } = checkLogin();
 

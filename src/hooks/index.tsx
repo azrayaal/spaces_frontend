@@ -14,7 +14,6 @@ import { fetchFollowing } from "../features/following";
 import { fetchFollower } from "../features/follower";
 
 export const onSubmitLogin = () => {
-  const navigate = useNavigate();
   const toast = useToast();
 
   const [form, setForm] = useState({
@@ -28,78 +27,40 @@ export const onSubmitLogin = () => {
       [e.target.name]: e.target.value,
     });
   };
-
-  const fetchLogin = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const navigate = useNavigate();
+  const fetchLogin = async (data: { username: string; password: string }) => {
     try {
-      const response = await API.post("signin", form);
-      // console.log(form);
-      // console.log(response);
-
-      if (!form.password && !form.username) {
+      console.log(data);
+      const response = await API.post("signin", data);
+      console.log(response);
+      if (response.data.status === 401) {
         toast({
           title: "Log in status",
-          description: `All data must be filled!`,
+          description: response.data.message,
           position: "top-left",
           status: "error",
           duration: 2000,
           isClosable: true,
         });
-      } else if (!form.username) {
+      } else if (response.data.status === 200) {
+        const { token } = response.data;
+        const tokenBase64 = window.btoa(token);
+        Cookies.set("token", tokenBase64, {
+          expires: 1,
+        });
         toast({
           title: "Log in status",
-          description: `username must be filled!`,
+          description: "Login Success!",
           position: "top-left",
-          status: "error",
+          status: "success",
           duration: 2000,
           isClosable: true,
         });
-      } else if (!form.password) {
-        toast({
-          title: "Log in status",
-          description: `password must be filled!`,
-          position: "top-left",
-          status: "error",
-          duration: 2000,
-          isClosable: true,
-        });
-      } else {
-        if (response.data.token) {
-          const { token } = response.data;
-          const tokenBase64 = window.btoa(token);
-          Cookies.set("token", tokenBase64, {
-            expires: 1,
-          });
-          toast({
-            title: "Log in status",
-            description: "Success!",
-            position: "top-left",
-            status: "success",
-            duration: 2000,
-            isClosable: true,
-          });
-          navigate("/");
-          window.location.reload();
-        } else {
-          toast({
-            title: "Log in status",
-            description: `${response.data}`,
-            position: "top-left",
-            status: "error",
-            duration: 2000,
-            isClosable: true,
-          });
-        }
+        navigate("/");
+        // window.location.reload();
       }
     } catch (error) {
-      toast({
-        title: "Log in status",
-        description: `${error}`,
-        position: "top-left",
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-      });
+      console.log(error);
     }
   };
 
@@ -167,70 +128,115 @@ export const useOnsubmitRegister = () => {
   const storedData = localStorage.getItem("DataRegister");
   const toast = useToast();
   const navigate = useNavigate();
-  if (storedData) {
-    const storedDataObj = JSON.parse(storedData);
+  // if (storedData) {
+  const storedDataObj = JSON.parse(storedData);
 
-    const [formFinal, setFormFinal] = useState({
-      ...storedDataObj,
-      profile_description: "",
-      profile_picture: File,
+  const [formFinal, setFormFinal] = useState({
+    ...storedDataObj,
+    profile_picture: File,
+  });
+
+  console.log(formFinal.profile_picture);
+
+  const handleDataRegister = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+
+    setFormFinal({
+      ...formFinal,
+      [name]: name === "profile_picture" ? files![0] : e.target.value,
     });
 
-    const handleDataRegister = (e: ChangeEvent<HTMLInputElement>) => {
-      const { name, files } = e.target;
+    // Set image preview
+    if (name === "profile_picture" && files && files![0]) {
+      setImagePreview(URL.createObjectURL(files![0]));
+    }
+  };
 
-      setFormFinal({
-        ...formFinal,
-        [name]: name === "profile_picture" ? files![0] : e.target.value,
-      });
+  // console.log("formFinal", formFinal.profile_picture);
 
-      // Set image preview
-      if (name === "profile_picture" && files && files![0]) {
-        setImagePreview(URL.createObjectURL(files![0]));
-      }
-    };
+  // const postRegister = async (e: FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   try {
+  //     console.log(formFinal);
+  //     const examplePromise = new Promise((resolve) => {
+  //       setTimeout(() => resolve(200), 2000);
+  //     });
+  //     const response = await API_Header.post("register", formFinal);
+  //     console.log("response", response);
+  //     toast.promise(examplePromise, {
+  //       success: {
+  //         position: "top-left",
+  //         title: "Register status",
+  //         description: `${response.data.message}`,
+  //       },
+  //       error: {
+  //         position: "top-left",
+  //         title: "Register status",
+  //         description: `${response.data.message}`,
+  //       },
+  //       loading: {
+  //         position: "top-left",
+  //         title: "Register status",
+  //         description: "Please wait",
+  //       },
+  //     });
+  //     localStorage.clear();
+  //     setTimeout(() => {
+  //       navigate("/login");
+  //     }, 2000);
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // };
 
-    const postRegister = async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      try {
-        console.log(formFinal);
-        const examplePromise = new Promise((resolve) => {
-          setTimeout(() => resolve(200), 2000);
+  const postRegister = async (values) => {
+    try {
+      const storedData = localStorage.getItem("DataRegister");
+      const storedDataObj = JSON.parse(storedData);
+      const data = {
+        ...storedDataObj,
+        ...values,
+        profile_picture: formFinal.profile_picture,
+      };
+
+      console.log(data);
+      const response = await API_Header.post("register", data);
+      console.log(response);
+      if (response.data.status === 401) {
+        toast({
+          title: "Log in status",
+          description: response.data.message,
+          position: "top-left",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
         });
-        const response = await API_Header.post("register", formFinal);
-        console.log("response", response);
-        toast.promise(examplePromise, {
-          success: {
-            position: "top-left",
-            title: "Register status",
-            description: `${response.data.message}`,
-          },
-          error: {
-            position: "top-left",
-            title: "Register status",
-            description: `${response.data.message}`,
-          },
-          loading: {
-            position: "top-left",
-            title: "Register status",
-            description: "Please wait",
-          },
+      } else if (response.data.status === 400) {
+        toast({
+          title: "Log in status",
+          description: response.data.message,
+          position: "top-left",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
         });
-        localStorage.clear();
         setTimeout(() => {
-          navigate("/signin");
+          navigate("/login");
+          window.location.reload();
         }, 2000);
-      } catch (error) {
-        throw error;
       }
-    };
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
 
-    return {
-      postRegister,
-      handleDataRegister,
-      imagePreview,
-    };
-  }
+  return {
+    postRegister,
+    handleDataRegister,
+    imagePreview,
+  };
+  // }
 };
 
 export const useOnSubmitReply = () => {

@@ -9,15 +9,13 @@ import {
   Grid,
   Button,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-// import { RootState } from "../../datas/data-types";
-// import { ThunkDispatch } from "redux-thunk";
+import { RootState } from "../../datas/data-types";
 
 export default function UserCard(props) {
   const {
-    status,
     profile_picture,
     id,
     full_name,
@@ -28,66 +26,31 @@ export default function UserCard(props) {
     postFollow,
   } = props;
   const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
-  // const [followed, setFollowed] = useState<boolean>(false);
+  // const [isFollowing, setIsFollowing] = useState(false);
 
-  // const onFollowed = () => {
-  //   setFollowed(!followed);
-  // };
+  const allFollowing = useSelector(
+    (state: RootState) => state.allFollowing.data
+  );
 
-  // if (status === "Unfollow") {
-  //   setFollowed(!followed);
-  // }
+  const isFollowing = allFollowing.some((follow) => follow.follower.id === id);
 
-  // const allFollowing = useSelector(
-  //   (state: RootState) => state.allFollowing.data
-  // );
+  const onFollowToggle = () => {
+    // setIsFollowing((prevState) => !prevState);
+    if (!isFollowing) {
+      postFollow(id);
+    } else {
+      postFollow(id);
+    }
+  };
 
-  // const allUser = useSelector((state: RootState) => state.allUser.data);
-  // console.log("allUser", allUser);
-
-  // const filteredUsers = allUser.filter((user) => {
-  //   return !allFollowing.some(
-  //     (following) =>
-  //       following.following.id === user.id || following.follower.id === user.id
-  //   );
-  // });
-
-  // if (filteredUsers.length > 0) {
-  //   setFollowed(true); // Assuming setFollowed(true) means at least one user is followed
-  // } else {
-  //   setFollowed(false); // Assuming setFollowed(false) means no users are followed
-  // }
-
-  // console.log("Filtered Users:", filteredUsers);
-
-  // if(filtereduser){
-  //   setFollowed(true)
-  // }
-  // const filteredFollowing = allUser.filter(allFollowing);
-  // console.log("filteredFollowing", filteredFollowing);
-
-  // const isAllFollowing = allFollowing.some((item) => item.follower.id);
-  // console.log("isAllFollowing", isAllFollowing);
-
-  // const isAllUser = allUser.some((item) => item.id);
-  // console.log("isAllUser", isAllUser);
-
-  // const isFollowingCurrentUser = allFollowing.some(
-  //   (item) => item.follower.email === idProfile
-  // );
-
-  // if (isFollowingCurrentUser) {
-  //   setFollowed(!followed);
-  // } else {
-  //   setFollowed(followed);
-  // }
-  // const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-
-  useEffect(() => {
-    // const isAllFollowing = allFollowing.some((item) => item.follower.id === );
-    // console.log("isAllFollowing", isAllFollowing);
-    // dispatch(fetchAllUser());
-  }, []);
+  // // Check if the user ID exists in the list of all following IDs
+  // useEffect(() => {
+  //   if (allFollowing.some((follow) => follow.follower.id === id)) {
+  //     setIsFollowing(true); // If the user ID exists, set isFollowing to true
+  //   } else {
+  //     setIsFollowing(false); // If not, set isFollowing to false
+  //   }
+  // }, [allFollowing, id]);
 
   return (
     <>
@@ -141,16 +104,15 @@ export default function UserCard(props) {
                 <Button
                   borderRadius="50px"
                   size="sm"
-                  colorScheme={status === "Unfollow" ? "red" : "teal"}
-                  onClick={() => postFollow(id)}
-                  // onClick={onFollowed}
+                  colorScheme={isFollowing ? "red" : "teal"}
+                  onClick={onFollowToggle}
                   style={{
                     border: "none",
                     outline: "none",
                     borderColor: "transparent",
                   }}
                 >
-                  {status === "Unfollow" ? "Unfollow" : "Follow"}
+                  {isFollowing ? "Unfollow" : "Follow"}
                 </Button>
               </Flex>
             </GridItem>

@@ -38,11 +38,13 @@ export default function ContentSpace(props: DataContentTypes) {
     // Total_Likes,
     created_at,
     // spacesId,
+    userId,
     user: {
       full_name,
       username,
       profile_picture,
-      // email
+      // email,
+      // userId,
     },
   } = props;
   const [openOpt, setOpenOpt] = useState<Boolean>(false);
@@ -145,7 +147,7 @@ export default function ContentSpace(props: DataContentTypes) {
               </Text>
             </Box>
 
-            {openOpt ? (
+            {openOpt && (
               <>
                 <Box
                   position={"absolute"}
@@ -172,30 +174,27 @@ export default function ContentSpace(props: DataContentTypes) {
                   p={2}
                   gap={2}
                 >
-                  <Flex>
-                    <Center gap={1}>
-                      <Text color={"red.500"}>
-                        <MdDelete />
-                      </Text>
-                      <Button
-                        className="custom-button-delete"
-                        onClick={() => deleteContent(id)}
-                        variant={"link"}
-                        border={"none"}
-                        outline={"none"}
-                        _hover={{ textDecoration: "none" }}
-                        style={{
-                          border: "none",
-                          outline: "none",
-                          borderColor: "transparent",
-                        }}
-                      >
-                        <Text color={"red.500"} cursor={"pointer"}>
-                          Delete
+                  {idProfile === userId && (
+                    <Flex>
+                      <Center gap={1}>
+                        <Text color={"red.500"}>
+                          <MdDelete />
                         </Text>
-                      </Button>
-                    </Center>
-                  </Flex>
+                        <Button
+                          className="custom-button-delete"
+                          onClick={() => deleteContent(id)}
+                          variant={"link"}
+                          border={"none"}
+                          outline={"none"}
+                          _hover={{ textDecoration: "none" }}
+                        >
+                          <Text color={"red.500"} cursor={"pointer"}>
+                            Delete
+                          </Text>
+                        </Button>
+                      </Center>
+                    </Flex>
+                  )}
                   <Link to="">
                     <Flex>
                       <Center gap={1}>
@@ -208,43 +207,46 @@ export default function ContentSpace(props: DataContentTypes) {
                   </Link>
                 </Card>
               </>
-            ) : (
-              <></>
             )}
           </>
           {/* end of button option */}
-          <Image
-            borderRadius="100%"
-            objectFit="cover"
-            h={14}
-            w={14}
-            alt="not found"
-            marginLeft={4}
-            marginTop={4}
-            minW={{ base: "56px", sm: "56px" }}
-            maxW={{ base: "56px", sm: "56px" }}
-            minH={{ base: "56px", sm: "56px" }}
-            maxH={{ base: "56px", sm: "56px" }}
-            // src={`${imageUrl}${profile_picture}.jpg`}
-            src={`${imageUrl}${profile_picture}.jpg`}
-          />
+          <Link
+            to={`/profile/${userId}`}
+            style={{ color: "inherit", textDecoration: "none" }}
+          >
+            <Image
+              borderRadius="100%"
+              objectFit="cover"
+              h={14}
+              w={14}
+              alt="not found"
+              marginLeft={4}
+              marginTop={4}
+              minW={{ base: "56px", sm: "56px" }}
+              maxW={{ base: "56px", sm: "56px" }}
+              minH={{ base: "56px", sm: "56px" }}
+              maxH={{ base: "56px", sm: "56px" }}
+              // src={`${imageUrl}${profile_picture}.jpg`}
+              src={`${imageUrl}${profile_picture}.jpg`}
+            />
+          </Link>
           <Stack>
             <CardBody w={480}>
-              {/* <Link
-                to={`/profile/${id}`}
+              <Link
+                to={`/profile/${userId}`}
                 style={{ color: "inherit", textDecoration: "none" }}
-              > */}
-              <Box w={"550px"}>
-                <Flex justifyContent="space-between">
-                  <Heading size="md">{full_name}</Heading>
-                  <Text color="gray.400" px={2}>
-                    @{username}
-                  </Text>
-                  <Spacer />
-                  <Text color="gray.400">• {timeAgo(created_at)}</Text>
-                </Flex>
-              </Box>
-              {/* </Link> */}
+              >
+                <Box w={"550px"}>
+                  <Flex justifyContent="space-between">
+                    <Heading size="md">{full_name}</Heading>
+                    <Text color="gray.400" px={2}>
+                      @{username}
+                    </Text>
+                    <Spacer />
+                    <Text color="gray.400">• {timeAgo(created_at)}</Text>
+                  </Flex>
+                </Box>
+              </Link>
               <Link
                 to={`/spaces/${id}`}
                 style={{ color: "inherit", textDecoration: "none" }}

@@ -273,7 +273,6 @@ export default function MyProfile() {
             profile_picture={data.follower.profile_picture}
             full_name={data.follower.full_name}
             created_at={data.follower.created_at}
-            status={data.status}
           />
         ))}
 

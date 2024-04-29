@@ -108,7 +108,7 @@ export default function EditProfile() {
           <Box my={3} mb={6} position="relative">
             <Center>
               {/* input image avatar */}
-              <Box className="input img">
+              {/* <Box className="input img">
                 <Box
                   as="label"
                   htmlFor="profile_picture"
@@ -146,10 +146,10 @@ export default function EditProfile() {
                   display={"none"}
                   multiple
                 />
-              </Box>
+              </Box> */}
               {/* end ofinput image avatar */}
-              <label htmlFor="image">
-                {profilePreview ? (
+              {/* <label htmlFor="image">
+                {profilePreview && (
                   <>
                     <Image
                       position="absolute"
@@ -168,10 +168,8 @@ export default function EditProfile() {
                       alt="upload"
                     />
                   </>
-                ) : (
-                  <></>
                 )}
-              </label>
+              </label> */}
               <Image
                 position="absolute"
                 zIndex={2}
@@ -183,7 +181,7 @@ export default function EditProfile() {
                 w={28}
                 left={2}
                 maxW={{ base: "100%", sm: "200px" }}
-                filter="grayscale(80%)"
+                // filter="grayscale(80%)"
                 src={`${imageUrl}${detailUser.profile_picture}.jpg`}
                 alt="Caffe Latte"
               />
@@ -200,6 +198,7 @@ export default function EditProfile() {
               </Button>
             </Box>
           </Box>
+          <p style={{ marginTop: "60px" }}>Full Name: </p>
           <input
             style={{
               color: "#CBD5E0",
@@ -209,8 +208,9 @@ export default function EditProfile() {
               lineHeight: "1.5",
               resize: "none",
               outline: "none",
-              marginTop: "24px",
-              paddingBottom: "15px",
+              // marginTop: "24px",
+              // paddingBottom: "15px",
+              paddingBottom: "10px",
             }}
             name="full_name"
             required={true}
@@ -223,6 +223,8 @@ export default function EditProfile() {
               handleDataEdit(event);
             }}
           />
+          <hr style={{ width: "300px", paddingBottom: "10px" }} />
+          <label htmlFor="">Username: </label>
           <input
             style={{
               color: "#CBD5E0",
@@ -246,7 +248,8 @@ export default function EditProfile() {
               handleDataEdit(event);
             }}
           />
-
+          <hr style={{ width: "300px", paddingBottom: "10px" }} />
+          <label htmlFor="">Bio: </label>
           <input
             style={{
               paddingBottom: "10px",
@@ -257,7 +260,7 @@ export default function EditProfile() {
               lineHeight: "1.5",
               resize: "none",
               outline: "none",
-              marginTop: "8px",
+              marginTop: "0px",
               marginBottom: "8px",
             }}
             name="profile_description"

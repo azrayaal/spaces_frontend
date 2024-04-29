@@ -560,6 +560,3 @@ export function timeAgo(dateString) {
     return years + " years ago";
   }
 }
-
-const date = "2024-02-28 22:02:56.998";
-console.log(timeAgo(date));

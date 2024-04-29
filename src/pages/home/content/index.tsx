@@ -12,7 +12,6 @@ export default function MainContent() {
   useEffect(() => {
     dispatch(fetchContent());
   }, []);
-  console.log("datacontent", dataContent);
 
   return (
     <>

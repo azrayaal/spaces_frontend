@@ -30,7 +30,7 @@ export default function EditProfile() {
   const imageUrl = import.meta.env.VITE_CLOUDINARY_LINK_IMG;
 
   // const [editProfilePicture, setEditProfilePicture] = useState<any>();
-  const [profilePreview] = useState<any>(null);
+  // const [profilePreview] = useState<any>(null);
 
   return (
     <form onSubmit={postDataEdit} encType="multipart/form-data">
